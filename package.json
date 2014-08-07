@@ -1,0 +1,12 @@
+{
+  "name": "tweet-fire",
+  "version": "0.0.1",
+  "private": "true",
+  "dependencies": {
+    "express": "*",
+    "node-env-file": "*",
+    "sentiment": "^1.0.1",
+    "socket.io": "*",
+    "twitter": "*"
+  }
+}
