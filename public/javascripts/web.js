@@ -6,7 +6,18 @@ $(document).ready(function() {
     })
 
 
-function newTweet(tweet, score){
-  $(".tweet").append( "<p>" + tweet + "</p>" );
-};
+    function newTweet(tweet, score) {
+        $(".tweet").fadeOut(function() {
+            $(this).text(tweet).fadeIn(2500);
+        });
+    };
 });
+
+//         $(".tweet").append("<p>" + tweet + score + "</p>");
+//     };
+// });
+
+// $( "#clickme" ).click(function() {
+//   $( "#book" ).fadeIn( "slow", function() {
+//     // Animation complete
+//   });
