@@ -29,17 +29,16 @@ tweet = new twitter({
 });
 
 io.sockets.on('connection', function() {
-    var words = 'barack obama, obama'
     tweet.stream('statuses/filter', {
             "language": 'en',
-            "track": words
+            // "locations": "-180,-90,180,90"
+            "track": "obama"
         },
-
         function(stream) {
             stream.on('data', function(data) {
-                if (data.id != null) {
+                // if (data.id != null) {
                     io.sockets.emit('message', data, sentiment(data.text));
-                }
+// }
             });
         });
 });
