@@ -8,7 +8,7 @@ $(document).ready(function() {
 
     function newTweet(tweet, score) {
         $(".tweet").fadeOut(function() {
-            $(this).text(tweet).fadeIn(2500);
+            $(this).text(tweet).fadeIn(3000);
         });
     };
 });
