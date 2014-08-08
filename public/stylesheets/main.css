@@ -19,9 +19,18 @@ body {
     font-size: 0.8em;
 }
 .bieber {
+    max-width: 290px;
     text-align: center;
     color: white;
     font-size: 0.8em;
+    z-index: 1;
+    position: absolute;
+
+}
+.bieber-pic{
+    z-index: 0;
+    opacity: 0.8;
+    position: relative;
 }
 .beyonce {
     text-align: center;
@@ -31,7 +40,9 @@ body {
 /*tables*/
 
 .box {
+
     text-align: center;
     width: 300px;
     height: 250px;
+
 }
