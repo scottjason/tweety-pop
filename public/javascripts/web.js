@@ -5,7 +5,7 @@ $(document).ready(function() {
         if (tweet.indexOf('katy perry') != -1){
             renderKatie(tweet, rating);
         }
-         else if (tweet.indexOf('justin timberlake') != -1){
+         else if (tweet.indexOf('jtimberlake') != -1){
             renderTimberlake(tweet, rating);
         }
         else if (tweet.indexOf('justin bieber') != -1){
@@ -16,6 +16,15 @@ $(document).ready(function() {
         }
         else if (tweet.indexOf('eminem') != -1){
             renderEminem(tweet, rating);
+        }
+        else if (tweet.indexOf('miley') != -1){
+            renderMiley(tweet, rating);
+        }
+        else if (tweet.indexOf('rihanna') != -1){
+            renderRihanna(tweet, rating);
+        }
+        else if (tweet.indexOf('usher') != -1){
+            renderUsher(tweet, rating);
         }
         else {
             return null
@@ -49,6 +58,24 @@ $(document).ready(function() {
     }
     function renderEminem(tweet, rating) {
         $(".eminem").fadeOut(function() {
+            $(this).text(tweet).fadeIn(3000);
+            // $(".score").text(rating.score);
+        });
+    }
+    function renderMiley(tweet, rating) {
+        $(".miley").fadeOut(function() {
+            $(this).text(tweet).fadeIn(3000);
+            // $(".score").text(rating.score);
+        });
+    }
+    function renderRihanna(tweet, rating) {
+        $(".rihanna").fadeOut(function() {
+            $(this).text(tweet).fadeIn(3000);
+            // $(".score").text(rating.score);
+        });
+    }
+    function renderUsher(tweet, rating) {
+        $(".usher").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
             // $(".score").text(rating.score);
         });

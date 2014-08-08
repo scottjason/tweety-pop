@@ -39,7 +39,6 @@ p {
     width: 300px;
     height: 250px;
 }
-
 .bieber {
     max-width: 280px;
     text-align: center;
@@ -47,6 +46,7 @@ p {
     font-size: 0.8em;
     z-index: 1;
     position: absolute;
+    margin-top: 80px;
 }
 #bieber-pic {
     z-index: 0;
@@ -62,6 +62,7 @@ p {
     font-size: 0.8em;
     z-index: 1;
     position: absolute;
+    margin-top: 80px;
 }
 #beyonce-pic {
     z-index: 0;
@@ -77,6 +78,7 @@ p {
     font-size: 0.8em;
     z-index: 1;
     position: absolute;
+    margin-top: 80px;
 }
 #timberlake-pic {
     z-index: 0;
@@ -92,8 +94,73 @@ p {
     font-size: 0.8em;
     z-index: 1;
     position: absolute;
+    margin-top: 80px;
 }
 #katy-pic {
+    z-index: 0;
+    position: relative;
+    opacity: 0.3;
+    width: 300px;
+    height: 250px;
+}
+.eminem {
+    max-width: 280px;
+    text-align: center;
+    color: white;
+    font-size: 0.8em;
+    z-index: 1;
+    position: absolute;
+    margin-top: 80px;
+}
+#eminem-pic {
+    z-index: 0;
+    position: relative;
+    opacity: 0.3;
+    width: 300px;
+    height: 250px;
+}
+.miley {
+    max-width: 280px;
+    text-align: center;
+    color: white;
+    font-size: 0.8em;
+    z-index: 1;
+    position: absolute;
+    margin-top: 80px;
+}
+#miley-pic {
+    z-index: 0;
+    position: relative;
+    opacity: 0.3;
+    width: 300px;
+    height: 250px;
+}
+.rihanna {
+    max-width: 280px;
+    text-align: center;
+    color: white;
+    font-size: 0.8em;
+    z-index: 1;
+    position: absolute;
+    margin-top: 80px;
+}
+#rihanna-pic {
+    z-index: 0;
+    position: relative;
+    opacity: 0.3;
+    width: 300px;
+    height: 250px;
+}
+.usher {
+    max-width: 280px;
+    text-align: center;
+    color: white;
+    font-size: 0.8em;
+    z-index: 1;
+    position: absolute;
+    margin-top: 80px;
+}
+#usher-pic {
     z-index: 0;
     position: relative;
     opacity: 0.3;
