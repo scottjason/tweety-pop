@@ -16,17 +16,21 @@ body {
     margin: auto;
     padding: 5px;
 }
-.tweet {
+.katy {
     text-align: center;
     color: white;
 }
-.tweetFast {
+.eminem {
     text-align: center;
     color: orange;
 }
-.score {
+.bieber {
     text-align: center;
     color: blue;
+}
+.beyonce {
+    text-align: center;
+    color: pink;
 }
 .total {
     text-align: center;
