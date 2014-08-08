@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css">
     <script src="/socket.io/socket.io.js"></script>
@@ -17,15 +18,30 @@
 </head>
 
 <body>
-
+<h1 id="tweet-pop">tweety pop</h1>
+<p id="slogan">(( streaming live from the twitterverse ))</p>
 <table align="center" width="400" border="1" cellspacing="0" cellpadding="0">
 
   <tr>
-    <td><div class="box"><p class="katy"></p></div></td>
-    <td><div class="box"><p class="eminem"></p></div></td>
+    <td><div class="box"><p class="katy"></p>
+    <img id='katy-pic' src="images/katyperry.png"></div></td>
+    <td><div class="box"><p class="timberlake"></p>
+    <img id='timberlake-pic' src="images/justintimberlake.png"></div></td>
     <td><div class="box"><p class="bieber"></p>
-    <img id='bieber-pic' height="256" width="300" src="images/bieber.png"></div></td>
-    <td><div class="box"><p class="beyonce"></p></div></td>
+    <img id='bieber-pic'  src="images/bieber.png"></div></td>
+    <td><div class="box"><p class="beyonce"></p>
+    <img id='beyonce-pic' src="images/beyonce.png"></div></td>
+
+  </tr>
+  <tr>
+    <td><div class="box"><p class="rihanna"></p>
+    <img id='rihanna-pic' src="images/rihanna.png"></div></td>
+    <td><div class="box"><p class="eminem"></p>
+    <img id='eminem-pic' src="images/eminem.png"></div></td>
+    <td><div class="box"><p class="miley"></p>
+    <img id='miley-pic'  src="images/miley.png"></div></td>
+    <td><div class="box"><p class="usher"></p>
+    <img id='usher-pic' src="images/usher.png"></div></td>
 
   </tr>
 </table>
