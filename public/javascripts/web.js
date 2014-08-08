@@ -16,7 +16,6 @@ $(document).ready(function() {
 
     })
 
-
     function slowTweet(tweet, rating) {
         $(".tweet").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
