@@ -31,14 +31,24 @@ body {
     z-index: 1;
     position: absolute;
 }
+p {
+    padding-left: 5px;
+    padding-right: 5px;
+}
 #bieber-pic {
     z-index: 0;
     position: relative;
     opacity: 0.3;
-
+    width: 300px;
+    height: 257px;
 }
 .beyonce {
     text-align: center;
     color: white;
     font-size: 0.8em;
+}
+#beyonce-pic {
+    z-index: 0;
+    position: relative;
+    opacity: 0.3;
 }
