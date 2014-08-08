@@ -5,34 +5,33 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: #1abc9c;
+    background-color: #000;
     font-family: 'Open Sans', sans-serif;
-}
-.tweet-container {
-    background-color: black;
-    border: 1px solid white;
-    width: 800px;
-    height: 300px;
-    margin: auto;
-    padding: 5px;
 }
 .katy {
     text-align: center;
     color: white;
+    font-size: 0.8em;
 }
 .eminem {
     text-align: center;
-    color: orange;
+    color: white;
+    font-size: 0.8em;
 }
 .bieber {
     text-align: center;
-    color: blue;
+    color: white;
+    font-size: 0.8em;
 }
 .beyonce {
     text-align: center;
-    color: pink;
+    color: white;
+    font-size: 0.8em;
 }
-.total {
+/*tables*/
+
+.box {
     text-align: center;
-    color: orange;
+    width: 300px;
+    height: 250px;
 }
