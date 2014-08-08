@@ -8,19 +8,35 @@ body {
     background-color: #000;
     font-family: 'Open Sans', sans-serif;
 }
+table {
+    text-align: center;
+}
 p {
     padding-left: 5px;
     padding-right: 5px;
 }
 #tweet-pop {
     font-family: 'Poiret One', cursive;
-    font-size: 5em;
+    font-size: 3em;
     color: #3498db;
-    text-align: center;
-    /*display: inline-block;*/
+    margin-left: 160px;
+    position: relative;
+    display: inline;
+    top: 7px;
+    z-index: 4
+}
+#slogan {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.8em;
+    display: inline;
+    position: absolute;
+    top: 19px;
+    color: #e67e22;
+    margin-left: 10px;
+    z-index: 3;
+
 }
 .box {
-    text-align: center;
     width: 300px;
     height: 250px;
 }
