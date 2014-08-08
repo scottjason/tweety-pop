@@ -2,10 +2,18 @@ $(document).ready(function() {
     socket = io.connect()
 
     socket.on('message', function(tweet, rating) {
-        if (rating.score != 0) {
-            slowTweet(tweet.text);
-            fastTweet(tweet.text, rating);
-        }
+        console.log(tweet);
+        // if (rating.score != 0) {
+        //     slowTweet(tweet.text);
+        //     fastTweet(tweet.text, rating);
+
+    })
+        socket.on('eminem', function(tweet, rating) {
+        console.log(tweet);
+        // if (rating.score != 0) {
+        //     slowTweet(tweet.text);
+        //     fastTweet(tweet.text, rating);
+
     })
 
 

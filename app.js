@@ -29,16 +29,26 @@ tweet = new twitter({
 });
 
 io.sockets.on('connection', function() {
+    var wordsToTrack = ["katy perry, madonna, eminem, u2, beyonce"]
     tweet.stream('statuses/filter', {
-            "language": 'en',
-            // "locations": "-180,-90,180,90"
-            "track": "obama"
+            // "language": 'en',
+            "locations": "-180,-90,180,90"
+            // "track": wordsToTrack
+
+            // IF I DO THIS IT DOESN'T WORK
         },
         function(stream) {
             stream.on('data', function(data) {
-                // if (data.id != null) {
-                    io.sockets.emit('message', data, sentiment(data.text));
-// }
+                var newTweet = data.text
+                if (newTweet.indexOf("katy perry") != -1) {
+                    io.sockets.emit('message', newTweet, sentiment(newTweet));
+                } else if (newTweet.indexOf("eminem") != -1) {
+                    io.sockets.emit('message', newTweet, sentiment(newTweet));
+                } else if (newTweet.indexOf("food") != -1) {
+                    io.sockets.emit('message', newTweet, sentiment(newTweet));
+                } else {
+                    io.sockets.emit('message', "TEST", "TEST");
+                }
             });
         });
 });
