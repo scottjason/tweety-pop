@@ -8,6 +8,11 @@ body {
     background-color: #000;
     font-family: 'Open Sans', sans-serif;
 }
+.box {
+    text-align: center;
+    width: 300px;
+    height: 250px;
+}
 .katy {
     text-align: center;
     color: white;
@@ -19,30 +24,21 @@ body {
     font-size: 0.8em;
 }
 .bieber {
-    max-width: 290px;
+    max-width: 280px;
     text-align: center;
     color: white;
     font-size: 0.8em;
     z-index: 1;
     position: absolute;
-
 }
-.bieber-pic{
+#bieber-pic {
     z-index: 0;
-    opacity: 0.8;
     position: relative;
+    opacity: 0.3;
+
 }
 .beyonce {
     text-align: center;
     color: white;
     font-size: 0.8em;
-}
-/*tables*/
-
-.box {
-
-    text-align: center;
-    width: 300px;
-    height: 250px;
-
 }
