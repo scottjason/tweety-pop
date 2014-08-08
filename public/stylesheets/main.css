@@ -8,6 +8,17 @@ body {
     background-color: #000;
     font-family: 'Open Sans', sans-serif;
 }
+p {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+#tweet-pop {
+    font-family: 'Poiret One', cursive;
+    font-size: 5em;
+    color: #3498db;
+    text-align: center;
+    /*display: inline-block;*/
+}
 .box {
     text-align: center;
     width: 300px;
@@ -31,10 +42,6 @@ body {
     z-index: 1;
     position: absolute;
 }
-p {
-    padding-left: 5px;
-    padding-right: 5px;
-}
 #bieber-pic {
     z-index: 0;
     position: relative;
@@ -43,12 +50,17 @@ p {
     height: 257px;
 }
 .beyonce {
+    max-width: 280px;
     text-align: center;
     color: white;
     font-size: 0.8em;
+    z-index: 1;
+    position: absolute;
 }
 #beyonce-pic {
     z-index: 0;
     position: relative;
     opacity: 0.3;
+    width: 300px;
+    height: 257px;
 }
