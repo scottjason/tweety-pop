@@ -5,14 +5,17 @@ $(document).ready(function() {
         if (tweet.indexOf('katy perry') != -1){
             renderKatie(tweet, rating);
         }
-         else if (tweet.indexOf('eminem') != -1){
-            renderEminem(tweet, rating);
+         else if (tweet.indexOf('justin timberlake') != -1){
+            renderTimberlake(tweet, rating);
         }
         else if (tweet.indexOf('justin bieber') != -1){
             renderBieber(tweet, rating);
         }
         else if (tweet.indexOf('beyonce') != -1){
             renderBeyonce(tweet, rating);
+        }
+        else if (tweet.indexOf('eminem') != -1){
+            renderEminem(tweet, rating);
         }
         else {
             return null
@@ -26,8 +29,8 @@ $(document).ready(function() {
             // $(".score").text(rating.score);
         });
     }
-    function renderEminem(tweet, rating) {
-        $(".eminem").fadeOut(function() {
+    function renderTimberlake(tweet, rating) {
+        $(".timberlake").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
             // $(".score").text(rating.score);
         });
@@ -40,6 +43,12 @@ $(document).ready(function() {
     }
     function renderBeyonce(tweet, rating) {
         $(".beyonce").fadeOut(function() {
+            $(this).text(tweet).fadeIn(3000);
+            // $(".score").text(rating.score);
+        });
+    }
+    function renderEminem(tweet, rating) {
+        $(".eminem").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
             // $(".score").text(rating.score);
         });
