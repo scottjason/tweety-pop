@@ -34,18 +34,12 @@ p {
     color: #e67e22;
     margin-left: 10px;
     z-index: 3;
-
 }
 .box {
     width: 300px;
     height: 250px;
 }
 .katy {
-    text-align: center;
-    color: white;
-    font-size: 0.8em;
-}
-.eminem {
     text-align: center;
     color: white;
     font-size: 0.8em;
@@ -74,6 +68,21 @@ p {
     position: absolute;
 }
 #beyonce-pic {
+    z-index: 0;
+    position: relative;
+    opacity: 0.3;
+    width: 300px;
+    height: 257px;
+}
+.eminem {
+    max-width: 280px;
+    text-align: center;
+    color: white;
+    font-size: 0.8em;
+    z-index: 1;
+    position: absolute;
+}
+#eminem-pic {
     z-index: 0;
     position: relative;
     opacity: 0.3;
