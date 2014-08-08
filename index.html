@@ -5,10 +5,8 @@
     <meta charset="utf-8">
     <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script src="http://code.highcharts.com/highcharts.js"></script>
-    <script src="http://code.highcharts.com/modules/exporting.js"></script>
     <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css">
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="javascripts/web.js"></script>
     <script type="text/javascript" src="javascripts/map.js"></script>
@@ -19,14 +17,21 @@
 </head>
 
 <body>
-    <div class="tweet-container">
-        <p class="tweet"></p>
-        <p class="tweetFast"></p>
-        <p class="score"></p>
-        <p class="total"></p>
 
-    </div>
-<div id="chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<table align="center" width="400" border="1" cellspacing="0" cellpadding="0">
+
+  <tr>
+    <td><div class="box"><p class="katy"></p></div></td>
+    <td><div class="box"><p class="eminem"></p></div></td>
+    <td><div class="box"><p class="bieber"></p>
+    <img id='bieber-pic' height="256" width="300" src="images/bieber.png"></div></td>
+    <td><div class="box"><p class="beyonce"></p></div></td>
+
+  </tr>
+</table>
+</table>
+
+
 </body>
 
 </html>

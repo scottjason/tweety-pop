@@ -2,34 +2,46 @@ $(document).ready(function() {
     socket = io.connect()
 
     socket.on('message', function(tweet, rating) {
-        console.log(tweet);
-        // if (rating.score != 0) {
-        //     slowTweet(tweet.text);
-        //     fastTweet(tweet.text, rating);
-
+        if (tweet.indexOf('katy perry') != -1){
+            renderKatie(tweet, rating);
+        }
+         else if (tweet.indexOf('eminem') != -1){
+            renderEminem(tweet, rating);
+        }
+        else if (tweet.indexOf('justin bieber') != -1){
+            renderBieber(tweet, rating);
+        }
+        else if (tweet.indexOf('beyonce') != -1){
+            renderBeyonce(tweet, rating);
+        }
+        else {
+            return null
+        }
     })
-        socket.on('eminem', function(tweet, rating) {
-        console.log(tweet);
-        // if (rating.score != 0) {
-        //     slowTweet(tweet.text);
-        //     fastTweet(tweet.text, rating);
-
-    })
 
 
-    function slowTweet(tweet, rating) {
-        $(".tweet").fadeOut(function() {
+    function renderKatie(tweet, rating) {
+        $(".katy").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
             // $(".score").text(rating.score);
         });
     }
-
-        function fastTweet(tweet, rating) {
-        $(".tweetFast").html(tweet);
+    function renderEminem(tweet, rating) {
+        $(".eminem").fadeOut(function() {
+            $(this).text(tweet).fadeIn(3000);
+            // $(".score").text(rating.score);
+        });
     }
-
-
-
-
-
+    function renderBieber(tweet, rating) {
+        $(".bieber").fadeOut(function() {
+            $(this).text(tweet).fadeIn(3000);
+            // $(".score").text(rating.score);
+        });
+    }
+    function renderBeyonce(tweet, rating) {
+        $(".beyonce").fadeOut(function() {
+            $(this).text(tweet).fadeIn(3000);
+            // $(".score").text(rating.score);
+        });
+    }
 });
