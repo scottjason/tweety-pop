@@ -35,8 +35,11 @@ io.sockets.on('connection', function() {
         },
         function(stream) {
             stream.on('data', function(data) {
-                if (data.text != null) {
-                    io.sockets.emit('message', data.text, sentiment(data.text));
+                var newTweet = data.text;
+                var foreignCharacters = unescape(encodeURIComponent(newTweet));
+                 newTweet = decodeURIComponent(escape(foreignCharacters));
+                if (newTweet != null) {
+                    io.sockets.emit('message', newTweet, sentiment(newTweet));
                 }
             });
         });
