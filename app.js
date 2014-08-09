@@ -42,5 +42,5 @@ io.sockets.on('connection', function() {
                     io.sockets.emit('message', newTweet, sentiment(newTweet));
                 }
             });
-        });
+      });
 });
