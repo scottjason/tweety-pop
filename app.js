@@ -49,7 +49,7 @@ tweet = new twitter({
     access_token_secret: process.env.access_token_secret
 });
 
-// recieve incoming tweets
+// recieve incoming tweets and write to database
 io.sockets.on('connection', function() {
     var wordsToTrack = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adele, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, imagine dragons, imagedragons"]
     tweet.stream('statuses/filter', {
@@ -61,8 +61,11 @@ io.sockets.on('connection', function() {
                 var foreignCharacters = unescape(encodeURIComponent(newTweet));
                  newTweet = decodeURIComponent(escape(foreignCharacters));
                 if (newTweet != null) {
-                    var newScore = new Rating()
+                    var newScore = new Rating({ popStar: newTweet, tweetScore: sentiment(newTweet)});
+                    newScore.save(function(err){
+                        if (err) throw err;
                     io.sockets.emit('message', newTweet, sentiment(newTweet));
+                    })
                 }
             });
       });
