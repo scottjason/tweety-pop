@@ -32,6 +32,9 @@ $(document).ready(function() {
         else if (tweet.indexOf('swift') != -1){
             renderSwift(tweet, rating);
         }
+        else if (tweet.indexOf('levine') != -1){
+            renderLevine(tweet, rating);
+        }
         else {
             return null
         }
@@ -94,6 +97,12 @@ $(document).ready(function() {
     }
     function renderSwift(tweet, rating) {
         $(".swift").fadeOut(function() {
+            $(this).text(tweet).fadeIn(3000);
+            // $(".score").text(rating.score);
+        });
+    }
+    function renderLevine(tweet, rating) {
+        $(".levine").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
             // $(".score").text(rating.score);
         });

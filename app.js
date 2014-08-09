@@ -29,7 +29,7 @@ tweet = new twitter({
 });
 
 io.sockets.on('connection', function() {
-    var wordsToTrack = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jay z, drake, usher, kanye, jtimberlake, timberlake, adele, bruno mars, miley cyrus, rihanna"]
+    var wordsToTrack = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jay z, drake, usher, kanye, jtimberlake, timberlake, adele, adam levine, adamlevine, bruno mars, miley cyrus, rihanna"]
     tweet.stream('statuses/filter', {
             "track": wordsToTrack
         },
