@@ -1,3 +1,4 @@
+// require modules
 var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
@@ -5,22 +6,42 @@ var express = require('express'),
     util = require('util'),
     twitter = require('twitter'),
     sentiment = require('sentiment'),
-    env = require('node-env-file')
+    env = require('node-env-file'),
+    mongoose = require('mongoose')
 
-
+//
 server.listen(3000);
 console.log("Node server started. Listening on port: 3000")
 
+// connect to database
+mongoose.connect(process.env.uri, function(err){
+    if(err){
+        console.log("Error: unable to initiate database connection");
+    }
+    else {
+        console.log("Successfully connected to mongoDB")
+    }
+})
 
+// create schema
+var tweetSchema = mongoose.Schema({
+    popStar: String,
+    tweetScore: Number
+});
+
+// create model Rating and 'score' collection
+var Rating = mongoose.model('score', tweetSchema);
+
+//
 app.use('/', express.static(__dirname + '/public'));
 
-
+//
 app.get('/', function(req, res) {
     res.sendfile(__dirname + '/index.html');
     search = req.query || "";
 });
 
-
+// twitter authorization
 tweet = new twitter({
     consumer_key: process.env.consumer_key,
     consumer_secret: process.env.consumer_secret,
@@ -28,6 +49,7 @@ tweet = new twitter({
     access_token_secret: process.env.access_token_secret
 });
 
+// recieve incoming tweets
 io.sockets.on('connection', function() {
     var wordsToTrack = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adele, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, imagine dragons, imagedragons"]
     tweet.stream('statuses/filter', {
@@ -39,6 +61,7 @@ io.sockets.on('connection', function() {
                 var foreignCharacters = unescape(encodeURIComponent(newTweet));
                  newTweet = decodeURIComponent(escape(foreignCharacters));
                 if (newTweet != null) {
+                    var newScore = new Rating()
                     io.sockets.emit('message', newTweet, sentiment(newTweet));
                 }
             });
