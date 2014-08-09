@@ -26,6 +26,9 @@ $(document).ready(function() {
         else if (tweet.indexOf('bruno') != -1){
             renderBruno(tweet, rating);
         }
+        else if (tweet.indexOf('adele') != -1){
+            renderAdele(tweet, rating);
+        }
         else {
             return null
         }
@@ -76,6 +79,12 @@ $(document).ready(function() {
     }
     function renderBruno(tweet, rating) {
         $(".bruno").fadeOut(function() {
+            $(this).text(tweet).fadeIn(3000);
+            // $(".score").text(rating.score);
+        });
+    }
+    function renderAdele(tweet, rating) {
+        $(".adele").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
             // $(".score").text(rating.score);
         });
