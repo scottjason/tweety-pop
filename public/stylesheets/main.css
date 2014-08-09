@@ -231,3 +231,19 @@ p {
     width: 300px;
     height: 250px;
 }
+.dragon {
+    max-width: 280px;
+    text-align: center;
+    color: white;
+    font-size: 0.8em;
+    z-index: 1;
+    position: absolute;
+    margin-top: 80px;
+}
+#dragon-pic {
+    z-index: 0;
+    position: relative;
+    opacity: 0.3;
+    width: 300px;
+    height: 250px;
+}

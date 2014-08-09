@@ -32,11 +32,14 @@ $(document).ready(function() {
         else if (tweet.indexOf('swift') != -1){
             renderSwift(tweet, rating);
         }
-        else if (tweet.indexOf('levine') != -1){
+        else if (tweet.indexOf('levine') != -1 || tweet.indexOf('maroon') != -1){
             renderLevine(tweet, rating);
         }
         else if (tweet.indexOf('lovato') != -1){
             renderLovato(tweet, rating);
+        }
+        else if (tweet.indexOf('dragons') != -1){
+            renderDragon(tweet, rating);
         }
         else {
             return null
@@ -112,6 +115,12 @@ $(document).ready(function() {
     }
     function renderLovato(tweet, rating) {
         $(".lovato").fadeOut(function() {
+            $(this).text(tweet).fadeIn(3000);
+            // $(".score").text(rating.score);
+        });
+    }
+    function renderDragon(tweet, rating) {
+        $(".dragon").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
             // $(".score").text(rating.score);
         });
