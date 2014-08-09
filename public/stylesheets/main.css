@@ -151,7 +151,7 @@ p {
     width: 300px;
     height: 250px;
 }
-.usher {
+.bruno {
     max-width: 280px;
     text-align: center;
     color: white;
@@ -160,7 +160,7 @@ p {
     position: absolute;
     margin-top: 80px;
 }
-#usher-pic {
+#bruno-pic {
     z-index: 0;
     position: relative;
     opacity: 0.3;

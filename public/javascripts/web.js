@@ -23,8 +23,8 @@ $(document).ready(function() {
         else if (tweet.indexOf('rihanna') != -1){
             renderRihanna(tweet, rating);
         }
-        else if (tweet.indexOf('usher') != -1){
-            renderUsher(tweet, rating);
+        else if (tweet.indexOf('bruno') != -1){
+            renderBruno(tweet, rating);
         }
         else {
             return null
@@ -74,8 +74,8 @@ $(document).ready(function() {
             // $(".score").text(rating.score);
         });
     }
-    function renderUsher(tweet, rating) {
-        $(".usher").fadeOut(function() {
+    function renderBruno(tweet, rating) {
+        $(".bruno").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
             // $(".score").text(rating.score);
         });
