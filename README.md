@@ -1,5 +1,5 @@
-State of the Union
+tweety pop
 ==========
-### Live from the TwitterVerse, a real-time sentiment analysis of the president.
+### Live from the TwitterVerse, a real-time feed from around the globe about stars of pop.
 
 #### Using Node.js, Express, Socket.io
