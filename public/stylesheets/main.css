@@ -151,7 +151,7 @@ p {
     width: 300px;
     height: 250px;
 }
-.usher {
+.bruno {
     max-width: 280px;
     text-align: center;
     color: white;
@@ -160,7 +160,87 @@ p {
     position: absolute;
     margin-top: 80px;
 }
-#usher-pic {
+#bruno-pic {
+    z-index: 0;
+    position: relative;
+    opacity: 0.3;
+    width: 300px;
+    height: 250px;
+}
+.adele {
+    max-width: 280px;
+    text-align: center;
+    color: white;
+    font-size: 0.8em;
+    z-index: 1;
+    position: absolute;
+    margin-top: 80px;
+}
+#adele-pic {
+    z-index: 0;
+    position: relative;
+    opacity: 0.3;
+    width: 300px;
+    height: 250px;
+}
+.swift {
+    max-width: 280px;
+    text-align: center;
+    color: white;
+    font-size: 0.8em;
+    z-index: 1;
+    position: absolute;
+    margin-top: 80px;
+}
+#swift-pic {
+    z-index: 0;
+    position: relative;
+    opacity: 0.3;
+    width: 300px;
+    height: 250px;
+}
+.levine {
+    max-width: 280px;
+    text-align: center;
+    color: white;
+    font-size: 0.8em;
+    z-index: 1;
+    position: absolute;
+    margin-top: 80px;
+}
+#levine-pic {
+    z-index: 0;
+    position: relative;
+    opacity: 0.3;
+    width: 300px;
+    height: 250px;
+}
+.lovato {
+    max-width: 280px;
+    text-align: center;
+    color: white;
+    font-size: 0.8em;
+    z-index: 1;
+    position: absolute;
+    margin-top: 80px;
+}
+#lovato-pic {
+    z-index: 0;
+    position: relative;
+    opacity: 0.3;
+    width: 300px;
+    height: 250px;
+}
+.dragon {
+    max-width: 280px;
+    text-align: center;
+    color: white;
+    font-size: 0.8em;
+    z-index: 1;
+    position: absolute;
+    margin-top: 80px;
+}
+#dragon-pic {
     z-index: 0;
     position: relative;
     opacity: 0.3;

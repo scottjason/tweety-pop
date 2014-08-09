@@ -29,14 +29,17 @@ tweet = new twitter({
 });
 
 io.sockets.on('connection', function() {
-    var wordsToTrack = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jay z, drake, usher, kanye, jtimberlake, timberlake, miley cyrus, rihanna"]
+    var wordsToTrack = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adele, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, imagine dragons, imagedragons"]
     tweet.stream('statuses/filter', {
             "track": wordsToTrack
         },
         function(stream) {
             stream.on('data', function(data) {
-                if (data.text != null) {
-                    io.sockets.emit('message', data.text, sentiment(data.text));
+                var newTweet = data.text;
+                var foreignCharacters = unescape(encodeURIComponent(newTweet));
+                 newTweet = decodeURIComponent(escape(foreignCharacters));
+                if (newTweet != null) {
+                    io.sockets.emit('message', newTweet, sentiment(newTweet));
                 }
             });
         });
