@@ -9,7 +9,7 @@ socket.on('perryScoreArray', function(perryScores) {
     // sentiment average over time
     var sum = 0;
     for(var i = 0; i < perryScores.length; i++){
-    sum += parseInt(perryScores[i], 10); //don't forget to add the base
+    sum += parseInt(perryScores[i], 10);
     }
     var avg = sum/perryScores.length;
     console.log(avg);

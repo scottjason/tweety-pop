@@ -73,6 +73,7 @@ io.sockets.on('connection', function() {
                 var foreignCharacters = unescape(encodeURIComponent(newTweet));
                 newTweet = decodeURIComponent(escape(foreignCharacters));
                 if (newTweet != null) {
+
                     var newScore = new Rating({
                         popStar: newTweet,
                         tweetScore: sentiment(newTweet).score
@@ -88,10 +89,11 @@ io.sockets.on('connection', function() {
         });
     var stream = Rating.find().stream();
     stream.on('data', function(doc) {
-    if (doc.popStar.indexOf('perry') != -1){
-        perryScores.push(doc.tweetScore);
-        io.sockets.emit('perryScoreArray', perryScores);
-    }
+
+        if (doc.popStar.indexOf('perry') != -1) {
+            perryScores.push(doc.tweetScore);
+            io.sockets.emit('perryScoreArray', perryScores);
+        }
     }).on('error', function(err) {
         return err
     }).on('close', function() {
