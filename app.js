@@ -49,7 +49,8 @@ tweet = new twitter({
     access_token_secret: process.env.access_token_secret
 });
 
-// recieve incoming tweets and write to database
+// first retrieve tweets from database and emit
+// second recieve incoming tweets, write to database then emit
 io.sockets.on('connection', function() {
     Rating.find({}, function(err, docs){
         if (err) throw err;
