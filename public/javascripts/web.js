@@ -1,8 +1,22 @@
 $(document).ready(function() {
     socket = io.connect()
-    socket.on('load tweets', function(docs){
-        console.log(docs);
+
+    socket.on('load', function(docs){
+        var katyPerryTweets = []
+        var katyPerryScores = [];
+        var allTweets = docs
+        for (i=0; i < allTweets.length; i++){
+            if(allTweets[i].popStar.indexOf('bieber') != -1){
+                katyPerryTweets.push(allTweets[i]);
+                katyPerryScores.push(allTweets[i].tweetScore)
+            }
+        }
+        console.log(katyPerryScores);
+        console.log(katyPerryScores.length);
+        console.log(katyPerryTweets);
+        console.log(katyPerryTweets.length);
     })
+
     socket.on('message', function(tweet, rating) {
         if (tweet.indexOf('katy perry') != -1){
             renderKatie(tweet, rating);
