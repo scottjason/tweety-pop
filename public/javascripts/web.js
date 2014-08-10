@@ -1,8 +1,30 @@
+
+
 $(document).ready(function() {
     socket = io.connect()
-    socket.on('load tweets', function(docs){
-        console.log(docs);
+
+    socket.on('load', function(doc){
+        console.log(doc);
+    // var katyPerryScores = [];
+    // var allTweets = docs
+    // for (i = 0; i < allTweets.length; i++) {
+    //     if (allTweets[i].popStar.indexOf('perry') != -1) {
+    //         katyPerryTweets.push(allTweets[i]);
+    //         katyPerryScores.push(allTweets[i].tweetScore)
+    //     }
+    // }
+
     })
+
+
+
+
+
+
+
+
+
+
     socket.on('message', function(tweet, rating) {
         if (tweet.indexOf('katy perry') != -1){
             renderKatie(tweet, rating);
