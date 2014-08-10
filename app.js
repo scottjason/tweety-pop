@@ -53,7 +53,7 @@ tweet = new twitter({
 io.sockets.on('connection', function() {
     Rating.find({}, function(err, docs){
         if (err) throw err;
-        socket.emit('load stored tweets', docs);
+        io.sockets.emit('load tweets', docs);
     });
 
     var wordsToTrack = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adele, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, imagine dragons, imagedragons"]
