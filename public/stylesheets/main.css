@@ -47,6 +47,13 @@ p {
     position: absolute;
     margin-left: 4px;
 }
+#average-static {
+    text-align: center;
+    color: blue;
+    font-size: 0.8em;
+    z-index: 1;
+    display: inline;
+}
 .bieber {
     max-width: 280px;
     text-align: center;
@@ -110,6 +117,22 @@ p {
     opacity: 0.3;
     width: 300px;
     height: 250px;
+}
+#katy-average {
+    max-width: 250px;
+    text-align: center;
+    color: green;
+    font-size: 0.8em;
+    z-index: 1;
+}
+#katy-current {
+    max-width: 250px;
+    text-align: center;
+    color: red;
+    font-size: 0.8em;
+    z-index: 1;
+    position: absolute;
+    display: inline;
 }
 .eminem {
     max-width: 280px;
