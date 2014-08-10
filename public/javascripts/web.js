@@ -49,95 +49,81 @@ socket.on('message', function(tweet, rating) {
 })
 
 
-// function renderKatie(tweet, rating) {
-//     $(".katy").fadeOut(function() {
-//         $(this).text(tweet).fadeIn(3000);
-//         // $(".score").text(rating.score);
-//     });
-// }
+function renderKatie(tweet, rating) {
+    $(".katy").fadeOut(function() {
+        $(this).text(tweet).fadeIn(3000);
+    });
+}
 
 function renderTimberlake(tweet, rating) {
     $(".timberlake").fadeOut(function() {
         $(this).text(tweet).fadeIn(3000);
-        // $(".score").text(rating.score);
     });
 }
 
 function renderBieber(tweet, rating) {
     $(".bieber").fadeOut(function() {
         $(this).text(tweet).fadeIn(3000);
-        // db.scores.find({"popStar" : {$regex : ".*bieber.*"}})
-        // $(".score").text(rating.score);
     });
 }
 
 function renderBeyonce(tweet, rating) {
     $(".beyonce").fadeOut(function() {
         $(this).text(tweet).fadeIn(3000);
-        // $(".score").text(rating.score);
     });
 }
 
 function renderEminem(tweet, rating) {
     $(".eminem").fadeOut(function() {
         $(this).text(tweet).fadeIn(3000);
-        // $(".score").text(rating.score);
     });
 }
 
 function renderMiley(tweet, rating) {
     $(".miley").fadeOut(function() {
         $(this).text(tweet).fadeIn(3000);
-        // $(".score").text(rating.score);
     });
 }
 
 function renderRihanna(tweet, rating) {
     $(".rihanna").fadeOut(function() {
         $(this).text(tweet).fadeIn(3000);
-        // $(".score").text(rating.score);
     });
 }
 
 function renderBruno(tweet, rating) {
     $(".bruno").fadeOut(function() {
         $(this).text(tweet).fadeIn(3000);
-        // $(".score").text(rating.score);
     });
 }
 
 function renderAdele(tweet, rating) {
     $(".adele").fadeOut(function() {
         $(this).text(tweet).fadeIn(3000);
-        // $(".score").text(rating.score);
     });
 }
 
 function renderSwift(tweet, rating) {
     $(".swift").fadeOut(function() {
         $(this).text(tweet).fadeIn(3000);
-        // $(".score").text(rating.score);
     });
 }
 
 function renderLevine(tweet, rating) {
     $(".levine").fadeOut(function() {
         $(this).text(tweet).fadeIn(3000);
-        // $(".score").text(rating.score);
     });
 }
 
 function renderLovato(tweet, rating) {
     $(".lovato").fadeOut(function() {
         $(this).text(tweet).fadeIn(3000);
-        // $(".score").text(rating.score);
     });
 }
 
 function renderDragon(tweet, rating) {
     $(".dragon").fadeOut(function() {
         $(this).text(tweet).fadeIn(3000);
-        // $(".score").text(rating.score);
     });
 }
 });

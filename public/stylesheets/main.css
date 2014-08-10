@@ -39,6 +39,14 @@ p {
     width: 300px;
     height: 325px;
 }
+.stats-box {
+    width: 291px;
+    height: 67px;
+    background-color: #bdc3c7;
+    z-index: 0;
+    position: absolute;
+    margin-left: 4px;
+}
 .bieber {
     max-width: 280px;
     text-align: center;
@@ -102,14 +110,6 @@ p {
     opacity: 0.3;
     width: 300px;
     height: 250px;
-}
-.stats-box {
-    width: 291px;
-    height: 67px;
-    background-color: #bdc3c7;
-    z-index: 0;
-    position: absolute;
-    margin-left: 4px;
 }
 .eminem {
     max-width: 280px;
