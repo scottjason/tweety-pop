@@ -37,7 +37,7 @@ p {
 }
 .box {
     width: 300px;
-    height: 250px;
+    height: 325px;
 }
 .bieber {
     max-width: 280px;
@@ -102,6 +102,18 @@ p {
     opacity: 0.3;
     width: 300px;
     height: 250px;
+}
+#katy-stats {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.8em;
+    /*display: inline;*/
+    color: #3498db text-align: center;
+    width: 291px;
+    height: 67px;
+    background-color: #bdc3c7;
+    z-index: 0;
+    position: relative;
+    margin-left: 4px;
 }
 .eminem {
     max-width: 280px;
