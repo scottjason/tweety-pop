@@ -1,4 +1,5 @@
 // require modules
+var Array = require('node-array');
 var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
@@ -9,16 +10,18 @@ var express = require('express'),
     env = require('node-env-file'),
     mongoose = require('mongoose')
 
+// declare artist score arrays
+var perryScores = []
+
 // initiate server connection
 server.listen(3000);
 console.log("Node server started. Listening on port: 3000")
 
 // initiate database connection
-mongoose.connect(process.env.uri, function(err){
-    if(err){
+mongoose.connect(process.env.uri, function(err) {
+    if (err) {
         console.log("Error: unable to initiate database connection");
-    }
-    else {
+    } else {
         console.log("Successfully connected to mongoDB")
     }
 })
@@ -49,13 +52,15 @@ tweet = new twitter({
     access_token_secret: process.env.access_token_secret
 });
 
-// first retrieve tweets from database and emit
-// second recieve incoming tweets, write to database then emit
+
+// first: stream incoming tweets from Twitter
+// second: TODO delete tweet from database
+// third: write tweet to database
+// fourth: emit live tweets
+// fifth: stream tweets from database
+// sixth: emit database tweets
+
 io.sockets.on('connection', function() {
-    // Rating.find({}, function(err, docs){
-    //     if (err) { throw err }
-    //     io.sockets.emit('load', docs);
-    // });
 
 
     var wordsToTrack = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adele, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, imagine dragons, imagedragons"]
@@ -66,22 +71,30 @@ io.sockets.on('connection', function() {
             stream.on('data', function(data) {
                 var newTweet = data.text;
                 var foreignCharacters = unescape(encodeURIComponent(newTweet));
-                 newTweet = decodeURIComponent(escape(foreignCharacters));
+                newTweet = decodeURIComponent(escape(foreignCharacters));
                 if (newTweet != null) {
-                    var newScore = new Rating({ popStar: newTweet, tweetScore: sentiment(newTweet).score});
-                    newScore.save(function(err){
-                        if (err) { throw err }
-                    io.sockets.emit('message', newTweet, sentiment(newTweet));
+                    var newScore = new Rating({
+                        popStar: newTweet,
+                        tweetScore: sentiment(newTweet).score
+                    });
+                    newScore.save(function(err) {
+                        if (err) {
+                            throw err
+                        }
+                        io.sockets.emit('message', newTweet, sentiment(newTweet));
                     })
                 }
             });
-      });
+        });
     var stream = Rating.find().stream();
-    stream.on('data', function (doc) {
-    io.sockets.emit('load', doc);
-    }).on('error', function (err) {
-    return err
-    }).on('close', function () {
-    console.log('data stream closed from mongo')
+    stream.on('data', function(doc) {
+    if (doc.popStar.indexOf('perry') != -1){
+        perryScores.push(doc.tweetScore);
+        io.sockets.emit('perryScoreArray', perryScores);
+    }
+    }).on('error', function(err) {
+        return err
+    }).on('close', function() {
+        console.log('data stream closed from mongo')
     });
 });

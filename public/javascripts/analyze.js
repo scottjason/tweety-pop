@@ -1,6 +1,6 @@
 // var web = require ('./web.js')
 
-// function analyzeData() {
+// function parseData() {
 //     console.log(web.docs)
 //     var katyPerryTweets = []
 //     var katyPerryScores = [];
