@@ -62,6 +62,7 @@ $(document).ready(function() {
     function renderBieber(tweet, rating) {
         $(".bieber").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
+            // db.scores.find({"popStar" : {$regex : ".*bieber.*"}})
             // $(".score").text(rating.score);
         });
     }
