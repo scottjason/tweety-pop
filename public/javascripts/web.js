@@ -1,6 +1,8 @@
 $(document).ready(function() {
     socket = io.connect()
-
+    socket.on('load tweets', function(docs){
+        console.log(docs);
+    })
     socket.on('message', function(tweet, rating) {
         if (tweet.indexOf('katy perry') != -1){
             renderKatie(tweet, rating);
@@ -62,6 +64,7 @@ $(document).ready(function() {
     function renderBieber(tweet, rating) {
         $(".bieber").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
+            // db.scores.find({"popStar" : {$regex : ".*bieber.*"}})
             // $(".score").text(rating.score);
         });
     }
