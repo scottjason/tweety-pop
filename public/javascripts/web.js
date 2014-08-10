@@ -5,10 +5,10 @@ $(document).ready(function() {
         if (tweet.indexOf('katy perry') != -1){
             renderKatie(tweet, rating);
         }
-         else if (tweet.indexOf('jtimberlake') != -1){
+         else if (tweet.indexOf('jtimberlake') != -1 || tweet.indexOf('justin timerblake') != -1){
             renderTimberlake(tweet, rating);
         }
-        else if (tweet.indexOf('justin bieber') != -1){
+        else if (tweet.indexOf('justin bieber') != -1 || tweet.indexOf('bieber') != -1){
             renderBieber(tweet, rating);
         }
         else if (tweet.indexOf('beyonce') != -1){
