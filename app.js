@@ -9,11 +9,11 @@ var express = require('express'),
     env = require('node-env-file'),
     mongoose = require('mongoose')
 
-//
+// initiate server connection
 server.listen(3000);
 console.log("Node server started. Listening on port: 3000")
 
-// connect to database
+// initiate database connection
 mongoose.connect(process.env.uri, function(err){
     if(err){
         console.log("Error: unable to initiate database connection");
@@ -32,10 +32,10 @@ var tweetSchema = mongoose.Schema({
 // create model Rating and 'score' collection
 var Rating = mongoose.model('score', tweetSchema);
 
-//
+// declare public folder
 app.use('/', express.static(__dirname + '/public'));
 
-//
+// declare routes
 app.get('/', function(req, res) {
     res.sendfile(__dirname + '/index.html');
     search = req.query || "";
@@ -52,10 +52,11 @@ tweet = new twitter({
 // first retrieve tweets from database and emit
 // second recieve incoming tweets, write to database then emit
 io.sockets.on('connection', function() {
-    Rating.find({}, function(err, docs){
-        if (err) { throw err }
-        io.sockets.emit('load', docs);
-    });
+    // Rating.find({}, function(err, docs){
+    //     if (err) { throw err }
+    //     io.sockets.emit('load', docs);
+    // });
+
 
     var wordsToTrack = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adele, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, imagine dragons, imagedragons"]
     tweet.stream('statuses/filter', {
@@ -75,4 +76,12 @@ io.sockets.on('connection', function() {
                 }
             });
       });
+    var stream = Rating.find().stream();
+    stream.on('data', function (doc) {
+    io.sockets.emit('load', doc);
+    }).on('error', function (err) {
+    return err
+    }).on('close', function () {
+    console.log('data stream closed from mongo')
+    });
 });
