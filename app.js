@@ -96,10 +96,10 @@ io.sockets.on('connection', function() {
   });
 });
 
-  // stream the database
-  var stream = Rating.find().stream();
+  // stream the database, emit to client
+var stream = Rating.find().stream();
   stream.on('data', function(doc)  {
-    if (doc.popStar.indexOf('perry') != -1)
+if (doc.popStar.indexOf('perry') != -1)
     {
       this.pause()
       var self = this
