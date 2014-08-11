@@ -10,11 +10,11 @@ var express = require('express'),
     mongoose = require('mongoose'),
     mongo = require('mongodb'),
     Grid = require('gridfs-stream');
+    // assigns driver directly to the gridfs-stream module
+    Grid.mongo = mongoose.mongo;
 
 // declare artists
-var popTracker = [ "katy perry, eminem, justin bieber, beyonce, taylor swift,
-jtimberlake, timberlake, adele, adam levine, adamlevine, maroon 5, bruno mars,
-miley cyrus, rihanna, demi lovato, imagine dragons, imagedragons" ];
+var popTracker = [ "katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adele, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, imagine dragons, imagedragons" ];
 
 // declare artist score arrays
 var perryScores = [];
@@ -36,14 +36,20 @@ console.log("Node server started. Listening on port: 3000");
 
 // initiate database connection
 mongoose.connect(process.env.uri, function(err) {
-    if (err) { throw err }
-    else { console.log("Successfully initiated database connection") }
+  if (err) { throw err }
+  else { console.log("Successfully initiated database connection") }
+});
+
+// passes the database into 'Grid'
+var conn = mongoose.createConnection(process.env.uri);
+conn.once('open', function () {
+  var gfs = Grid(conn.db);
 });
 
 // create schema
 var tweetSchema = mongoose.Schema(
     { popStar: { type: String }, tweetScore: { type: Number } },
-    { capped: { size: 1024, max: 50000, autoIndexId: true } }
+    { capped: { size: 10485760, max: 10000, autoIndexId: true } }
 );
 
 // create model Rating and 'score' collection
