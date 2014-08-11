@@ -58,14 +58,16 @@ var options = {
     root: 'scores'
 }
 
-// write file
+// write the file
 writeStream = gfs.createWriteStream( options );
 fs.createReadStream("tweet.txt").pipe(writeStream);
 
 // after the write is finished
-// writeStream.on('close', function (file) {
-// // read file, buffering data as we go
-// var readstream = gfs.createReadStream( { _id: '50e03d29edfdc00d34000001' } );
+writeStream.on('close', function (file) {
+  console.log(file.filename);
+});
+// read file, buffering data as we go
+// var readStream = gfs.createReadStream( { _id: '50e03d29edfdc00d34000001' } );
 // readStream.on("data", function (chunk) {
 
 //             buffer += chunk;
