@@ -63,8 +63,6 @@ tweet = new twitter({
 // sixth: emit database tweets
 
 io.sockets.on('connection', function() {
-
-
     var wordsToTrack = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adele, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, imagine dragons, imagedragons"]
     tweet.stream('statuses/filter', {
             "track": wordsToTrack
@@ -89,9 +87,10 @@ io.sockets.on('connection', function() {
                 }
             });
         });
-
-    var stream = Rating.find().stream();
-    stream.on('data', function(doc) {
+    });
+io.sockets.on('connection', function() {
+    var streamDb = Rating.find().stream()
+    streamDb.on('data', function(doc) {
 
         if (doc.popStar.indexOf('perry') != -1) {
             perryScores.push(doc.tweetScore);
@@ -107,4 +106,4 @@ io.sockets.on('connection', function() {
 
         console.log('data stream closed from mongo')
     });
-});
+        });
