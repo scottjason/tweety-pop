@@ -9,14 +9,16 @@ var express = require('express'),
     env = require('node-env-file'),
     mongoose = require('mongoose')
 
+// declare artists
+var popTracker = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adele, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, imagine dragons, imagedragons"];
 
 // declare artist score arrays
-var perryScores = []
-var bieberScores = []
+var perryScores = [];
+var bieberScores = [];
 
 // initiate server connection
 server.listen(3000);
-console.log("Node server started. Listening on port: 3000")
+console.log("Node server started. Listening on port: 3000");
 
 // initiate database connection
 mongoose.connect(process.env.uri, function(err) {
@@ -28,10 +30,20 @@ mongoose.connect(process.env.uri, function(err) {
 })
 
 // create schema
-var tweetSchema = mongoose.Schema(
-    { popStar: {type: String}, tweetScore: {type: Number} },
-    { capped: { size: 1024, max: 50000, autoIndexId: true } }
-);
+var tweetSchema = mongoose.Schema({
+    popStar: {
+        type: String
+    },
+    tweetScore: {
+        type: Number
+    }
+}, {
+    capped: {
+        size: 1024,
+        max: 50000,
+        autoIndexId: true
+    }
+});
 
 // create model Rating and 'score' collection
 var Rating = mongoose.model('score', tweetSchema);
@@ -63,9 +75,9 @@ tweet = new twitter({
 // sixth: emit database tweets
 
 io.sockets.on('connection', function() {
-    var wordsToTrack = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adele, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, imagine dragons, imagedragons"]
+
     tweet.stream('statuses/filter', {
-            "track": wordsToTrack
+            "track": popTracker
         },
         function(stream) {
             stream.on('data', function(data) {
@@ -87,23 +99,23 @@ io.sockets.on('connection', function() {
                 }
             });
         });
-    });
-io.sockets.on('connection', function() {
-    var streamDb = Rating.find().stream()
-    streamDb.on('data', function(doc) {
+});
+// io.sockets.on('connection', function() {
+//     var streamDb = Rating.find().stream()
+//     streamDb.on('data', function(doc) {
 
-        if (doc.popStar.indexOf('perry') != -1) {
-            perryScores.push(doc.tweetScore);
-            io.sockets.emit('perryScoreArray', perryScores);
-        }
-        if (doc.popStar.indexOf('bieber') != -1) {
-            bieberScores.push(doc.tweetScore);
-            io.sockets.emit('bieberScoreArray', bieberScores);
-        }
-    }).on('error', function(err) {
-        return err
-    }).on('close', function() {
+//         if (doc.popStar.indexOf('perry') != -1) {
+//             perryScores.push(doc.tweetScore);
+//             io.sockets.emit('perryScoreArray', perryScores);
+//         }
+//         if (doc.popStar.indexOf('bieber') != -1) {
+//             bieberScores.push(doc.tweetScore);
+//             io.sockets.emit('bieberScoreArray', bieberScores);
+//         }
+//     }).on('error', function(err) {
+//         return err
+//     }).on('close', function() {
 
-        console.log('data stream closed from mongo')
-    });
-        });
+//         console.log('data stream closed from mongo')
+//     });
+// });
