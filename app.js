@@ -9,9 +9,8 @@ var express = require('express'),
     env = require('node-env-file'),
     mongoose = require('mongoose'),
     mongo = require('mongodb'),
+    fs = require('fs-extra'),
     Grid = require('gridfs-stream');
-    // assigns driver directly to the gridfs-stream module
-    Grid.mongo = mongoose.mongo;
 
 // declare artists
 var popTracker = [ "katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adele, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, imagine dragons, imagedragons" ];
@@ -40,10 +39,20 @@ mongoose.connect(process.env.uri, function(err) {
   else { console.log("Successfully initiated database connection") }
 });
 
-// passes the database into 'Grid'
+// assigns driver directly to the gridfs-stream module
+Grid.mongo = mongoose.mongo;
+
+// opens file stream connection and passes the database into 'Grid'
 var conn = mongoose.createConnection(process.env.uri);
 conn.once('open', function () {
-  var gfs = Grid(conn.db);
+var gfs = Grid(conn.db);
+
+// declares writeStream options
+var options = { filename: 'tweet.txt', mode: 'w', root: 'documents' }
+
+// calls createWriteStream and passes in options
+var writestream = gfs.createWriteStream([options]);
+fs.createReadStream('/').pipe(writestream);
 });
 
 // create schema
