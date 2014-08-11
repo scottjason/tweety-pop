@@ -1,9 +1,9 @@
 $(document).ready(function() {
 
     Number.prototype.toFixedDown = function(digits) {
-        var re = new RegExp("(\\d+\\.\\d{" + digits + "})(\\d)"),
-            m = this.toString().match(re);
-        return m ? parseFloat(m[1]) : this.valueOf();
+        var regularExp = new RegExp("(\\d+\\.\\d{" + digits + "})(\\d)"),
+        matchString = this.toString().match(regularExp);
+        return matchString ? parseFloat(matchString[1]) : this.valueOf();
     };
 
     socket = io.connect()
@@ -15,7 +15,27 @@ $(document).ready(function() {
             sum += parseInt(perryScores[i], 10);
         }
         var avg = sum / perryScores.length;
-        $('#katy-average').text(avg.toFixedDown(2));
+        $('#katy-average').text(avg.toFixedDown(4));
+    })
+
+    socket.on('levineScoreArray', function(levineScores) {
+        // sentiment average over time
+        var sum = 0;
+        for (var i = 0; i < levineScores.length; i++) {
+            sum += parseInt(levineScores[i], 10);
+        }
+        var avg = sum / levineScores.length;
+        $('#levine-average').text(avg.toFixedDown(4));
+    })
+
+    socket.on('beyonceScoreArray', function(beyonceScores) {
+        // sentiment average over time
+        var sum = 0;
+        for (var i = 0; i < beyonceScores.length; i++) {
+            sum += parseInt(beyonceScores[i], 10);
+        }
+        var avg = sum / beyonceScores.length;
+        $('#beyonce-average').text(avg.toFixedDown(4));
     })
 
     socket.on('bieberScoreArray', function(bieberScores) {
@@ -25,7 +45,17 @@ $(document).ready(function() {
             sum += parseInt(bieberScores[i], 10);
         }
         var avg = sum / bieberScores.length;
-        $('#bieber-average').text(avg.toFixedDown(2));
+        $('#bieber-average').text(avg.toFixedDown(4));
+    })
+
+    socket.on('rihannaScoreArray', function(rihannaScores) {
+        // sentiment average over time
+        var sum = 0;
+        for (var i = 0; i < rihannaScores.length; i++) {
+            sum += parseInt(rihannaScores[i], 10);
+        }
+        var avg = sum / rihannaScores.length;
+        $('#rihanna-average').text(avg.toFixedDown(4));
     })
 
     socket.on('message', function(tweet, rating) {
