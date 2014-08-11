@@ -15,7 +15,17 @@ $(document).ready(function() {
             sum += parseInt(perryScores[i], 10);
         }
         var avg = sum / perryScores.length;
-        $('#katy-average').text(avg.toFixedDown(2));
+        $('#katy-average').text(avg.toFixedDown(4));
+    })
+
+    socket.on('levineScoreArray', function(levineScores) {
+        // sentiment average over time
+        var sum = 0;
+        for (var i = 0; i < levineScores.length; i++) {
+            sum += parseInt(levineScores[i], 10);
+        }
+        var avg = sum / levineScores.length;
+        $('#levine-average').text(avg.toFixedDown(4));
     })
 
     socket.on('bieberScoreArray', function(bieberScores) {
@@ -25,7 +35,7 @@ $(document).ready(function() {
             sum += parseInt(bieberScores[i], 10);
         }
         var avg = sum / bieberScores.length;
-        $('#bieber-average').text(avg.toFixedDown(2));
+        $('#bieber-average').text(avg.toFixedDown(4));
     })
 
     socket.on('message', function(tweet, rating) {

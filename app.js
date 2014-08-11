@@ -115,9 +115,15 @@ var stream = Rating.find().stream();
       io.sockets.emit('bieberScoreArray', bieberScores);
       self.resume();
     }
-
-
-
+  else if (doc.popStar.indexOf('levine') != -1 || doc.popStar.indexOf('maroon') != -1)
+    {
+      this.pause()
+      var self = this
+      levineScores.push(doc.tweetScore);
+      io.sockets.emit('levineScoreArray', levineScores);
+      self.resume();
+    }
+    else { return null}
   });
 });
 
