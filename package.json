@@ -4,6 +4,7 @@
   "private": "true",
   "dependencies": {
     "express": "*",
+    "fs-extra": "^0.10.0",
     "node-env-file": "*",
     "sentiment": "^1.0.1",
     "socket.io": "*",

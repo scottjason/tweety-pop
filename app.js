@@ -48,12 +48,25 @@ conn.once('open', function () {
 var gfs = Grid(conn.db);
 
 // declares writeStream options
-var options = { filename: 'tweet.txt', mode: 'w', root: 'documents' }
+var options = {
+    mode: 'w',
+    root: 'scores',
+    metadata: { popStar: { type: String }, tweetScore: { type: Number } }
+}
 
 // calls createWriteStream and passes in options
 var writestream = gfs.createWriteStream([options]);
-fs.createReadStream('/').pipe(writestream);
+
+fs.createReadStream('tweet.txt').pipe(writestream);
+
+writestream.on('close', function (file) {
+  console.log(file.filename);
+
 });
+});
+
+var readstream = gfs.createReadStream(options);
+readstream.pipe(response);
 
 // create schema
 var tweetSchema = mongoose.Schema(
