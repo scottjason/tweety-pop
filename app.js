@@ -63,19 +63,6 @@ tweet = new twitter({
     access_token_secret: process.env.access_token_secret
 });
 
-// stream from mongo
-var stream = Rating.find().stream();
-stream.on('data', function(doc)  {
-if (doc.popStar.indexOf('perry') != -1)
-  {
-    this.pause()
-    perryScores.push(doc.tweetScore)
-  }
-    var self = this
-    io.sockets.emit('perryScoresArray', bieberScores);
-    self.resume()
-});
-
 // stream and emit incoming tweets, then write to database
 io.sockets.on('connection', function() {
   tweet.stream('statuses/filter', { "track": popTracker },
