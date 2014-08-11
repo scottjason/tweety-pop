@@ -1,15 +1,14 @@
 // require modules
-
 var Array = require('node-array');
 var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
-    util = require('util'),
     twitter = require('twitter'),
     sentiment = require('sentiment'),
     env = require('node-env-file'),
     mongoose = require('mongoose')
+
 
 // declare artist score arrays
 var perryScores = []
@@ -91,20 +90,21 @@ io.sockets.on('connection', function() {
             });
         });
 
-    // var stream = Rating.find().stream();
-    // stream.on('data', function(doc) {
+    var stream = Rating.find().stream();
+    stream.on('data', function(doc) {
 
-    //     if (doc.popStar.indexOf('perry') != -1) {
-    //         perryScores.push(doc.tweetScore);
-    //         io.sockets.emit('perryScoreArray', perryScores);
-    //     }
-    //     if (doc.popStar.indexOf('bieber') != -1) {
-    //         bieberScores.push(doc.tweetScore);
-    //         io.sockets.emit('bieberScoreArray', bieberScores);
-    //     }
-    // }).on('error', function(err) {
-    //     return err
-    // }).on('close', function() {
-    //     console.log('data stream closed from mongo')
-    // });
+        if (doc.popStar.indexOf('perry') != -1) {
+            perryScores.push(doc.tweetScore);
+            io.sockets.emit('perryScoreArray', perryScores);
+        }
+        if (doc.popStar.indexOf('bieber') != -1) {
+            bieberScores.push(doc.tweetScore);
+            io.sockets.emit('bieberScoreArray', bieberScores);
+        }
+    }).on('error', function(err) {
+        return err
+    }).on('close', function() {
+
+        console.log('data stream closed from mongo')
+    });
 });
