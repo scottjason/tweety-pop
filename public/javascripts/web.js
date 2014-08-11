@@ -28,6 +28,17 @@ $(document).ready(function() {
         $('#levine-average').text(avg.toFixedDown(4));
     })
 
+    socket.on('beyonceScoreArray', function(beyonceScores) {
+        // sentiment average over time
+        var sum = 0;
+        for (var i = 0; i < beyonceScores.length; i++) {
+            sum += parseInt(beyonceScores[i], 10);
+        }
+        var avg = sum / beyonceScores.length;
+        $('#beyonce-average').text(avg.toFixedDown(4));
+    })
+
+
     socket.on('bieberScoreArray', function(bieberScores) {
         // sentiment average over time
         var sum = 0;

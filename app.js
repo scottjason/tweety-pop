@@ -99,7 +99,7 @@ io.sockets.on('connection', function() {
 // stream the database, emit to client
 var stream = Rating.find().stream();
   stream.on('data', function(doc)  {
-  if (doc.popStar.indexOf('perry') != -1)
+      if (doc.popStar.indexOf('perry') != -1)
     {
       this.pause()
       var self = this
@@ -107,7 +107,7 @@ var stream = Rating.find().stream();
       io.sockets.emit('perryScoreArray', perryScores);
       self.resume();
     }
-  else if (doc.popStar.indexOf('bieber') != -1)
+      else if (doc.popStar.indexOf('bieber') != -1)
     {
       this.pause()
       var self = this
@@ -115,7 +115,7 @@ var stream = Rating.find().stream();
       io.sockets.emit('bieberScoreArray', bieberScores);
       self.resume();
     }
-  else if (doc.popStar.indexOf('levine') != -1 || doc.popStar.indexOf('maroon') != -1)
+      else if (doc.popStar.indexOf('levine') != -1 || doc.popStar.indexOf('maroon') != -1)
     {
       this.pause()
       var self = this
@@ -123,7 +123,15 @@ var stream = Rating.find().stream();
       io.sockets.emit('levineScoreArray', levineScores);
       self.resume();
     }
-    else { return null}
+      else if (doc.popStar.indexOf('beyonce') != -1)
+    {
+      this.pause()
+      var self = this
+      beyonceScores.push(doc.tweetScore);
+      io.sockets.emit('beyonceScoreArray', beyonceScores);
+      self.resume();
+    }
+    else { console.log(".. analyzing data stream ..") }
   });
 });
 
