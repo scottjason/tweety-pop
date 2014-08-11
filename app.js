@@ -7,11 +7,7 @@ var express = require('express'),
     twitter = require('twitter'),
     sentiment = require('sentiment'),
     env = require('node-env-file'),
-    mongoose = require('mongoose'),
-    mongo = require('mongodb'),
-    fs = require('fs-extra'),
-    Grid = require('gridfs-stream');
-    buffer = "";
+    mongoose = require('mongoose');
 
 // declare artists
 var popTracker = [ "katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adele, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, imagine dragons, imagedragons" ];
@@ -38,48 +34,6 @@ console.log("Node server started. Listening on port: 3000");
 mongoose.connect(process.env.uri, function(err) {
   if (err) { throw err }
   else { console.log("Successfully initiated database connection") }
-});
-
-// assigns driver directly to the gridfs-stream module
-Grid.mongo = mongoose.mongo;
-
-// opens file stream connection and passes the database into 'Grid'
-var conn = mongoose.createConnection(process.env.uri);
-conn.once('open', function () {
-var gfs = Grid(conn.db);
-
-// declare options
-var options = {
-    _id: '50e03d29edfdc00d34000001',
-    filename: 'tweet.txt',
-    mode: 'w',
-    chunkSize: 1024,
-    content_type: 'plain/text',
-    root: 'scores'
-}
-
-// write the file
-writeStream = gfs.createWriteStream( options );
-fs.createReadStream("tweet.txt").pipe(writeStream);
-
-// after the write is finished
-writeStream.on('close', function (file) {
-  console.log(file.filename);
-});
-// read file, buffering data as we go
-// var readStream = gfs.createReadStream( { _id: '50e03d29edfdc00d34000001' } );
-// readStream.on("data", function (chunk) {
-
-//             buffer += chunk;
-
-//         });
-
-//         // dump contents to console when complete
-//         readStream.on("end", function () {
-//             console.log("contents of file:\n\n", buffer);
-//         });
-
-// });
 });
 
 
@@ -110,7 +64,6 @@ tweet = new twitter({
 });
 
 // stream and emit incoming tweets, then write to database
-// read stored tweets from database and write to file
 io.sockets.on('connection', function() {
   tweet.stream('statuses/filter', { "track": popTracker },
     function(stream) {
