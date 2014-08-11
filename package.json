@@ -1,5 +1,6 @@
 {
   "name": "tweety-pop",
+  "author": "scott-jason",
   "version": "0.0.1",
   "private": "true",
   "dependencies": {
