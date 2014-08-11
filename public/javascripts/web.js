@@ -9,7 +9,6 @@ $(document).ready(function() {
     socket = io.connect()
 
     socket.on('perryScoreArray', function(perryScores) {
-
         // sentiment average over time
         var sum = 0;
         for (var i = 0; i < perryScores.length; i++) {
@@ -17,11 +16,9 @@ $(document).ready(function() {
         }
         var avg = sum / perryScores.length;
         $('#katy-average').text(avg.toFixedDown(2));
-
     })
 
     socket.on('bieberScoreArray', function(bieberScores) {
-
         // sentiment average over time
         var sum = 0;
         for (var i = 0; i < bieberScores.length; i++) {
@@ -29,7 +26,6 @@ $(document).ready(function() {
         }
         var avg = sum / bieberScores.length;
         $('#bieber-average').text(avg.toFixedDown(2));
-
     })
 
     socket.on('message', function(tweet, rating) {
