@@ -4,14 +4,15 @@ var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
-    util = require('util'),
     twitter = require('twitter'),
     sentiment = require('sentiment'),
     env = require('node-env-file'),
     mongoose = require('mongoose')
 
+
 // declare artist score arrays
 var perryScores = []
+var bieberScores = []
 
 // initiate server connection
 server.listen(3000);
@@ -27,13 +28,14 @@ mongoose.connect(process.env.uri, function(err) {
 })
 
 // create schema
-var tweetSchema = mongoose.Schema({
-    popStar: String,
-    tweetScore: Number
-});
+var tweetSchema = mongoose.Schema(
+    { popStar: {type: String}, tweetScore: {type: Number} },
+    { capped: { size: 1024, max: 50000, autoIndexId: true } }
+);
 
 // create model Rating and 'score' collection
 var Rating = mongoose.model('score', tweetSchema);
+
 
 // declare public folder
 app.use('/', express.static(__dirname + '/public'));
@@ -73,6 +75,7 @@ io.sockets.on('connection', function() {
                 var foreignCharacters = unescape(encodeURIComponent(newTweet));
                 newTweet = decodeURIComponent(escape(foreignCharacters));
                 if (newTweet != null) {
+
                     var newScore = new Rating({
                         popStar: newTweet,
                         tweetScore: sentiment(newTweet).score
@@ -86,15 +89,22 @@ io.sockets.on('connection', function() {
                 }
             });
         });
+
     var stream = Rating.find().stream();
     stream.on('data', function(doc) {
-    if (doc.popStar.indexOf('perry') != -1){
-        perryScores.push(doc.tweetScore);
-        io.sockets.emit('perryScoreArray', perryScores);
-    }
+
+        if (doc.popStar.indexOf('perry') != -1) {
+            perryScores.push(doc.tweetScore);
+            io.sockets.emit('perryScoreArray', perryScores);
+        }
+        if (doc.popStar.indexOf('bieber') != -1) {
+            bieberScores.push(doc.tweetScore);
+            io.sockets.emit('bieberScoreArray', bieberScores);
+        }
     }).on('error', function(err) {
         return err
     }).on('close', function() {
+
         console.log('data stream closed from mongo')
     });
 });

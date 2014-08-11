@@ -37,7 +37,22 @@ p {
 }
 .box {
     width: 300px;
-    height: 250px;
+    height: 325px;
+}
+.stats-box {
+    text-align: center;
+    width: 291px;
+    height: 60px;
+    background-color: #bdc3c7;
+    z-index: 0;
+    position: absolute;
+    margin-left: 4px;
+}
+#average-static {
+    color: #3498db;
+    font-size: 0.9em;
+    z-index: 1;
+    display: inline;
 }
 .bieber {
     max-width: 280px;
@@ -54,6 +69,23 @@ p {
     opacity: 0.3;
     width: 300px;
     height: 250px;
+}
+#bieber-average {
+    max-width: 250px;
+    text-align: center;
+    color: #e67e22;
+    font-size: 0.8em;
+    z-index: 5;
+    display: inline;
+}
+#bieber-current {
+    max-width: 250px;
+    text-align: center;
+    color: red;
+    font-size: 0.8em;
+    z-index: 1;
+    position: absolute;
+    display: inline;
 }
 .beyonce {
     max-width: 280px;
@@ -102,6 +134,23 @@ p {
     opacity: 0.3;
     width: 300px;
     height: 250px;
+}
+#katy-average {
+    max-width: 250px;
+    text-align: center;
+    color: #e67e22;
+    font-size: 0.8em;
+    z-index: 5;
+    display: inline;
+}
+#katy-current {
+    max-width: 250px;
+    text-align: center;
+    color: red;
+    font-size: 0.8em;
+    z-index: 1;
+    position: absolute;
+    display: inline;
 }
 .eminem {
     max-width: 280px;
