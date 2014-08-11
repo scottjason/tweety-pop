@@ -40,7 +40,7 @@ mongoose.connect(process.env.uri, function(err) {
 // create schema
 var tweetSchema = mongoose.Schema(
     { popStar: { type: String }, tweetScore: { type: Number } },
-    { capped: { size: 10485760, max: 10000, autoIndexId: true } }
+    { capped: { size: 10485760, max: 150000, autoIndexId: true } }
 );
 
 // create model Rating and 'score' collection
