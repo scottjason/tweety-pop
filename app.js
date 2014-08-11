@@ -12,7 +12,9 @@ var express = require('express'),
     Grid = require('gridfs-stream');
 
 // declare artists
-var popTracker = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adele, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, imagine dragons, imagedragons"];
+var popTracker = [ "katy perry, eminem, justin bieber, beyonce, taylor swift,
+jtimberlake, timberlake, adele, adam levine, adamlevine, maroon 5, bruno mars,
+miley cyrus, rihanna, demi lovato, imagine dragons, imagedragons" ];
 
 // declare artist score arrays
 var perryScores = [];
@@ -64,24 +66,22 @@ tweet = new twitter({
     access_token_secret: process.env.access_token_secret
 });
 
-// stream and emit incoming tweets
-// write incoming tweets to database
-// read and write stored tweets to and from file
+// stream and emit incoming tweets, then write to database
+// read stored tweets from database and write to file
 io.sockets.on('connection', function() {
-
-tweet.stream('statuses/filter', { "track": popTracker },
+  tweet.stream('statuses/filter', { "track": popTracker },
     function(stream) {
       stream.on('data', function(data) {
-
+      // remove foreign characters from tweets
       var newTweet = data.text;
       var foreignCharacters = unescape(encodeURIComponent(newTweet));
       newTweet = decodeURIComponent(escape(foreignCharacters));
 
-      if (newTweet != null) {
-      var newScore = new Rating( { popStar: newTweet, tweetScore: sentiment(newTweet).score } );
-      newScore.save(function(err) {
-                if (err) { throw err }
-                io.sockets.emit('message', newTweet, sentiment(newTweet));
+        if (newTweet != null) {
+          var newScore = new Rating( { popStar: newTweet, tweetScore: sentiment(newTweet).score } );
+          newScore.save(function(err) {
+            if (err) { throw err }
+              io.sockets.emit('message', newTweet, sentiment(newTweet));
             })
           }
       });
