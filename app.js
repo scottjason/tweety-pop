@@ -76,30 +76,34 @@ tweet = new twitter({
 
 io.sockets.on('connection', function() {
 
-    tweet.stream('statuses/filter', {
-            "track": popTracker
-        },
-        function(stream) {
-            stream.on('data', function(data) {
-                var newTweet = data.text;
-                var foreignCharacters = unescape(encodeURIComponent(newTweet));
-                newTweet = decodeURIComponent(escape(foreignCharacters));
-                if (newTweet != null) {
-
-                    var newScore = new Rating({
-                        popStar: newTweet,
-                        tweetScore: sentiment(newTweet).score
-                    });
-                    newScore.save(function(err) {
-                        if (err) {
-                            throw err
-                        }
-                        io.sockets.emit('message', newTweet, sentiment(newTweet));
-                    })
-                }
+tweet.stream('statuses/filter', {
+        "track": popTracker
+    },
+    function(stream) {
+        stream.on('data', function(data) {
+        var newTweet = data.text;
+        var foreignCharacters = unescape(encodeURIComponent(newTweet));
+        newTweet = decodeURIComponent(escape(foreignCharacters));
+          if (newTweet != null) {
+            var newScore = new Rating({
+                popStar: newTweet,
+                tweetScore: sentiment(newTweet).score
             });
-        });
+            newScore.save(function(err) {
+                if (err) {
+                    throw err
+                }
+                io.sockets.emit('message', newTweet, sentiment(newTweet));
+            })
+          }
+      });
+   });
 });
+
+
+
+
+
 // io.sockets.on('connection', function() {
 //     var streamDb = Rating.find().stream()
 //     streamDb.on('data', function(doc) {
