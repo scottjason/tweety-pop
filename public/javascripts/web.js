@@ -1,9 +1,9 @@
 $(document).ready(function() {
 
     Number.prototype.toFixedDown = function(digits) {
-        var re = new RegExp("(\\d+\\.\\d{" + digits + "})(\\d)"),
-            m = this.toString().match(re);
-        return m ? parseFloat(m[1]) : this.valueOf();
+        var regularExp = new RegExp("(\\d+\\.\\d{" + digits + "})(\\d)"),
+        matchString = this.toString().match(regularExp);
+        return matchString ? parseFloat(matchString[1]) : this.valueOf();
     };
 
     socket = io.connect()

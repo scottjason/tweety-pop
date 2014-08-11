@@ -96,10 +96,10 @@ io.sockets.on('connection', function() {
   });
 });
 
-  // stream the database, emit to client
+// stream the database, emit to client
 var stream = Rating.find().stream();
   stream.on('data', function(doc)  {
-if (doc.popStar.indexOf('perry') != -1)
+  if (doc.popStar.indexOf('perry') != -1)
     {
       this.pause()
       var self = this
@@ -107,6 +107,17 @@ if (doc.popStar.indexOf('perry') != -1)
       io.sockets.emit('perryScoreArray', perryScores);
       self.resume();
     }
+  else if (doc.popStar.indexOf('bieber') != -1)
+    {
+      this.pause()
+      var self = this
+      bieberScores.push(doc.tweetScore);
+      io.sockets.emit('bieberScoreArray', bieberScores);
+      self.resume();
+    }
+
+
+
   });
 });
 
