@@ -16,7 +16,17 @@ var popTracker = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jti
 
 // declare artist score arrays
 var perryScores = [];
+var levineScores = [];
+var beyonceScores = [];
 var bieberScores = [];
+var rihannaScores = [];
+var eminemScores = [];
+var mileyScores = [];
+var brunoScores = [];
+var adeleScores = [];
+var swiftScores = [];
+var timberlakeScores = [];
+var lovatoScores = [];
 
 // initiate server connection
 server.listen(3000);
