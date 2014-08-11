@@ -131,6 +131,14 @@ var stream = Rating.find().stream();
       io.sockets.emit('beyonceScoreArray', beyonceScores);
       self.resume();
     }
+    else if (doc.popStar.indexOf('rihanna') != -1)
+    {
+      this.pause()
+      var self = this
+      rihannaScores.push(doc.tweetScore);
+      io.sockets.emit('rihannaScoreArray', rihannaScores);
+      self.resume();
+    }
     else { console.log(".. analyzing data stream ..") }
   });
 });

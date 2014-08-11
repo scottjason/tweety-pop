@@ -38,7 +38,6 @@ $(document).ready(function() {
         $('#beyonce-average').text(avg.toFixedDown(4));
     })
 
-
     socket.on('bieberScoreArray', function(bieberScores) {
         // sentiment average over time
         var sum = 0;
@@ -47,6 +46,16 @@ $(document).ready(function() {
         }
         var avg = sum / bieberScores.length;
         $('#bieber-average').text(avg.toFixedDown(4));
+    })
+
+    socket.on('rihannaScoreArray', function(rihannaScores) {
+        // sentiment average over time
+        var sum = 0;
+        for (var i = 0; i < rihannaScores.length; i++) {
+            sum += parseInt(rihannaScores[i], 10);
+        }
+        var avg = sum / rihannaScores.length;
+        $('#rihanna-average').text(avg.toFixedDown(4));
     })
 
     socket.on('message', function(tweet, rating) {
