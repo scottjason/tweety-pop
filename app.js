@@ -11,6 +11,7 @@ var express = require('express'),
     mongo = require('mongodb'),
     fs = require('fs-extra'),
     Grid = require('gridfs-stream');
+    buffer = "";
 
 // declare artists
 var popTracker = [ "katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adele, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, imagine dragons, imagedragons" ];
@@ -47,26 +48,38 @@ var conn = mongoose.createConnection(process.env.uri);
 conn.once('open', function () {
 var gfs = Grid(conn.db);
 
-// declares writeStream options
+// declare options
 var options = {
+    _id: '50e03d29edfdc00d34000001',
+    filename: 'tweet.txt',
     mode: 'w',
-    root: 'scores',
-    metadata: { popStar: { type: String }, tweetScore: { type: Number } }
+    chunkSize: 1024,
+    content_type: 'plain/text',
+    root: 'scores'
 }
 
-// calls createWriteStream and passes in options
-var writestream = gfs.createWriteStream([options]);
+// write file
+writeStream = gfs.createWriteStream( options );
+fs.createReadStream("tweet.txt").pipe(writeStream);
 
-fs.createReadStream('tweet.txt').pipe(writestream);
+// after the write is finished
+// writeStream.on('close', function (file) {
+// // read file, buffering data as we go
+// var readstream = gfs.createReadStream( { _id: '50e03d29edfdc00d34000001' } );
+// readStream.on("data", function (chunk) {
 
-writestream.on('close', function (file) {
-  console.log(file.filename);
+//             buffer += chunk;
 
+//         });
+
+//         // dump contents to console when complete
+//         readStream.on("end", function () {
+//             console.log("contents of file:\n\n", buffer);
+//         });
+
+// });
 });
-});
 
-var readstream = gfs.createReadStream(options);
-readstream.pipe(response);
 
 // create schema
 var tweetSchema = mongoose.Schema(
