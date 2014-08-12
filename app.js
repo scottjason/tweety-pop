@@ -9,6 +9,7 @@ var express = require('express'),
     env = require('node-env-file'),
     mongoose = require('mongoose');
 
+
 // declare artists
 var popTracker = [ "katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adele, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, imagine dragons, imagedragons" ];
 
@@ -27,18 +28,16 @@ var timberlakeScores = [];
 var lovatoScores = [];
 
 // initiate server connection
-// server.listen(3000);
-// console.log("Node server started. Listening on port: 3000");
 var port = process.env.PORT || 3000;
-app.listen(port, function() {
+server.listen(port, function() {
 console.log("Listening on " + port);
 });
+
 // initiate database connection
 mongoose.connect("mongodb://heroku_app28424437:8imsdc9vn177u999bpjanfe2qv@ds033429.mongolab.com:33429/heroku_app28424437", function(err) {
   if (err) { throw err }
   else { console.log("Successfully initiated database connection") }
 });
-
 
 // create schema
 var tweetSchema = mongoose.Schema(
