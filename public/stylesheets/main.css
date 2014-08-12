@@ -31,18 +31,18 @@ p {
     display: inline;
     position: absolute;
     top: 19px;
-    color: #2ecc71;
+    color: #e67e22;
     margin-left: 10px;
     z-index: 3;
 }
 .box {
     width: 300px;
-    height: 335px;
+    height: 325px;
 }
 .stats-box {
     text-align: left;
     width: 280px;
-    height: 75px;
+    height: 65px;
     background-color: #282525;
     border: 1px solid #bdc3c7;
     z-index: 0;
@@ -53,16 +53,7 @@ p {
     max-width: 180px;
     margin-left: 5px;
     text-align: left;
-    color: #2ecc71;
-    font-size: 0.8em;
-    z-index: 5;
-    display: inline;
-}
-#incoming-interpreter {
-    max-width: 180px;
-    margin-left: 5px;
-    text-align: left;
-    color: #e74c3c;
+    color: #e67e22;
     font-size: 0.8em;
     z-index: 5;
     display: inline;
