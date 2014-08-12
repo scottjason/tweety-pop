@@ -37,12 +37,12 @@ p {
 }
 .box {
     width: 300px;
-    height: 325px;
+    height: 335px;
 }
 .stats-box {
     text-align: left;
     width: 280px;
-    height: 65px;
+    height: 75px;
     background-color: #282525;
     border: 1px solid #bdc3c7;
     z-index: 0;
@@ -53,7 +53,16 @@ p {
     max-width: 180px;
     margin-left: 5px;
     text-align: left;
-    color: #e67e22;
+    color: #2ecc71;
+    font-size: 0.8em;
+    z-index: 5;
+    display: inline;
+}
+#incoming-interpreter {
+    max-width: 180px;
+    margin-left: 5px;
+    text-align: left;
+    color: #e74c3c;
     font-size: 0.8em;
     z-index: 5;
     display: inline;

@@ -36,7 +36,6 @@ mongoose.connect(process.env.uri, function(err) {
   else { console.log("Successfully initiated database connection") }
 });
 
-
 // create schema
 var tweetSchema = mongoose.Schema(
     { popStar: { type: String }, tweetScore: { type: Number } },
