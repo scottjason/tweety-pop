@@ -33,7 +33,7 @@ console.log("Listening on " + port);
 });
 
 // initiate database connection
-mongoose.connect("mongodb://heroku_app28424437:8imsdc9vn177u999bpjanfe2qv@ds033429.mongolab.com:33429/heroku_app28424437", function(err) {
+mongoose.connect(process.env.uri, function(err) {
   if (err) { throw err }
   else { console.log("Successfully initiated database connection") }
 });
@@ -58,10 +58,10 @@ app.get('/', function(req, res) {
 
 // twitter authorization
 tweet = new twitter({
-    consumer_key: "Qz8vqLjcmgxOjhUpwd3hD2ZCw",
-    consumer_secret: "vRSxeLjj2pddubDxkpaZ1bqsonC0SrWsx9xMaBw91U2P8N42J2",
-    access_token_key: "195177239-1NI8bL9utZ2MnNXowy607mYLABlH83gp4k9TAgrA",
-    access_token_secret: "ZVusxwm9y4aJCnvtx3MHj7148REZikXyySeZURZsLUVGz"
+    consumer_key: process.env.consumer_key,
+    consumer_secret: process.env.consumer_secret,
+    access_token_key: process.env.access_token_key,
+    access_token_secret: process.env.access_token_secret
 });
 
 // stream incoming tweets, write to database, emit to client
