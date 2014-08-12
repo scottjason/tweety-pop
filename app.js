@@ -76,7 +76,7 @@ io.sockets.on('connection', function() {
         if (newTweet != null) {
           var newScore = new Rating ( { popStar: newTweet, tweetScore: sentiment(newTweet).score } );
           newScore.save(function(err) { if (err) { throw err }
-          io.sockets.emit('message', newTweet, sentiment(newTweet));
+          io.sockets.emit('message', newTweet, sentiment(newTweet).score);
         })
        }
     });

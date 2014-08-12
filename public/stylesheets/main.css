@@ -40,7 +40,7 @@ p {
     height: 325px;
 }
 .stats-box {
-    text-align: center;
+    text-align: left;
     width: 291px;
     height: 60px;
     background-color: #bdc3c7;
@@ -49,10 +49,22 @@ p {
     margin-left: 4px;
 }
 #average-static {
-    color: #3498db;
-    font-size: 0.9em;
-    z-index: 1;
+    max-width: 180px;
+    text-align: left;
+    color: #e67e22;
+    font-size: 0.8em;
+    z-index: 5;
     display: inline;
+}
+#katy-pic {
+    z-index: 0;
+    position: relative;
+    opacity: 0.3;
+    width: 300px;
+    height: 250px;
+}
+#katy-average {
+
 }
 .bieber {
     max-width: 280px;
@@ -162,30 +174,8 @@ p {
     position: absolute;
     margin-top: 80px;
 }
-#katy-pic {
-    z-index: 0;
-    position: relative;
-    opacity: 0.3;
-    width: 300px;
-    height: 250px;
-}
-#katy-average {
-    max-width: 250px;
-    text-align: center;
-    color: #e67e22;
-    font-size: 0.8em;
-    z-index: 5;
-    display: inline;
-}
-#katy-current {
-    max-width: 250px;
-    text-align: center;
-    color: red;
-    font-size: 0.8em;
-    z-index: 1;
-    position: absolute;
-    display: inline;
-}
+
+
 .eminem {
     max-width: 280px;
     text-align: center;
