@@ -30,6 +30,9 @@ var lovatoScores = [];
 server.listen(3000);
 console.log("Node server started. Listening on port: 3000");
 
+var port = process.env.PORT || 3000;
+  app.listen(port);
+
 // initiate database connection
 mongoose.connect(process.env.uri, function(err) {
   if (err) { throw err }
