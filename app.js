@@ -1,9 +1,12 @@
 // require modules
+// var server = http.createServer(app);
+// server.listen(port);
 var Array = require('node-array');
 var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
+    io = require('socket.io'),
     twitter = require('twitter'),
     sentiment = require('sentiment'),
     env = require('node-env-file'),
