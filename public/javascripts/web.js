@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+// declare floating point number truncation
     Number.prototype.toFixedDown = function(digits) {
         var regularExp = new RegExp("(\\d+\\.\\d{" + digits + "})(\\d)"),
         matchString = this.toString().match(regularExp);
@@ -166,6 +167,9 @@ $(document).ready(function() {
     function renderKatie(tweet, rating) {
         $(".katy").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
+        });
+         $("#katy-incoming").fadeOut(function() {
+            $(this).text(rating).fadeIn(3000);
         });
     }
 

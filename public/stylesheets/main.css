@@ -51,7 +51,7 @@ p {
 }
 #incoming-static {
     max-width: 180px;
-    margin-left: 34px;
+    margin-left: 5px;
     text-align: left;
     color: #e67e22;
     font-size: 0.8em;
@@ -60,7 +60,7 @@ p {
 }
 #average-static {
     max-width: 180px;
-    margin-left: 34px;
+    margin-left: 5px;
     text-align: left;
     color: #e67e22;
     font-size: 0.8em;
@@ -69,7 +69,7 @@ p {
 }
 .katy {
     max-width: 280px;
-    text-align: center;
+    /*text-align: center;*/
     color: white;
     font-size: 0.8em;
     z-index: 1;
