@@ -166,7 +166,6 @@ $(document).ready(function() {
         $(".katy").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
-        $("#katy-average").append('<span id="add_here">' + rating + '</span>');
     }
 
     function renderTimberlake(tweet, rating) {
