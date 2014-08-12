@@ -8,6 +8,7 @@ $(document).ready(function() {
 
     socket = io.connect()
 
+// logic and render for database stream subscribers
     socket.on('perryScoreArray', function(perryScores) {
         // sentiment average over time
         var sum = 0;
@@ -128,7 +129,7 @@ $(document).ready(function() {
         $('#lovato-average').text(avg.toFixedDown(4));
     })
 
-
+// logic for twitter stream subscribers
     socket.on('message', function(tweet, rating) {
         if (tweet.indexOf('katy perry') != -1) {
             renderKatie(tweet, rating);
@@ -161,7 +162,7 @@ $(document).ready(function() {
         }
     })
 
-
+// render for twitter stream subscribers
     function renderKatie(tweet, rating) {
         $(".katy").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
