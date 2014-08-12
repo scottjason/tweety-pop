@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+// declare floating point number truncation
     Number.prototype.toFixedDown = function(digits) {
         var regularExp = new RegExp("(\\d+\\.\\d{" + digits + "})(\\d)"),
         matchString = this.toString().match(regularExp);
@@ -8,6 +9,7 @@ $(document).ready(function() {
 
     socket = io.connect()
 
+// logic and render for database stream subscribers
     socket.on('perryScoreArray', function(perryScores) {
         // sentiment average over time
         var sum = 0;
@@ -128,7 +130,7 @@ $(document).ready(function() {
         $('#lovato-average').text(avg.toFixedDown(4));
     })
 
-
+// logic for twitter stream subscribers
     socket.on('message', function(tweet, rating) {
         if (tweet.indexOf('katy perry') != -1) {
             renderKatie(tweet, rating);
@@ -161,10 +163,13 @@ $(document).ready(function() {
         }
     })
 
-
+// render for twitter stream subscribers
     function renderKatie(tweet, rating) {
         $(".katy").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
+        });
+         $("#katy-incoming").fadeOut(function() {
+            $(this).text(rating).fadeIn(3000);
         });
     }
 
@@ -172,11 +177,17 @@ $(document).ready(function() {
         $(".timberlake").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
+            $("#timberlake-incoming").fadeOut(function() {
+            $(this).text(rating).fadeIn(3000);
+        });
     }
 
     function renderBieber(tweet, rating) {
         $(".bieber").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
+        });
+           $("#bieber-incoming").fadeOut(function() {
+           $(this).text(rating).fadeIn(3000);
         });
     }
 
@@ -184,11 +195,17 @@ $(document).ready(function() {
         $(".beyonce").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
+           $("#beyonce-incoming").fadeOut(function() {
+           $(this).text(rating).fadeIn(3000);
+        });
     }
 
     function renderEminem(tweet, rating) {
         $(".eminem").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
+        });
+           $("#eminem-incoming").fadeOut(function() {
+           $(this).text(rating).fadeIn(3000);
         });
     }
 
@@ -196,11 +213,17 @@ $(document).ready(function() {
         $(".miley").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
+           $("#miley-incoming").fadeOut(function() {
+           $(this).text(rating).fadeIn(3000);
+        });
     }
 
     function renderRihanna(tweet, rating) {
         $(".rihanna").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
+        });
+           $("#rihanna-incoming").fadeOut(function() {
+           $(this).text(rating).fadeIn(3000);
         });
     }
 
@@ -208,11 +231,17 @@ $(document).ready(function() {
         $(".bruno").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
+           $("#bruno-incoming").fadeOut(function() {
+           $(this).text(rating).fadeIn(3000);
+        });
     }
 
     function renderAdele(tweet, rating) {
         $(".adele").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
+        });
+           $("#adele-incoming").fadeOut(function() {
+           $(this).text(rating).fadeIn(3000);
         });
     }
 
@@ -220,17 +249,26 @@ $(document).ready(function() {
         $(".swift").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
+           $("#swift-incoming").fadeOut(function() {
+           $(this).text(rating).fadeIn(3000);
+        });
     }
 
     function renderLevine(tweet, rating) {
         $(".levine").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
+           $("#levine-incoming").fadeOut(function() {
+           $(this).text(rating).fadeIn(3000);
+        });
     }
 
     function renderLovato(tweet, rating) {
         $(".lovato").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
+        });
+           $("#lovato-incoming").fadeOut(function() {
+           $(this).text(rating).fadeIn(3000);
         });
     }
 
