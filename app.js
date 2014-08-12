@@ -9,7 +9,6 @@ var express = require('express'),
     env = require('node-env-file'),
     mongoose = require('mongoose');
 
-
 // declare artists
 var popTracker = [ "katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adele, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, imagine dragons, imagedragons" ];
 
