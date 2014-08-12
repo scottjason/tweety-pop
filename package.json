@@ -1,13 +1,30 @@
 {
   "name": "tweety-pop",
-  "author": "scott-jason",
-  "version": "0.0.1",
-  "private": "true",
-  "dependencies": {
+  "version": "0.1.0",
+    "dependencies": {
     "express": "*",
     "node-env-file": "*",
     "sentiment": "^1.0.1",
     "socket.io": "*",
     "twitter": "*"
-  }
+  },
+  "description": "streaming live from the twitterverse",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scottjason/tweety-pop.git"
+  },
+  "keywords": [
+    "node",
+    "mongo",
+    "socket",
+    "stream",
+    "twitter",
+    "javascript"
+  ],
+  "author": "scott-jason",
+  "license": "MIT"
 }
