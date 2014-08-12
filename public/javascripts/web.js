@@ -58,6 +58,77 @@ $(document).ready(function() {
         $('#rihanna-average').text(avg.toFixedDown(4));
     })
 
+    socket.on('eminemScoreArray', function(eminemScores) {
+        // sentiment average over time
+        var sum = 0;
+        for (var i = 0; i < eminemScores.length; i++) {
+            sum += parseInt(eminemScores[i], 10);
+        }
+        var avg = sum / eminemScores.length;
+        $('#eminem-average').text(avg.toFixedDown(4));
+    })
+
+    socket.on('mileyScoreArray', function(mileyScores) {
+        // sentiment average over time
+        var sum = 0;
+        for (var i = 0; i < mileyScores.length; i++) {
+            sum += parseInt(mileyScores[i], 10);
+        }
+        var avg = sum / mileyScores.length;
+        $('#miley-average').text(avg.toFixedDown(4));
+    })
+
+     socket.on('brunoScoreArray', function(brunoScores) {
+        // sentiment average over time
+        var sum = 0;
+        for (var i = 0; i < brunoScores.length; i++) {
+            sum += parseInt(brunoScores[i], 10);
+        }
+        var avg = sum / brunoScores.length;
+        $('#bruno-average').text(avg.toFixedDown(4));
+    })
+
+     socket.on('adeleScoreArray', function(adeleScores) {
+        // sentiment average over time
+        var sum = 0;
+        for (var i = 0; i < adeleScores.length; i++) {
+            sum += parseInt(adeleScores[i], 10);
+        }
+        var avg = sum / adeleScores.length;
+        $('#adele-average').text(avg.toFixedDown(4));
+    })
+
+    socket.on('swiftScoreArray', function(swiftScores) {
+        // sentiment average over time
+        var sum = 0;
+        for (var i = 0; i < swiftScores.length; i++) {
+            sum += parseInt(swiftScores[i], 10);
+        }
+        var avg = sum / swiftScores.length;
+        $('#swift-average').text(avg.toFixedDown(4));
+    })
+
+    socket.on('timberlakeScoreArray', function(timberlakeScores) {
+        // sentiment average over time
+        var sum = 0;
+        for (var i = 0; i < timberlakeScores.length; i++) {
+            sum += parseInt(timberlakeScores[i], 10);
+        }
+        var avg = sum / timberlakeScores.length;
+        $('#timberlake-average').text(avg.toFixedDown(4));
+    })
+
+    socket.on('lovatoScoreArray', function(lovatoScores) {
+        // sentiment average over time
+        var sum = 0;
+        for (var i = 0; i < lovatoScores.length; i++) {
+            sum += parseInt(lovatoScores[i], 10);
+        }
+        var avg = sum / lovatoScores.length;
+        $('#lovato-average').text(avg.toFixedDown(4));
+    })
+
+
     socket.on('message', function(tweet, rating) {
         if (tweet.indexOf('katy perry') != -1) {
             renderKatie(tweet, rating);

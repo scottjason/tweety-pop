@@ -40,18 +40,46 @@ p {
     height: 325px;
 }
 .stats-box {
-    text-align: center;
-    width: 291px;
-    height: 60px;
-    background-color: #bdc3c7;
+    font-family: 'Open Sans', sans-serif;
+    text-align: left;
+    width: 280px;
+    height: 65px;
+    background-color: #282525;
+    border: 1px solid #bdc3c7;
     z-index: 0;
     position: absolute;
-    margin-left: 4px;
+    margin-left: 9px;
 }
 #average-static {
-    color: #3498db;
-    font-size: 0.9em;
+    max-width: 180px;
+    margin-left: 34px;
+    text-align: left;
+    color: #e67e22;
+    font-size: 0.8em;
+    z-index: 5;
+    display: inline;
+}
+.katy {
+    max-width: 280px;
+    text-align: center;
+    color: white;
+    font-size: 0.8em;
     z-index: 1;
+    position: absolute;
+    margin-top: 80px;
+}
+#katy-pic {
+    z-index: 0;
+    position: relative;
+    opacity: 0.3;
+    width: 300px;
+    height: 250px;
+}
+#katy-average {
+    max-width: 250px;
+    color: #3498db;
+    font-size: 0.8em;
+    z-index: 5;
     display: inline;
 }
 .bieber {
@@ -72,19 +100,9 @@ p {
 }
 #bieber-average {
     max-width: 250px;
-    text-align: center;
-    color: #e67e22;
+    color: #3498db;
     font-size: 0.8em;
     z-index: 5;
-    display: inline;
-}
-#bieber-current {
-    max-width: 250px;
-    text-align: center;
-    color: red;
-    font-size: 0.8em;
-    z-index: 1;
-    position: absolute;
     display: inline;
 }
 .beyonce {
@@ -105,19 +123,9 @@ p {
 }
 #beyonce-average {
     max-width: 250px;
-    text-align: center;
-    color: #e67e22;
+    color: #3498db;
     font-size: 0.8em;
     z-index: 5;
-    display: inline;
-}
-#beyonce-current {
-    max-width: 250px;
-    text-align: center;
-    color: red;
-    font-size: 0.8em;
-    z-index: 1;
-    position: absolute;
     display: inline;
 }
 .timberlake {
@@ -136,39 +144,14 @@ p {
     width: 300px;
     height: 250px;
 }
-.katy {
-    max-width: 280px;
-    text-align: center;
-    color: white;
-    font-size: 0.8em;
-    z-index: 1;
-    position: absolute;
-    margin-top: 80px;
-}
-#katy-pic {
-    z-index: 0;
-    position: relative;
-    opacity: 0.3;
-    width: 300px;
-    height: 250px;
-}
-#katy-average {
+#timberlake-average {
     max-width: 250px;
-    text-align: center;
-    color: #e67e22;
+    color: #3498db;
     font-size: 0.8em;
     z-index: 5;
     display: inline;
 }
-#katy-current {
-    max-width: 250px;
-    text-align: center;
-    color: red;
-    font-size: 0.8em;
-    z-index: 1;
-    position: absolute;
-    display: inline;
-}
+
 .eminem {
     max-width: 280px;
     text-align: center;
@@ -185,6 +168,14 @@ p {
     width: 300px;
     height: 250px;
 }
+#eminem-average {
+    max-width: 250px;
+    color: #3498db;
+    font-size: 0.8em;
+    z-index: 5;
+    display: inline;
+}
+
 .miley {
     max-width: 280px;
     text-align: center;
@@ -201,6 +192,14 @@ p {
     width: 300px;
     height: 250px;
 }
+#miley-average {
+    max-width: 250px;
+    color: #3498db;
+    font-size: 0.8em;
+    z-index: 5;
+    display: inline;
+}
+
 .rihanna {
     max-width: 280px;
     text-align: center;
@@ -219,21 +218,12 @@ p {
 }
 #rihanna-average {
     max-width: 250px;
-    text-align: center;
-    color: #e67e22;
+    color: #3498db;
     font-size: 0.8em;
     z-index: 5;
     display: inline;
 }
-#rihanna-current {
-    max-width: 250px;
-    text-align: center;
-    color: red;
-    font-size: 0.8em;
-    z-index: 1;
-    position: absolute;
-    display: inline;
-}
+
 .bruno {
     max-width: 280px;
     text-align: center;
@@ -250,6 +240,14 @@ p {
     width: 300px;
     height: 250px;
 }
+#bruno-average {
+    max-width: 250px;
+    color: #3498db;
+    font-size: 0.8em;
+    z-index: 5;
+    display: inline;
+}
+
 .adele {
     max-width: 280px;
     text-align: center;
@@ -266,6 +264,14 @@ p {
     width: 300px;
     height: 250px;
 }
+#adele-average {
+    max-width: 250px;
+    color: #3498db;
+    font-size: 0.8em;
+    z-index: 5;
+    display: inline;
+}
+
 .swift {
     max-width: 280px;
     text-align: center;
@@ -282,6 +288,14 @@ p {
     width: 300px;
     height: 250px;
 }
+#swift-average {
+    max-width: 250px;
+    color: #3498db;
+    font-size: 0.8em;
+    z-index: 5;
+    display: inline;
+}
+
 .levine {
     max-width: 280px;
     text-align: center;
@@ -300,21 +314,12 @@ p {
 }
 #levine-average {
     max-width: 250px;
-    text-align: center;
-    color: #e67e22;
+    color: #3498db;
     font-size: 0.8em;
     z-index: 5;
     display: inline;
 }
-#levine-current {
-    max-width: 250px;
-    text-align: center;
-    color: red;
-    font-size: 0.8em;
-    z-index: 1;
-    position: absolute;
-    display: inline;
-}
+
 .lovato {
     max-width: 280px;
     text-align: center;
@@ -331,6 +336,14 @@ p {
     width: 300px;
     height: 250px;
 }
+#lovato-average {
+    max-width: 250px;
+    color: #3498db;
+    font-size: 0.8em;
+    z-index: 5;
+    display: inline;
+}
+/*
 .dragon {
     max-width: 280px;
     text-align: center;
@@ -346,4 +359,4 @@ p {
     opacity: 0.3;
     width: 300px;
     height: 250px;
-}
+}*/
