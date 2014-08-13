@@ -9,9 +9,6 @@ $(document).ready(function() {
 
     socket = io.connect()
 
-    socket.on('disconnect', function() {
-    socket.socket.reconnect();
-});
 
 // logic and render for database stream subscribers
     socket.on('perryScoreArray', function(perryScores) {
