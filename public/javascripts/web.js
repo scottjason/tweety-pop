@@ -179,6 +179,7 @@ socket = io.connect()
     }
 
     function renderTimberlake(tweet, rating) {
+        $( ".timberlake-score-loading" ).hide();
         $(".timberlake").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
@@ -188,6 +189,7 @@ socket = io.connect()
     }
 
     function renderBieber(tweet, rating) {
+        $( ".bieber-score-loading" ).hide();
         $(".bieber").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
@@ -207,6 +209,7 @@ socket = io.connect()
     }
 
     function renderEminem(tweet, rating) {
+        $( ".eminem-score-loading" ).hide();
         $(".eminem").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
@@ -216,6 +219,7 @@ socket = io.connect()
     }
 
     function renderMiley(tweet, rating) {
+        $( ".miley-score-loading" ).hide();
         $(".miley").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
@@ -225,6 +229,7 @@ socket = io.connect()
     }
 
     function renderRihanna(tweet, rating) {
+        $( ".rihanna-score-loading" ).hide();
         $(".rihanna").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
@@ -234,6 +239,7 @@ socket = io.connect()
     }
 
     function renderBruno(tweet, rating) {
+        $( ".bruno-score-loading" ).hide();
         $(".bruno").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
@@ -243,6 +249,7 @@ socket = io.connect()
     }
 
     function renderAdele(tweet, rating) {
+        $( ".adele-score-loading" ).hide();
         $(".adele").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
@@ -252,6 +259,7 @@ socket = io.connect()
     }
 
     function renderSwift(tweet, rating) {
+        $( ".swift-score-loading" ).hide();
         $(".swift").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
@@ -271,6 +279,7 @@ socket = io.connect()
     }
 
     function renderLovato(tweet, rating) {
+        $( ".lovato-score-loading" ).hide();
         $(".lovato").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
@@ -278,10 +287,3 @@ socket = io.connect()
            $(this).text(rating).fadeIn(3000);
         });
     }
-
-    function renderDragon(tweet, rating) {
-        $(".dragon").fadeOut(function() {
-            $(this).text(tweet).fadeIn(3000);
-        });
-    }
-});
