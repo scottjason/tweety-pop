@@ -1,4 +1,5 @@
 // require modules
+require('newrelic')
 var Array = require('node-array');
 var express = require('express'),
     app = express(),
