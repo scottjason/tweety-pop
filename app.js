@@ -82,10 +82,9 @@ tweet = new twitter({
       })
     }
   });
-});
+
 
 // stream the database, emit to client
-io.sockets.on('connection', function() {
   var stream = Rating.find().stream();
   stream.on('data', function(doc)  {
       if (doc.popStar.indexOf('perry') != -1 && doc.tweetScore != 0)
