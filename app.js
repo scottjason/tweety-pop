@@ -75,14 +75,14 @@ tweet = new twitter({
     function(stream) {
       stream.on('data', function(data) {
       // remove foreign characters from tweets
-      var newTweet = data.text;
-      var foreignCharacters = unescape(encodeURIComponent(newTweet));
-      newTweet = decodeURIComponent(escape(foreignCharacters));
+      // var newTweet = data.text;
+      // var foreignCharacters = unescape(encodeURIComponent(newTweet));
+      // newTweet = decodeURIComponent(escape(foreignCharacters));
 
-        if (newTweet != null) {
-          var newScore = new Rating ( { popStar: newTweet, tweetScore: sentiment(newTweet).score } );
-          newScore.save(function(err) { if (err) { throw err }
-          io.sockets.emit('message', newTweet, sentiment(newTweet).score);
+        if (data.id != null) {
+          // var newScore = new Rating ( { popStar: newTweet, tweetScore: sentiment(newTweet).score } );
+          // newScore.save(function(err) { if (err) { throw err }
+          io.sockets.emit('message', data.text, sentiment(data.text).score);
       })
     }
   });
