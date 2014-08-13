@@ -79,8 +79,8 @@ tweet = new twitter({
       newTweet = decodeURIComponent(escape(foreignCharacters));
 
         if (data.id != null) {
-          // var newScore = new Rating ( { popStar: newTweet, tweetScore: sentiment(newTweet).score } );
-          // newScore.save(function(err) { if (err) { throw err }
+          var newScore = new Rating ( { popStar: newTweet, tweetScore: sentiment(newTweet).score } );
+          newScore.save(function(err) { if (err) { throw err }
           io.sockets.emit('message', newTweet, sentiment(newTweet).score);
      });
     }
