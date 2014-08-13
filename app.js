@@ -35,10 +35,10 @@ console.log("Listening on " + port);
 });
 
 // initiate database connection
-var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
-                replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
+// var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+//                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
 
-mongoose.connect("mongodb://heroku_app28424437:8imsdc9vn177u999bpjanfe2qv@ds033429.mongolab.com:33429/heroku_app28424437", options, function(err) {
+mongoose.connect("mongodb://heroku_app28424437:8imsdc9vn177u999bpjanfe2qv@ds033429.mongolab.com:33429/heroku_app28424437", function(err) {
   if (err) { throw err }
   else { console.log("Successfully initiated database connection") }
 });
@@ -86,10 +86,9 @@ io.sockets.on('connection', function() {
       })
     }
   });
-});
+
 
 // stream the database, emit to client
-io.sockets.on('connection', function() {
   var stream = Rating.find().stream();
   stream.on('data', function(doc)  {
       if (doc.popStar.indexOf('perry') != -1 && doc.tweetScore != 0)
