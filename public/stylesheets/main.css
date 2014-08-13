@@ -16,15 +16,19 @@ p {
     padding-left: 5px;
     padding-right: 5px;
 }
+#tile-slogan-container{
+
+}
 #tweet-pop {
     font-family: 'Poiret One', cursive;
     font-size: 3em;
     color: #3498db;
-    left: 9%;
+    left: 8.6%;
     position: absolute;
     display: inline-block;
-    top: -3%;
-    z-index: 4
+    top: -7.2%;
+    z-index: 4;
+    float: left;
 }
 #slogan {
     font-family: 'Open Sans', sans-serif;
@@ -35,6 +39,7 @@ p {
     color: #1abc9c;
     left: 26.2%;
     z-index: 3;
+    float: right;
 }
 .box {
     width: 300px;
