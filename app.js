@@ -43,7 +43,7 @@ mongoose.connect("mongodb://heroku_app28424437:8imsdc9vn177u999bpjanfe2qv@ds0334
 // create schema
 var tweetSchema = mongoose.Schema(
     { popStar: { type: String }, tweetScore: { type: Number } },
-    { capped: { size: 10485760, max: 150000, autoIndexId: true } }
+    { capped: { size: 10485760, max: 50000, autoIndexId: true } }
 );
 
 // create model Rating and 'score' collection
