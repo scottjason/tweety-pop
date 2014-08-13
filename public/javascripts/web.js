@@ -18,8 +18,32 @@ socket = io.connect()
             sum += parseInt(perryScores[i], 10);
         }
         var avg = sum / perryScores.length;
+
+        if (avg > 0 && avg < 1){
+            var interpreter = "warm"
+        }
+        else if (avg >= 1 && avg < 2) {
+            var interpreter = "hot"
+        }
+        else if (avg >= 2 && avg < 3) {
+            var interpreter = "blazing"
+        }
+        else if (avg >= 3) {
+            var interpreter = "ON FIRE!"
+        }
+         else if (avg <= 0 && avg > -1) {
+            var interpreter = "cold"
+        }
+        else if (avg <= -1 && avg > -2) {
+            var interpreter = "freezing"
+        }
+        else  {
+            var interpreter = "FREEZER BURN!"
+        }
+
         $( ".katie-average-analyzing" ).hide();
         $('#katy-average').text(avg.toFixedDown(4));
+        $('#katy-interpreter').text(interpreter);
     })
 
     socket.on('levineScoreArray', function(levineScores) {
