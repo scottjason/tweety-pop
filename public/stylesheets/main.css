@@ -20,10 +20,10 @@ p {
     font-family: 'Poiret One', cursive;
     font-size: 3em;
     color: #3498db;
-    left: 140px;
+    left: 9%;
     position: absolute;
     display: inline-block;
-    top: -25px;
+    top: -3%;
     z-index: 4
 }
 #slogan {
@@ -31,9 +31,9 @@ p {
     font-size: 0.8em;
     display: inline-block;
     position: absolute;
-    top: 18px;
+    top: 2.7%;
     color: #1abc9c;
-    left: 385px;
+    left: 26.2%;
     z-index: 3;
 }
 .box {
