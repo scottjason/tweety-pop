@@ -34,16 +34,6 @@ var lovatoScores = [];
 // server.listen(port, function() {
 // console.log("Listening on " + port);
 // });
-
-// set database options
-var options = {
-  db: { native_parser: true },
-  server: { poolSize: 5 },
-  replset: { rs_name: 'myReplicaSetName' },
-  user: 'myUserName',
-  pass: 'myPassword'
-}
-
 // declare database connection options, enable keepAlive
 var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
@@ -89,7 +79,7 @@ tweet = new twitter({
 });
 
 // stream incoming tweets, write to database, emit to client
-io.sockets.on('connection', function(socket) {
+// io.sockets.on('connection', function(socket) {
   tweet.stream('statuses/filter', { "track": popTracker },
     function(stream) {
       stream.on('data', function(data) {
@@ -105,10 +95,9 @@ io.sockets.on('connection', function(socket) {
       })
     }
   });
-
+});
 
 // stream the database, emit to client
-
   var stream = Rating.find().stream();
   stream.on('data', function(doc)  {
       if (doc.popStar.indexOf('perry') != -1 && doc.tweetScore != 0)
@@ -214,7 +203,6 @@ io.sockets.on('connection', function(socket) {
     }).on('close', function () {
       console.log('database stream closed')
     });
-  });
-});
+  // });
 
 
