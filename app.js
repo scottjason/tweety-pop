@@ -10,7 +10,6 @@ var express = require('express'),
     sentiment = require('sentiment'),
     env = require('node-env-file'),
     mongoose = require('mongoose');
-    uriUtil = require('mongodb-uri');
 
 // declare artists
 var popTracker = [ "katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adele, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, imagine dragons, imagedragons" ];
@@ -71,7 +70,7 @@ tweet = new twitter({
 });
 
 // stream incoming tweets, write to database, emit to client
-// stream incoming tweets, write to database, emit to client
+io.sockets.on('connection', function() {
   tweet.stream('statuses/filter', { "track": popTracker },
     function(stream) {
       stream.on('data', function(data) {
@@ -86,6 +85,7 @@ tweet = new twitter({
           io.sockets.emit('message', newTweet, sentiment(newTweet).score);
       })
     }
+  });
 });
 
 // stream the database, emit to client
