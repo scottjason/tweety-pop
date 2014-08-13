@@ -84,7 +84,8 @@ tweet = new twitter({
 });
 
 // stream the database, emit to client
-var stream = Rating.find().stream();
+io.sockets.on('connection', function() {
+  var stream = Rating.find().stream();
   stream.on('data', function(doc)  {
       if (doc.popStar.indexOf('perry') != -1 && doc.tweetScore != 0)
     {
@@ -183,7 +184,12 @@ var stream = Rating.find().stream();
       self.resume()
     }
     else { console.log ('.. analyzing data stream ..') }
+
+    }).on('error', function (err) { { throw err }
+
+    }).on('close', function () {
+      console.log('database stream closed')
+    });
   });
 });
-
 
