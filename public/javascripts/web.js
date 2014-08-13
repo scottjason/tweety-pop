@@ -18,6 +18,7 @@ socket = io.connect()
             sum += parseInt(perryScores[i], 10);
         }
         var avg = sum / perryScores.length;
+        $( ".katie-average-analyzing" ).hide();
         $('#katy-average').text(avg.toFixedDown(4));
     })
 
