@@ -35,15 +35,14 @@ server.listen(port, function() {
 console.log("Listening on " + port);
 });
 
-// declare database connection options, enable keepAlive
+// initiate database connection
 var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
 
-var mongodbUri = "mongodb://heroku_app28424437:8imsdc9vn177u999bpjanfe2qv@ds033429.mongolab.com:33429/heroku_app28424437";
-var mongooseUri = uriUtil.formatMongoose(mongodbUri);
-
-mongoose.connect(mongooseUri, options);
-var conn = mongoose.connection;
+mongoose.connect("mongodb://heroku_app28424437:8imsdc9vn177u999bpjanfe2qv@ds033429.mongolab.com:33429/heroku_app28424437", options, function(err) {
+  if (err) { throw err }
+  else { console.log("Successfully initiated database connection") }
+});
 
 // create schema
 var tweetSchema = mongoose.Schema(
@@ -72,6 +71,7 @@ tweet = new twitter({
 });
 
 // stream incoming tweets, write to database, emit to client
+io.sockets.on('connection', function() {
   tweet.stream('statuses/filter', { "track": popTracker },
     function(stream) {
       stream.on('data', function(data) {
@@ -87,114 +87,114 @@ tweet = new twitter({
        })
      }
    });
-});
+ });
 
 // open and stream the database, emit to client
-io.sockets.on('connection', function() {
-  var stream = Rating.find().stream();
-  stream.on('data', function(doc)  {
-      if (doc.popStar.indexOf('perry') != -1 && doc.tweetScore != 0)
-    {
-      this.pause()
-      var self = this
-      perryScores.push(doc.tweetScore);
-      io.sockets.emit('perryScoreArray', perryScores);
-      self.resume()
-    }
-      else if (doc.popStar.indexOf('bieber') != -1 && doc.tweetScore != 0)
-    {
-      this.pause()
-      var self = this
-      bieberScores.push(doc.tweetScore);
-      io.sockets.emit('bieberScoreArray', bieberScores);
-      self.resume()
-    }
-      else if ((doc.popStar.indexOf('levine') != -1 || doc.popStar.indexOf('maroon') != -1) && doc.tweetScore != 0)
-    {
-      this.pause()
-      var self = this
-      levineScores.push(doc.tweetScore);
-      io.sockets.emit('levineScoreArray', levineScores);
-      self.resume()
-    }
-      else if (doc.popStar.indexOf('beyonce') != -1 && doc.tweetScore != 0)
-    {
-      this.pause()
-      var self = this
-      beyonceScores.push(doc.tweetScore);
-      io.sockets.emit('beyonceScoreArray', beyonceScores);
-      self.resume()
-    }
-    else if (doc.popStar.indexOf('rihanna') != -1 && doc.tweetScore != 0)
-    {
-      this.pause()
-      var self = this
-      rihannaScores.push(doc.tweetScore);
-      io.sockets.emit('rihannaScoreArray', rihannaScores);
-      self.resume()
-    }
-    else if (doc.popStar.indexOf('eminem') != -1 && doc.tweetScore != 0)
-    {
-      this.pause()
-      var self = this
-      eminemScores.push(doc.tweetScore);
-      io.sockets.emit('eminemScoreArray', eminemScores);
-      self.resume()
-    }
-    else if (doc.popStar.indexOf('miley') != -1 && doc.tweetScore != 0)
-    {
-      this.pause()
-      var self = this
-      mileyScores.push(doc.tweetScore);
-      io.sockets.emit('mileyScoreArray', mileyScores);
-      self.resume()
-    }
-    else if (doc.popStar.indexOf('bruno') != -1 && doc.tweetScore != 0)
-    {
-      this.pause()
-      var self = this
-      brunoScores.push(doc.tweetScore);
-      io.sockets.emit('brunoScoreArray', brunoScores);
-      self.resume()
-    }
-    else if (doc.popStar.indexOf('adele') != -1 && doc.tweetScore != 0)
-    {
-      this.pause()
-      var self = this
-      adeleScores.push(doc.tweetScore);
-      io.sockets.emit('adeleScoreArray', adeleScores);
-      self.resume()
-    }
-    else if (doc.popStar.indexOf('swift') != -1 && doc.tweetScore != 0)
-    {
-      this.pause()
-      var self = this
-      swiftScores.push(doc.tweetScore);
-      io.sockets.emit('swiftScoreArray', swiftScores);
-      self.resume()
-    }
-    else if (doc.popStar.indexOf('timberlake') != -1 && doc.tweetScore != 0)
-    {
-      this.pause()
-      var self = this
-      timberlakeScores.push(doc.tweetScore);
-      io.sockets.emit('timberlakeScoreArray', timberlakeScores);
-      self.resume()
-    }
-    else if (doc.popStar.indexOf('lovato') != -1 && doc.tweetScore != 0)
-    {
-      this.pause()
-      var self = this
-      lovatoScores.push(doc.tweetScore);
-      io.sockets.emit('lovatoScoreArray', lovatoScores);
-      self.resume()
-    }
-    else { console.log ('.. analyzing data stream ..') }
 
-    }).on('error', function (err) { { throw err }
+var stream = Rating.find().stream();
+stream.on('data', function(doc)  {
+    if (doc.popStar.indexOf('perry') != -1 && doc.tweetScore != 0)
+  {
+    this.pause()
+    var self = this
+    perryScores.push(doc.tweetScore);
+    io.sockets.emit('perryScoreArray', perryScores);
+    self.resume()
+  }
+    else if (doc.popStar.indexOf('bieber') != -1 && doc.tweetScore != 0)
+  {
+    this.pause()
+    var self = this
+    bieberScores.push(doc.tweetScore);
+    io.sockets.emit('bieberScoreArray', bieberScores);
+    self.resume()
+  }
+    else if ((doc.popStar.indexOf('levine') != -1 || doc.popStar.indexOf('maroon') != -1) && doc.tweetScore != 0)
+  {
+    this.pause()
+    var self = this
+    levineScores.push(doc.tweetScore);
+    io.sockets.emit('levineScoreArray', levineScores);
+    self.resume()
+  }
+    else if (doc.popStar.indexOf('beyonce') != -1 && doc.tweetScore != 0)
+  {
+    this.pause()
+    var self = this
+    beyonceScores.push(doc.tweetScore);
+    io.sockets.emit('beyonceScoreArray', beyonceScores);
+    self.resume()
+  }
+  else if (doc.popStar.indexOf('rihanna') != -1 && doc.tweetScore != 0)
+  {
+    this.pause()
+    var self = this
+    rihannaScores.push(doc.tweetScore);
+    io.sockets.emit('rihannaScoreArray', rihannaScores);
+    self.resume()
+  }
+  else if (doc.popStar.indexOf('eminem') != -1 && doc.tweetScore != 0)
+  {
+    this.pause()
+    var self = this
+    eminemScores.push(doc.tweetScore);
+    io.sockets.emit('eminemScoreArray', eminemScores);
+    self.resume()
+  }
+  else if (doc.popStar.indexOf('miley') != -1 && doc.tweetScore != 0)
+  {
+    this.pause()
+    var self = this
+    mileyScores.push(doc.tweetScore);
+    io.sockets.emit('mileyScoreArray', mileyScores);
+    self.resume()
+  }
+  else if (doc.popStar.indexOf('bruno') != -1 && doc.tweetScore != 0)
+  {
+    this.pause()
+    var self = this
+    brunoScores.push(doc.tweetScore);
+    io.sockets.emit('brunoScoreArray', brunoScores);
+    self.resume()
+  }
+  else if (doc.popStar.indexOf('adele') != -1 && doc.tweetScore != 0)
+  {
+    this.pause()
+    var self = this
+    adeleScores.push(doc.tweetScore);
+    io.sockets.emit('adeleScoreArray', adeleScores);
+    self.resume()
+  }
+  else if (doc.popStar.indexOf('swift') != -1 && doc.tweetScore != 0)
+  {
+    this.pause()
+    var self = this
+    swiftScores.push(doc.tweetScore);
+    io.sockets.emit('swiftScoreArray', swiftScores);
+    self.resume()
+  }
+  else if (doc.popStar.indexOf('timberlake') != -1 && doc.tweetScore != 0)
+  {
+    this.pause()
+    var self = this
+    timberlakeScores.push(doc.tweetScore);
+    io.sockets.emit('timberlakeScoreArray', timberlakeScores);
+    self.resume()
+  }
+  else if (doc.popStar.indexOf('lovato') != -1 && doc.tweetScore != 0)
+  {
+    this.pause()
+    var self = this
+    lovatoScores.push(doc.tweetScore);
+    io.sockets.emit('lovatoScoreArray', lovatoScores);
+    self.resume()
+  }
+  else { console.log ('.. analyzing data stream ..') }
 
-    }).on('close', function () {
-      console.log('database stream closed')
+  }).on('error', function (err) { { throw err }
+
+  }).on('close', function () {
+    console.log('database stream closed')
   });
 });
 
