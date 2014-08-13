@@ -122,7 +122,7 @@ setInterval(function() {
 hh = 0;
 setInterval(function() {
     hh = ++hh % 4;
-    $(".bruno-average-analyzing").html("waiting"+Array(hh+1).join("."));
+    $(".bruno-average-analyzing").html("analyzing"+Array(hh+1).join("."));
 }, 500);
 
 // ------------------------
@@ -138,7 +138,7 @@ setInterval(function() {
 ii = 0;
 setInterval(function() {
     ii = ++ii % 4;
-    $(".adele-average-analyzing").html("waiting"+Array(ii+1).join("."));
+    $(".adele-average-analyzing").html("analyzing"+Array(ii+1).join("."));
 }, 500);
 
 // ------------------------
@@ -154,7 +154,7 @@ setInterval(function() {
 jj = 0;
 setInterval(function() {
     jj = ++jj % 4;
-    $(".swift-average-analyzing").html("waiting"+Array(jj+1).join("."));
+    $(".swift-average-analyzing").html("analyzing"+Array(jj+1).join("."));
 }, 500);
 
 // ------------------------
@@ -170,7 +170,7 @@ setInterval(function() {
 kk = 0;
 setInterval(function() {
     kk = ++kk % 4;
-    $(".timberlake-average-analyzing").html("waiting"+Array(kk+1).join("."));
+    $(".timberlake-average-analyzing").html("analyzing"+Array(kk+1).join("."));
 }, 500);
 
 // ------------------------
@@ -186,5 +186,5 @@ setInterval(function() {
 ll = 0;
 setInterval(function() {
     ll = ++ll % 4;
-    $(".lovato-average-analyzing").html("waiting"+Array(ll+1).join("."));
+    $(".lovato-average-analyzing").html("analyzing"+Array(ll+1).join("."));
 }, 500);

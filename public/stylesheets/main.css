@@ -9,6 +9,7 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 table {
+    margin-top: 56px;
     text-align: center;
 }
 p {
@@ -19,20 +20,20 @@ p {
     font-family: 'Poiret One', cursive;
     font-size: 3em;
     color: #3498db;
-    margin-left: 160px;
-    position: relative;
-    display: inline;
-    top: 7px;
+    left: 140px;
+    position: absolute;
+    display: inline-block;
+    top: -25px;
     z-index: 4
 }
 #slogan {
     font-family: 'Open Sans', sans-serif;
     font-size: 0.8em;
-    display: inline;
+    display: inline-block;
     position: absolute;
-    top: 19px;
+    top: 18px;
     color: #1abc9c;
-    margin-left: 10px;
+    left: 385px;
     z-index: 3;
 }
 .box {
@@ -142,6 +143,13 @@ p {
     z-index: 5;
     display: inline;
 }
+#bieber-interpreter {
+    max-width: 250px;
+    color: #e67e22;
+    font-size: 0.8em;
+    z-index: 5;
+    display: inline;
+}
 .beyonce {
     max-width: 280px;
     text-align: center;
@@ -168,6 +176,13 @@ p {
 #beyonce-average {
     max-width: 250px;
     color: #3498db;
+    font-size: 0.8em;
+    z-index: 5;
+    display: inline;
+}
+#beyonce-interpreter {
+    max-width: 250px;
+    color: #e67e22;
     font-size: 0.8em;
     z-index: 5;
     display: inline;
@@ -202,6 +217,13 @@ p {
     z-index: 5;
     display: inline;
 }
+#timberlake-interpreter {
+    max-width: 250px;
+    color: #e67e22;
+    font-size: 0.8em;
+    z-index: 5;
+    display: inline;
+}
 .eminem {
     max-width: 280px;
     text-align: center;
@@ -228,6 +250,13 @@ p {
 #eminem-average {
     max-width: 250px;
     color: #3498db;
+    font-size: 0.8em;
+    z-index: 5;
+    display: inline;
+}
+#eminem-interpreter {
+    max-width: 250px;
+    color: #e67e22;
     font-size: 0.8em;
     z-index: 5;
     display: inline;
@@ -262,6 +291,13 @@ p {
     z-index: 5;
     display: inline;
 }
+#miley-interpreter {
+    max-width: 250px;
+    color: #e67e22;
+    font-size: 0.8em;
+    z-index: 5;
+    display: inline;
+}
 .rihanna {
     max-width: 280px;
     text-align: center;
@@ -288,6 +324,13 @@ p {
 #rihanna-average {
     max-width: 250px;
     color: #3498db;
+    font-size: 0.8em;
+    z-index: 5;
+    display: inline;
+}
+#rihanna-interpreter {
+    max-width: 250px;
+    color: #e67e22;
     font-size: 0.8em;
     z-index: 5;
     display: inline;
@@ -322,7 +365,14 @@ p {
     z-index: 5;
     display: inline;
 }
-.adele {
+#bruno-interpreter {
+    max-width: 250px;
+    color: #e67e22;
+    font-size: 0.8em;
+    z-index: 5;
+    display: inline;
+}
+.gaga {
     max-width: 280px;
     text-align: center;
     color: white;
@@ -331,23 +381,30 @@ p {
     position: absolute;
     margin-top: 80px;
 }
-#adele-pic {
+#gaga-pic {
     z-index: 0;
     position: relative;
     opacity: 0.3;
     width: 300px;
     height: 250px;
 }
-#adele-incoming {
+#gaga-incoming {
     max-width: 250px;
     color: #3498db;
     font-size: 0.8em;
     z-index: 5;
     display: inline;
 }
-#adele-average {
+#gaga-average {
     max-width: 250px;
     color: #3498db;
+    font-size: 0.8em;
+    z-index: 5;
+    display: inline;
+}
+#gaga-interpreter {
+    max-width: 250px;
+    color: #e67e22;
     font-size: 0.8em;
     z-index: 5;
     display: inline;
@@ -382,6 +439,13 @@ p {
     z-index: 5;
     display: inline;
 }
+#swift-interpreter {
+    max-width: 250px;
+    color: #e67e22;
+    font-size: 0.8em;
+    z-index: 5;
+    display: inline;
+}
 .levine {
     max-width: 280px;
     text-align: center;
@@ -412,6 +476,13 @@ p {
     z-index: 5;
     display: inline;
 }
+#levine-interpreter {
+    max-width: 250px;
+    color: #e67e22;
+    font-size: 0.8em;
+    z-index: 5;
+    display: inline;
+}
 .lovato {
     max-width: 280px;
     text-align: center;
@@ -438,6 +509,13 @@ p {
 #lovato-average {
     max-width: 250px;
     color: #3498db;
+    font-size: 0.8em;
+    z-index: 5;
+    display: inline;
+}
+#lovato-interpreter {
+    max-width: 250px;
+    color: #e67e22;
     font-size: 0.8em;
     z-index: 5;
     display: inline;
