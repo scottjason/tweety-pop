@@ -170,7 +170,7 @@ setInterval(function() {
 kk = 0;
 setInterval(function() {
     kk = ++kk % 4;
-    $(".swift-average-analyzing").html("waiting"+Array(kk+1).join("."));
+    $(".timberlake-average-analyzing").html("waiting"+Array(kk+1).join("."));
 }, 500);
 
 // ------------------------
@@ -186,5 +186,5 @@ setInterval(function() {
 ll = 0;
 setInterval(function() {
     ll = ++ll % 4;
-    $(".swift-average-analyzing").html("waiting"+Array(ll+1).join("."));
+    $(".lovato-average-analyzing").html("waiting"+Array(ll+1).join("."));
 }, 500);

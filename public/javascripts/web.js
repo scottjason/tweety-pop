@@ -51,6 +51,7 @@ socket = io.connect()
             sum += parseInt(bieberScores[i], 10);
         }
         var avg = sum / bieberScores.length;
+        $( ".bieber-average-analyzing" ).hide();
         $('#bieber-average').text(avg.toFixedDown(4));
     })
 
@@ -61,6 +62,7 @@ socket = io.connect()
             sum += parseInt(rihannaScores[i], 10);
         }
         var avg = sum / rihannaScores.length;
+        $( ".rihanna-average-analyzing" ).hide();
         $('#rihanna-average').text(avg.toFixedDown(4));
     })
 
@@ -71,6 +73,7 @@ socket = io.connect()
             sum += parseInt(eminemScores[i], 10);
         }
         var avg = sum / eminemScores.length;
+        $( ".eminem-average-analyzing" ).hide();
         $('#eminem-average').text(avg.toFixedDown(4));
     })
 
@@ -81,6 +84,7 @@ socket = io.connect()
             sum += parseInt(mileyScores[i], 10);
         }
         var avg = sum / mileyScores.length;
+        $( ".miley-average-analyzing" ).hide();
         $('#miley-average').text(avg.toFixedDown(4));
     })
 
@@ -91,6 +95,7 @@ socket = io.connect()
             sum += parseInt(brunoScores[i], 10);
         }
         var avg = sum / brunoScores.length;
+        $( ".bruno-average-analyzing" ).hide();
         $('#bruno-average').text(avg.toFixedDown(4));
     })
 
@@ -101,6 +106,7 @@ socket = io.connect()
             sum += parseInt(adeleScores[i], 10);
         }
         var avg = sum / adeleScores.length;
+        $( ".adele-average-analyzing" ).hide();
         $('#adele-average').text(avg.toFixedDown(4));
     })
 
@@ -111,6 +117,7 @@ socket = io.connect()
             sum += parseInt(swiftScores[i], 10);
         }
         var avg = sum / swiftScores.length;
+        $( ".swift-average-analyzing" ).hide();
         $('#swift-average').text(avg.toFixedDown(4));
     })
 
@@ -121,6 +128,7 @@ socket = io.connect()
             sum += parseInt(timberlakeScores[i], 10);
         }
         var avg = sum / timberlakeScores.length;
+        $( ".timberlake-average-analyzing" ).hide();
         $('#timberlake-average').text(avg.toFixedDown(4));
     })
 
@@ -131,6 +139,7 @@ socket = io.connect()
             sum += parseInt(lovatoScores[i], 10);
         }
         var avg = sum / lovatoScores.length;
+        $( ".lovato-average-analyzing" ).hide();
         $('#lovato-average').text(avg.toFixedDown(4));
     })
 
@@ -287,3 +296,4 @@ socket = io.connect()
            $(this).text(rating).fadeIn(3000);
         });
     }
+});
