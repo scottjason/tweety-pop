@@ -46,7 +46,7 @@ mongoose.connect("mongodb://heroku_app28424437:8imsdc9vn177u999bpjanfe2qv@ds0334
 // create schema
 var tweetSchema = mongoose.Schema(
     { popStar: { type: String }, tweetScore: { type: Number } },
-    { capped: { size: 3000000, max: 25000, autoIndexId: true } }
+    { capped: { size: 2000000, max: 10000, autoIndexId: true } }
 );
 
 // create model Rating and 'score' collection
@@ -79,15 +79,15 @@ tweet = new twitter({
       newTweet = decodeURIComponent(escape(foreignCharacters));
 
         if (data.id != null) {
-          var newScore = new Rating ( { popStar: newTweet, tweetScore: sentiment(newTweet).score } );
-          newScore.save(function(err) { if (err) { throw err }
+          // var newScore = new Rating ( { popStar: newTweet, tweetScore: sentiment(newTweet).score } );
+          // newScore.save(function(err) { if (err) { throw err }
           io.sockets.emit('message', newTweet, sentiment(newTweet).score);
      });
     }
   });
 });
 
-// // stream the database, emit to client
+// stream the database, emit to client
 io.sockets.on('connection', function() {
   var stream = Rating.find().stream();
   stream.on('data', function(doc)  {
