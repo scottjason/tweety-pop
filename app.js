@@ -10,6 +10,7 @@ var express = require('express'),
     sentiment = require('sentiment'),
     env = require('node-env-file'),
     mongoose = require('mongoose');
+    uriUtil = require('mongodb-uri');
 
 // declare artists
 var popTracker = [ "katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adele, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, imagine dragons, imagedragons" ];
@@ -29,15 +30,36 @@ var timberlakeScores = [];
 var lovatoScores = [];
 
 // initiate server connection
-var port = process.env.PORT || 3000;
-server.listen(port, function() {
-console.log("Listening on " + port);
-});
+// var port = process.env.PORT || 3000;
+// server.listen(port, function() {
+// console.log("Listening on " + port);
+// });
 
-// initiate database connection
-mongoose.connect("mongodb://heroku_app28424437:8imsdc9vn177u999bpjanfe2qv@ds033429.mongolab.com:33429/heroku_app28424437", function(err) {
-  if (err) { throw err }
-  else { console.log("Successfully initiated database connection") }
+// set database options
+var options = {
+  db: { native_parser: true },
+  server: { poolSize: 5 },
+  replset: { rs_name: 'myReplicaSetName' },
+  user: 'myUserName',
+  pass: 'myPassword'
+}
+
+// declare database connection options, enable keepAlive
+var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+                replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
+
+var mongodbUri = "mongodb://heroku_app28424437:8imsdc9vn177u999bpjanfe2qv@ds033429.mongolab.com:33429/heroku_app28424437";
+var mongooseUri = uriUtil.formatMongoose(mongodbUri);
+
+mongoose.connect(mongooseUri, options);
+var conn = mongoose.connection;
+
+
+conn.on('error', console.error.bind(console, 'connection error:'));
+
+// initiate database connection, then start app
+conn.once('open', function() { var port = process.env.PORT || 3000;
+server.listen( port, function() { console.log("Listening on " + port) } )
 });
 
 // create schema
@@ -67,6 +89,7 @@ tweet = new twitter({
 });
 
 // stream incoming tweets, write to database, emit to client
+io.sockets.on('connection', function(socket) {
   tweet.stream('statuses/filter', { "track": popTracker },
     function(stream) {
       stream.on('data', function(data) {
@@ -85,6 +108,7 @@ tweet = new twitter({
 
 
 // stream the database, emit to client
+
   var stream = Rating.find().stream();
   stream.on('data', function(doc)  {
       if (doc.popStar.indexOf('perry') != -1 && doc.tweetScore != 0)
@@ -189,6 +213,7 @@ tweet = new twitter({
 
     }).on('close', function () {
       console.log('database stream closed')
+    });
   });
 });
 
