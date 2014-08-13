@@ -48,7 +48,7 @@ var conn = mongoose.connection;
 // create schema
 var tweetSchema = mongoose.Schema(
     { popStar: { type: String }, tweetScore: { type: Number } },
-    { capped: { size: 5242880, max: 50000, autoIndexId: true } }
+    { capped: { size: 31457280, max: 150000, autoIndexId: true } }
 );
 
 // create model Rating and 'score' collection
@@ -82,8 +82,8 @@ tweet = new twitter({
       newTweet = decodeURIComponent(escape(foreignCharacters));
 
         if (newTweet != null) {
-          var newScore = new Rating ( { popStar: newTweet, tweetScore: sentiment(newTweet).score } );
-          newScore.save(function(err) { if (err) { throw err }
+          // var newScore = new Rating ( { popStar: newTweet, tweetScore: sentiment(newTweet).score } );
+          // newScore.save(function(err) { if (err) { throw err }
           io.sockets.emit('message', newTweet, sentiment(newTweet).score);
       })
     }
