@@ -70,7 +70,7 @@ tweet = new twitter({
 });
 
 // stream incoming tweets, write to database, emit to client
-io.sockets.on('connection', function() {
+
   tweet.stream('statuses/filter', { "track": popTracker },
     function(stream) {
       stream.on('data', function(data) {
@@ -89,6 +89,7 @@ io.sockets.on('connection', function() {
 
 
 // stream the database, emit to client
+io.sockets.on('connection', function() {
   var stream = Rating.find().stream();
   stream.on('data', function(doc)  {
       if (doc.popStar.indexOf('perry') != -1 && doc.tweetScore != 0)
