@@ -51,6 +51,7 @@ socket = io.connect()
             sum += parseInt(bieberScores[i], 10);
         }
         var avg = sum / bieberScores.length;
+        $( ".bieber-average-analyzing" ).hide();
         $('#bieber-average').text(avg.toFixedDown(4));
     })
 
@@ -61,6 +62,7 @@ socket = io.connect()
             sum += parseInt(rihannaScores[i], 10);
         }
         var avg = sum / rihannaScores.length;
+        $( ".rihanna-average-analyzing" ).hide();
         $('#rihanna-average').text(avg.toFixedDown(4));
     })
 
@@ -71,6 +73,7 @@ socket = io.connect()
             sum += parseInt(eminemScores[i], 10);
         }
         var avg = sum / eminemScores.length;
+        $( ".eminem-average-analyzing" ).hide();
         $('#eminem-average').text(avg.toFixedDown(4));
     })
 
@@ -81,6 +84,7 @@ socket = io.connect()
             sum += parseInt(mileyScores[i], 10);
         }
         var avg = sum / mileyScores.length;
+        $( ".miley-average-analyzing" ).hide();
         $('#miley-average').text(avg.toFixedDown(4));
     })
 
@@ -91,6 +95,7 @@ socket = io.connect()
             sum += parseInt(brunoScores[i], 10);
         }
         var avg = sum / brunoScores.length;
+        $( ".bruno-average-analyzing" ).hide();
         $('#bruno-average').text(avg.toFixedDown(4));
     })
 
@@ -101,6 +106,7 @@ socket = io.connect()
             sum += parseInt(adeleScores[i], 10);
         }
         var avg = sum / adeleScores.length;
+        $( ".adele-average-analyzing" ).hide();
         $('#adele-average').text(avg.toFixedDown(4));
     })
 
@@ -111,6 +117,7 @@ socket = io.connect()
             sum += parseInt(swiftScores[i], 10);
         }
         var avg = sum / swiftScores.length;
+        $( ".swift-average-analyzing" ).hide();
         $('#swift-average').text(avg.toFixedDown(4));
     })
 
@@ -121,6 +128,7 @@ socket = io.connect()
             sum += parseInt(timberlakeScores[i], 10);
         }
         var avg = sum / timberlakeScores.length;
+        $( ".timberlake-average-analyzing" ).hide();
         $('#timberlake-average').text(avg.toFixedDown(4));
     })
 
@@ -131,6 +139,7 @@ socket = io.connect()
             sum += parseInt(lovatoScores[i], 10);
         }
         var avg = sum / lovatoScores.length;
+        $( ".lovato-average-analyzing" ).hide();
         $('#lovato-average').text(avg.toFixedDown(4));
     })
 
@@ -179,6 +188,7 @@ socket = io.connect()
     }
 
     function renderTimberlake(tweet, rating) {
+        $( ".timberlake-score-loading" ).hide();
         $(".timberlake").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
@@ -188,6 +198,7 @@ socket = io.connect()
     }
 
     function renderBieber(tweet, rating) {
+        $( ".bieber-score-loading" ).hide();
         $(".bieber").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
@@ -207,6 +218,7 @@ socket = io.connect()
     }
 
     function renderEminem(tweet, rating) {
+        $( ".eminem-score-loading" ).hide();
         $(".eminem").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
@@ -216,6 +228,7 @@ socket = io.connect()
     }
 
     function renderMiley(tweet, rating) {
+        $( ".miley-score-loading" ).hide();
         $(".miley").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
@@ -225,6 +238,7 @@ socket = io.connect()
     }
 
     function renderRihanna(tweet, rating) {
+        $( ".rihanna-score-loading" ).hide();
         $(".rihanna").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
@@ -234,6 +248,7 @@ socket = io.connect()
     }
 
     function renderBruno(tweet, rating) {
+        $( ".bruno-score-loading" ).hide();
         $(".bruno").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
@@ -243,6 +258,7 @@ socket = io.connect()
     }
 
     function renderAdele(tweet, rating) {
+        $( ".adele-score-loading" ).hide();
         $(".adele").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
@@ -252,6 +268,7 @@ socket = io.connect()
     }
 
     function renderSwift(tweet, rating) {
+        $( ".swift-score-loading" ).hide();
         $(".swift").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
@@ -271,17 +288,12 @@ socket = io.connect()
     }
 
     function renderLovato(tweet, rating) {
+        $( ".lovato-score-loading" ).hide();
         $(".lovato").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
            $("#lovato-incoming").fadeOut(function() {
            $(this).text(rating).fadeIn(3000);
-        });
-    }
-
-    function renderDragon(tweet, rating) {
-        $(".dragon").fadeOut(function() {
-            $(this).text(tweet).fadeIn(3000);
         });
     }
 });
