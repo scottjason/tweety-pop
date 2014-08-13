@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="javascripts/web.js"></script>
+    <script type="text/javascript" src="javascripts/animation.js"></script>
 
     <title>"Tweety Pop"</title>
 </head>
@@ -24,7 +25,7 @@
         <img id='katy-pic' src="images/katyperry.png">
         <div class="stats-box">
         <p id='incoming-static'>incoming sentiment score :</p>
-        <p id='katy-incoming'></p>
+        <p id='katy-incoming'><a class="katy-score-loading"></a></p>
         <br>
         <p id='average-static'>average sentiment score :</p>
         <p id='katy-average'></p>

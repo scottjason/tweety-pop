@@ -7,8 +7,8 @@ $(document).ready(function() {
         return matchString ? parseFloat(matchString[1]) : this.valueOf();
     };
 
-    socket = io.connect()
-
+// initiate socket connection
+socket = io.connect()
 
 // logic and render for database stream subscribers
     socket.on('perryScoreArray', function(perryScores) {
@@ -166,6 +166,7 @@ $(document).ready(function() {
 
 // render for twitter stream subscribers
     function renderKatie(tweet, rating) {
+        $( ".katie-score-loading" ).hide();
         $(".katy").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
