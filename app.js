@@ -38,19 +38,19 @@ console.log("Listening on " + port);
 // var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
 //                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
 
-mongoose.connect("mongodb://heroku_app28424437:8imsdc9vn177u999bpjanfe2qv@ds033429.mongolab.com:33429/heroku_app28424437", function(err) {
-  if (err) { throw err }
-  else { console.log("Successfully initiated database connection") }
-});
+// mongoose.connect("mongodb://heroku_app28424437:8imsdc9vn177u999bpjanfe2qv@ds033429.mongolab.com:33429/heroku_app28424437", function(err) {
+//   if (err) { throw err }
+//   else { console.log("Successfully initiated database connection") }
+// });
 
 // create schema
-var tweetSchema = mongoose.Schema(
-    { popStar: { type: String }, tweetScore: { type: Number } },
-    { capped: { size: 31457280, max: 150000, autoIndexId: true } }
-);
+// var tweetSchema = mongoose.Schema(
+//     { popStar: { type: String }, tweetScore: { type: Number } },
+//     { capped: { size: 31457280, max: 150000, autoIndexId: true } }
+// );
 
 // create model Rating and 'score' collection
-var Rating = mongoose.model('score', tweetSchema);
+// var Rating = mongoose.model('score', tweetSchema);
 
 // declare public folder
 app.use('/', express.static(__dirname + '/public'));
@@ -83,7 +83,7 @@ tweet = new twitter({
           // var newScore = new Rating ( { popStar: newTweet, tweetScore: sentiment(newTweet).score } );
           // newScore.save(function(err) { if (err) { throw err }
           io.sockets.emit('message', data.text, sentiment(data.text).score);
-      })
+
     }
   });
 });
