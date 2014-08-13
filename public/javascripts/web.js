@@ -29,6 +29,7 @@ socket = io.connect()
             sum += parseInt(levineScores[i], 10);
         }
         var avg = sum / levineScores.length;
+        $( ".levine-average-analyzing" ).hide();
         $('#levine-average').text(avg.toFixedDown(4));
     })
 
@@ -39,6 +40,7 @@ socket = io.connect()
             sum += parseInt(beyonceScores[i], 10);
         }
         var avg = sum / beyonceScores.length;
+        $(".beyonce-average-analyzing").hide();
         $('#beyonce-average').text(avg.toFixedDown(4));
     })
 
@@ -195,6 +197,7 @@ socket = io.connect()
     }
 
     function renderBeyonce(tweet, rating) {
+        $( ".beyonce-score-loading" ).hide();
         $(".beyonce").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
@@ -258,6 +261,7 @@ socket = io.connect()
     }
 
     function renderLevine(tweet, rating) {
+        $( ".levine-score-loading" ).hide();
         $(".levine").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });

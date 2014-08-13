@@ -5,25 +5,47 @@ setInterval(function() {
     $(".katy-score-loading").html("waiting"+Array(a+1).join("."));
 }, 500);
 
+// katy average analyzing
 aa = 0;
 setInterval(function() {
     aa = ++aa % 4;
     $(".katy-average-analyzing").html("analyzing"+Array(aa+1).join("."));
 }, 500);
 
-// levine score loading
-// b = 0;
-// setInterval(function() {
-//     b = ++b % 4;
-//     $(".levine-score-loading").html("waiting"+Array(b+1).join("."));
-// }, 500);
+// ------------------------
 
-// // beyonce score loading
-// c = 0;
-// setInterval(function() {
-//     c = ++c % 4;
-//     $(".beyonce-score-loading").html("waiting"+Array(c+1).join("."));
-// }, 500);
+// levine score loading
+b = 0;
+setInterval(function() {
+    b = ++b % 4;
+    $(".levine-score-loading").html("waiting"+Array(b+1).join("."));
+}, 500);
+
+// levine average analyzing
+bb = 0;
+setInterval(function() {
+    bb = ++bb % 4;
+    $(".levine-average-analyzing").html("analyzing"+Array(bb+1).join("."));
+}, 500);
+
+// ------------------------
+
+// beyonce score loading
+c = 0;
+setInterval(function() {
+    c = ++c % 4;
+    $(".beyonce-score-loading").html("waiting"+Array(c+1).join("."));
+}, 500);
+
+// beyonce average analyzing
+
+cc = 0;
+setInterval(function() {
+    cc = ++cc % 4;
+    $(".beyonce-average-analyzing").html("analyzing"+Array(cc+1).join("."));
+}, 500);
+
+// ------------------------
 
 // // bieber score loading
 // d = 0;
