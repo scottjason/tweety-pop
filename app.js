@@ -67,7 +67,8 @@ tweet = new twitter({
 });
 
 // stream incoming tweets, write to database, emit to client
-io.sockets.on('connection', function() {
+io.sockets.on('connection', function(socket) {
+  console.log(socket)
   tweet.stream('statuses/filter', { "track": popTracker },
     function(stream) {
       stream.on('data', function(data) {
