@@ -72,7 +72,7 @@ tweet = new twitter({
 });
 
 // stream incoming tweets, write to database, emit to client
-// io.sockets.on('connection', function(socket) {
+io.sockets.on('connection', function() {
   tweet.stream('statuses/filter', { "track": popTracker },
     function(stream) {
       stream.on('data', function(data) {
@@ -85,13 +85,12 @@ tweet = new twitter({
           var newScore = new Rating ( { popStar: newTweet, tweetScore: sentiment(newTweet).score } );
           newScore.save(function(err) { if (err) { throw err }
           io.sockets.emit('message', newTweet, sentiment(newTweet).score);
-      })
-    }
+       })
+     }
+   });
   });
-});
 
 // open and stream the database, emit to client
-conn.once('open', function() {
   var stream = Rating.find().stream();
   stream.on('data', function(doc)  {
       if (doc.popStar.indexOf('perry') != -1 && doc.tweetScore != 0)
