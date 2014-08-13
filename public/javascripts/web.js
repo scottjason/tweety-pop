@@ -18,8 +18,32 @@ socket = io.connect()
             sum += parseInt(perryScores[i], 10);
         }
         var avg = sum / perryScores.length;
+
+        if (avg > 0 && avg < 1){
+            var interpreter = "warm"
+        }
+        else if (avg >= 1 && avg < 2) {
+            var interpreter = "hot"
+        }
+        else if (avg >= 2 && avg < 3) {
+            var interpreter = "blazing"
+        }
+        else if (avg >= 3) {
+            var interpreter = "ON FIRE!"
+        }
+         else if (avg <= 0 && avg > -1) {
+            var interpreter = "cold"
+        }
+        else if (avg <= -1 && avg > -2) {
+            var interpreter = "freezing"
+        }
+        else  {
+            var interpreter = "FREEZER BURN!"
+        }
+
         $( ".katie-average-analyzing" ).hide();
         $('#katy-average').text(avg.toFixedDown(4));
+        $('#katy-interpreter').text(interpreter);
     })
 
     socket.on('levineScoreArray', function(levineScores) {
@@ -29,8 +53,32 @@ socket = io.connect()
             sum += parseInt(levineScores[i], 10);
         }
         var avg = sum / levineScores.length;
+
+        if (avg > 0 && avg < 1){
+            var interpreter = "warm"
+        }
+        else if (avg >= 1 && avg < 2) {
+            var interpreter = "hot"
+        }
+        else if (avg >= 2 && avg < 3) {
+            var interpreter = "blazing"
+        }
+        else if (avg >= 3) {
+            var interpreter = "ON FIRE!"
+        }
+         else if (avg <= 0 && avg > -1) {
+            var interpreter = "cold"
+        }
+        else if (avg <= -1 && avg > -2) {
+            var interpreter = "freezing"
+        }
+        else  {
+            var interpreter = "FREEZER BURN!"
+        }
+
         $( ".levine-average-analyzing" ).hide();
         $('#levine-average').text(avg.toFixedDown(4));
+        $('#levine-interpreter').text(interpreter);
     })
 
     socket.on('beyonceScoreArray', function(beyonceScores) {
@@ -40,8 +88,32 @@ socket = io.connect()
             sum += parseInt(beyonceScores[i], 10);
         }
         var avg = sum / beyonceScores.length;
+
+        if (avg > 0 && avg < 1){
+            var interpreter = "warm"
+        }
+        else if (avg >= 1 && avg < 2) {
+            var interpreter = "hot"
+        }
+        else if (avg >= 2 && avg < 3) {
+            var interpreter = "blazing"
+        }
+        else if (avg >= 3) {
+            var interpreter = "ON FIRE!"
+        }
+         else if (avg <= 0 && avg > -1) {
+            var interpreter = "cold"
+        }
+        else if (avg <= -1 && avg > -2) {
+            var interpreter = "freezing"
+        }
+        else  {
+            var interpreter = "FREEZER BURN!"
+        }
+
         $(".beyonce-average-analyzing").hide();
         $('#beyonce-average').text(avg.toFixedDown(4));
+        $('#beyonce-interpreter').text(interpreter);
     })
 
     socket.on('bieberScoreArray', function(bieberScores) {
@@ -51,8 +123,31 @@ socket = io.connect()
             sum += parseInt(bieberScores[i], 10);
         }
         var avg = sum / bieberScores.length;
+
+        if (avg > 0 && avg < 1){
+            var interpreter = "warm"
+        }
+        else if (avg >= 1 && avg < 2) {
+            var interpreter = "hot"
+        }
+        else if (avg >= 2 && avg < 3) {
+            var interpreter = "blazing"
+        }
+        else if (avg >= 3) {
+            var interpreter = "ON FIRE!"
+        }
+         else if (avg <= 0 && avg > -1) {
+            var interpreter = "cold"
+        }
+        else if (avg <= -1 && avg > -2) {
+            var interpreter = "freezing"
+        }
+        else  {
+            var interpreter = "FREEZER BURN!"
+        }
         $( ".bieber-average-analyzing" ).hide();
         $('#bieber-average').text(avg.toFixedDown(4));
+        $('#bieber-interpreter').text(interpreter);
     })
 
     socket.on('rihannaScoreArray', function(rihannaScores) {
@@ -62,8 +157,31 @@ socket = io.connect()
             sum += parseInt(rihannaScores[i], 10);
         }
         var avg = sum / rihannaScores.length;
+
+         if (avg > 0 && avg < 1){
+            var interpreter = "warm"
+        }
+        else if (avg >= 1 && avg < 2) {
+            var interpreter = "hot"
+        }
+        else if (avg >= 2 && avg < 3) {
+            var interpreter = "blazing"
+        }
+        else if (avg >= 3) {
+            var interpreter = "ON FIRE!"
+        }
+         else if (avg <= 0 && avg > -1) {
+            var interpreter = "cold"
+        }
+        else if (avg <= -1 && avg > -2) {
+            var interpreter = "freezing"
+        }
+        else  {
+            var interpreter = "FREEZER BURN!"
+        }
         $( ".rihanna-average-analyzing" ).hide();
         $('#rihanna-average').text(avg.toFixedDown(4));
+        $('#rihanna-interpreter').text(interpreter);
     })
 
     socket.on('eminemScoreArray', function(eminemScores) {
@@ -73,8 +191,31 @@ socket = io.connect()
             sum += parseInt(eminemScores[i], 10);
         }
         var avg = sum / eminemScores.length;
+
+          if (avg > 0 && avg < 1){
+            var interpreter = "warm"
+        }
+        else if (avg >= 1 && avg < 2) {
+            var interpreter = "hot"
+        }
+        else if (avg >= 2 && avg < 3) {
+            var interpreter = "blazing"
+        }
+        else if (avg >= 3) {
+            var interpreter = "ON FIRE!"
+        }
+         else if (avg <= 0 && avg > -1) {
+            var interpreter = "cold"
+        }
+        else if (avg <= -1 && avg > -2) {
+            var interpreter = "freezing"
+        }
+        else  {
+            var interpreter = "FREEZER BURN!"
+        }
         $( ".eminem-average-analyzing" ).hide();
         $('#eminem-average').text(avg.toFixedDown(4));
+        $('#eminem-interpreter').text(interpreter);
     })
 
     socket.on('mileyScoreArray', function(mileyScores) {
@@ -84,8 +225,30 @@ socket = io.connect()
             sum += parseInt(mileyScores[i], 10);
         }
         var avg = sum / mileyScores.length;
+         if (avg > 0 && avg < 1){
+            var interpreter = "warm"
+        }
+        else if (avg >= 1 && avg < 2) {
+            var interpreter = "hot"
+        }
+        else if (avg >= 2 && avg < 3) {
+            var interpreter = "blazing"
+        }
+        else if (avg >= 3) {
+            var interpreter = "ON FIRE!"
+        }
+         else if (avg <= 0 && avg > -1) {
+            var interpreter = "cold"
+        }
+        else if (avg <= -1 && avg > -2) {
+            var interpreter = "freezing"
+        }
+        else  {
+            var interpreter = "FREEZER BURN!"
+        }
         $( ".miley-average-analyzing" ).hide();
         $('#miley-average').text(avg.toFixedDown(4));
+        $('#miley-interpreter').text(interpreter);
     })
 
      socket.on('brunoScoreArray', function(brunoScores) {
@@ -95,19 +258,64 @@ socket = io.connect()
             sum += parseInt(brunoScores[i], 10);
         }
         var avg = sum / brunoScores.length;
+
+        if (avg > 0 && avg < 1){
+            var interpreter = "warm"
+        }
+        else if (avg >= 1 && avg < 2) {
+            var interpreter = "hot"
+        }
+        else if (avg >= 2 && avg < 3) {
+            var interpreter = "blazing"
+        }
+        else if (avg >= 3) {
+            var interpreter = "ON FIRE!"
+        }
+         else if (avg <= 0 && avg > -1) {
+            var interpreter = "cold"
+        }
+        else if (avg <= -1 && avg > -2) {
+            var interpreter = "freezing"
+        }
+        else  {
+            var interpreter = "FREEZER BURN!"
+        }
         $( ".bruno-average-analyzing" ).hide();
         $('#bruno-average').text(avg.toFixedDown(4));
+        $('#bruno-interpreter').text(interpreter);
     })
 
-     socket.on('adeleScoreArray', function(adeleScores) {
+     socket.on('gagaScoreArray', function(gagaScores) {
         // sentiment average over time
         var sum = 0;
-        for (var i = 0; i < adeleScores.length; i++) {
-            sum += parseInt(adeleScores[i], 10);
+        for (var i = 0; i < gagaScores.length; i++) {
+            sum += parseInt(gagaScores[i], 10);
         }
-        var avg = sum / adeleScores.length;
-        $( ".adele-average-analyzing" ).hide();
-        $('#adele-average').text(avg.toFixedDown(4));
+        var avg = sum / gagaScores.length;
+        if (avg > 0 && avg < 1){
+            var interpreter = "warm"
+        }
+        else if (avg >= 1 && avg < 2) {
+            var interpreter = "hot"
+        }
+        else if (avg >= 2 && avg < 3) {
+            var interpreter = "blazing"
+        }
+        else if (avg >= 3) {
+            var interpreter = "ON FIRE!"
+        }
+         else if (avg <= 0 && avg > -1) {
+            var interpreter = "cold"
+        }
+        else if (avg <= -1 && avg > -2) {
+            var interpreter = "freezing"
+        }
+        else  {
+            var interpreter = "FREEZER BURN!"
+        }
+        $( ".gaga-average-analyzing" ).hide();
+        $('#gaga-average').text(avg.toFixedDown(4));
+        $('#gaga-interpreter').text(interpreter);
     })
 
     socket.on('swiftScoreArray', function(swiftScores) {
@@ -117,8 +325,30 @@ socket = io.connect()
             sum += parseInt(swiftScores[i], 10);
         }
         var avg = sum / swiftScores.length;
+         if (avg > 0 && avg < 1){
+            var interpreter = "warm"
+        }
+        else if (avg >= 1 && avg < 2) {
+            var interpreter = "hot"
+        }
+        else if (avg >= 2 && avg < 3) {
+            var interpreter = "blazing"
+        }
+        else if (avg >= 3) {
+            var interpreter = "ON FIRE!"
+        }
+         else if (avg <= 0 && avg > -1) {
+            var interpreter = "cold"
+        }
+        else if (avg <= -1 && avg > -2) {
+            var interpreter = "freezing"
+        }
+        else  {
+            var interpreter = "FREEZER BURN!"
+        }
         $( ".swift-average-analyzing" ).hide();
         $('#swift-average').text(avg.toFixedDown(4));
+        $('#swift-interpreter').text(interpreter);
     })
 
     socket.on('timberlakeScoreArray', function(timberlakeScores) {
@@ -128,8 +358,30 @@ socket = io.connect()
             sum += parseInt(timberlakeScores[i], 10);
         }
         var avg = sum / timberlakeScores.length;
+          if (avg > 0 && avg < 1){
+            var interpreter = "warm"
+        }
+        else if (avg >= 1 && avg < 2) {
+            var interpreter = "hot"
+        }
+        else if (avg >= 2 && avg < 3) {
+            var interpreter = "blazing"
+        }
+        else if (avg >= 3) {
+            var interpreter = "ON FIRE!"
+        }
+         else if (avg <= 0 && avg > -1) {
+            var interpreter = "cold"
+        }
+        else if (avg <= -1 && avg > -2) {
+            var interpreter = "freezing"
+        }
+        else  {
+            var interpreter = "FREEZER BURN!"
+        }
         $( ".timberlake-average-analyzing" ).hide();
         $('#timberlake-average').text(avg.toFixedDown(4));
+        $('#timberlake-interpreter').text(interpreter);
     })
 
     socket.on('lovatoScoreArray', function(lovatoScores) {
@@ -139,8 +391,30 @@ socket = io.connect()
             sum += parseInt(lovatoScores[i], 10);
         }
         var avg = sum / lovatoScores.length;
+          if (avg > 0 && avg < 1){
+            var interpreter = "warm"
+        }
+        else if (avg >= 1 && avg < 2) {
+            var interpreter = "hot"
+        }
+        else if (avg >= 2 && avg < 3) {
+            var interpreter = "blazing"
+        }
+        else if (avg >= 3) {
+            var interpreter = "ON FIRE!"
+        }
+         else if (avg <= 0 && avg > -1) {
+            var interpreter = "cold"
+        }
+        else if (avg <= -1 && avg > -2) {
+            var interpreter = "freezing"
+        }
+        else  {
+            var interpreter = "FREEZER BURN!"
+        }
         $( ".lovato-average-analyzing" ).hide();
         $('#lovato-average').text(avg.toFixedDown(4));
+        $('#lovato-interpreter').text(interpreter);
     })
 
 // logic for twitter stream subscribers
@@ -161,8 +435,8 @@ socket = io.connect()
             renderRihanna(tweet, rating);
         } else if (tweet.indexOf('bruno') != -1) {
             renderBruno(tweet, rating);
-        } else if (tweet.indexOf('adele') != -1) {
-            renderAdele(tweet, rating);
+        } else if (tweet.indexOf('gaga') != -1) {
+            renderGaga(tweet, rating);
         } else if (tweet.indexOf('swift') != -1) {
             renderSwift(tweet, rating);
         } else if (tweet.indexOf('levine') != -1 || tweet.indexOf('maroon') != -1) {
@@ -257,12 +531,12 @@ socket = io.connect()
         });
     }
 
-    function renderAdele(tweet, rating) {
-        $( ".adele-score-loading" ).hide();
-        $(".adele").fadeOut(function() {
+    function renderGaga(tweet, rating) {
+        $( ".gaga-score-loading" ).hide();
+        $(".gaga").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
-           $("#adele-incoming").fadeOut(function() {
+           $("#gaga-incoming").fadeOut(function() {
            $(this).text(rating).fadeIn(3000);
         });
     }
