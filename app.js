@@ -30,10 +30,11 @@ var timberlakeScores = [];
 var lovatoScores = [];
 
 // initiate server connection
-// var port = process.env.PORT || 3000;
-// server.listen(port, function() {
-// console.log("Listening on " + port);
-// });
+var port = process.env.PORT || 3000;
+server.listen(port, function() {
+console.log("Listening on " + port);
+});
+
 // declare database connection options, enable keepAlive
 var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
@@ -43,14 +44,6 @@ var mongooseUri = uriUtil.formatMongoose(mongodbUri);
 
 mongoose.connect(mongooseUri, options);
 var conn = mongoose.connection;
-
-
-conn.on('error', console.error.bind(console, 'connection error:'));
-
-// initiate database connection, then start app
-conn.once('open', function() { var port = process.env.PORT || 3000;
-server.listen( port, function() { console.log("Listening on " + port) } )
-});
 
 // create schema
 var tweetSchema = mongoose.Schema(
@@ -97,7 +90,8 @@ tweet = new twitter({
   });
 });
 
-// stream the database, emit to client
+// open and stream the database, emit to client
+conn.once('open', function() {
   var stream = Rating.find().stream();
   stream.on('data', function(doc)  {
       if (doc.popStar.indexOf('perry') != -1 && doc.tweetScore != 0)
@@ -202,7 +196,7 @@ tweet = new twitter({
 
     }).on('close', function () {
       console.log('database stream closed')
-    });
-  // });
+  });
+});
 
 
