@@ -6,6 +6,7 @@ var express = require('express'),
     io = require('socket.io').listen(server),
     twitter = require('twitter'),
     sentiment = require('sentiment'),
+    env = require('node-env-file'),
     mongoose = require('mongoose');
 
 // declare artists

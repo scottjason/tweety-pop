@@ -13,7 +13,7 @@
     "socket.io": "^1.0.6",
     "twitter": "^0.2.9",
     "newrelic": "*",
-    "dotenv": "0.4.0"
+    "node-env-file": "*"
   },
    "engines" : {
       "node" : "^0.10.30",
