@@ -88,7 +88,6 @@ tweet = new twitter({
       // go();
    });
   });
-// });
   reOpenDbStream();
       // stream the database, emit to client
       function reOpenDbStream(){
