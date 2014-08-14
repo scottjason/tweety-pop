@@ -91,99 +91,99 @@ io.sockets.on('connection', function() {
       streamdB.on('data', function(doc)  {
       if (doc.popStar.indexOf('perry') != -1 && doc.tweetScore != 0)
     {
-      // this.pause()
-      // var self = this
+      this.pause()
+      var self = this
       perryScores.push(doc.tweetScore);
       io.sockets.emit('perryScoreArray', perryScores);
-      // self.resume()
+      self.resume()
     }
       else if (doc.popStar.indexOf('bieber') != -1 && doc.tweetScore != 0)
     {
-      // this.pause()
-      // var self = this
+      this.pause()
+      var self = this
       bieberScores.push(doc.tweetScore);
       io.sockets.emit('bieberScoreArray', bieberScores);
-      // self.resume()
+      self.resume()
     }
       else if ((doc.popStar.indexOf('levine') != -1 || doc.popStar.indexOf('maroon') != -1) && doc.tweetScore != 0)
     {
-      // this.pause()
-      // var self = this
+      this.pause()
+      var self = this
       levineScores.push(doc.tweetScore);
       io.sockets.emit('levineScoreArray', levineScores);
-      // self.resume()
+      self.resume()
     }
       else if (doc.popStar.indexOf('beyonce') != -1 && doc.tweetScore != 0)
     {
-      // this.pause()
-      // var self = this
+      this.pause()
+      var self = this
       beyonceScores.push(doc.tweetScore);
       io.sockets.emit('beyonceScoreArray', beyonceScores);
-      // self.resume()
+      self.resume()
     }
     else if (doc.popStar.indexOf('rihanna') != -1 && doc.tweetScore != 0)
     {
-      // this.pause()
-      // var self = this
+      this.pause()
+      var self = this
       rihannaScores.push(doc.tweetScore);
       io.sockets.emit('rihannaScoreArray', rihannaScores);
-      // self.resume()
+      self.resume()
     }
     else if (doc.popStar.indexOf('eminem') != -1 && doc.tweetScore != 0)
     {
-      // this.pause()
-      // var self = this
+      this.pause()
+      var self = this
       eminemScores.push(doc.tweetScore);
       io.sockets.emit('eminemScoreArray', eminemScores);
-      // self.resume()
+      self.resume()
     }
     else if (doc.popStar.indexOf('miley') != -1 && doc.tweetScore != 0)
     {
-      // this.pause()
-      // var self = this
+      this.pause()
+      var self = this
       mileyScores.push(doc.tweetScore);
       io.sockets.emit('mileyScoreArray', mileyScores);
-      // self.resume()
+      self.resume()
     }
     else if (doc.popStar.indexOf('bruno') != -1 && doc.tweetScore != 0)
     {
-      // this.pause()
-      // var self = this
+      this.pause()
+      var self = this
       brunoScores.push(doc.tweetScore);
       io.sockets.emit('brunoScoreArray', brunoScores);
-      // self.resume()
+      self.resume()
     }
     else if (doc.popStar.indexOf('gaga') != -1 && doc.tweetScore != 0)
     {
-      // this.pause()
-      // var self = this
+      this.pause()
+      var self = this
       gagaScores.push(doc.tweetScore);
       io.sockets.emit('gagaScoreArray', gagaScores);
-      // self.resume()
+      self.resume()
     }
     else if (doc.popStar.indexOf('swift') != -1 && doc.tweetScore != 0)
     {
-      // this.pause()
-      // var self = this
+      this.pause()
+      var self = this
       swiftScores.push(doc.tweetScore);
       io.sockets.emit('swiftScoreArray', swiftScores);
-      // self.resume()
+      self.resume()
     }
     else if (doc.popStar.indexOf('timberlake') != -1 && doc.tweetScore != 0)
     {
-      // this.pause()
-      // var self = this
+      this.pause()
+      var self = this
       timberlakeScores.push(doc.tweetScore);
       io.sockets.emit('timberlakeScoreArray', timberlakeScores);
-      // self.resume()
+      self.resume()
     }
     else if (doc.popStar.indexOf('lovato') != -1 && doc.tweetScore != 0)
     {
-      // this.pause()
-      // var self = this
+      this.pause()
+      var self = this
       lovatoScores.push(doc.tweetScore);
       io.sockets.emit('lovatoScoreArray', lovatoScores);
-      // self.resume()
+      self.resume()
     }
     else { console.log ('.. analyzing data stream ..') }
 
