@@ -85,7 +85,9 @@ tweet = new twitter({
    });
 });
 
-OpenDbStream();
+// stream the database, emit to client
+io.sockets.on('connection', function() {
+      OpenDbStream();
       function OpenDbStream(){
       var streamdB = Rating.find().stream();
       streamdB.on('data', function(doc)  {
@@ -194,9 +196,6 @@ OpenDbStream();
         OpenDbStream();
     });
   }
-// stream the database, emit to client
-// io.sockets.on('connection', function() {
-
-// });
+});
 
 
