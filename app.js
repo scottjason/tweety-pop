@@ -9,7 +9,11 @@ var express = require('express'),
     twitter = require('twitter'),
     sentiment = require('sentiment'),
     env = require('node-env-file'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    dotenv = require('dotenv');
+
+// load environment variables
+dotenv.load();
 
 // declare artists
 var popTracker = [ "katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, lady gaga" ];
