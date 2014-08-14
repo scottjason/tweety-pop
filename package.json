@@ -14,8 +14,7 @@
     "sentiment": "^1.0.1",
     "socket.io": "^1.0.6",
     "twitter": "^0.2.9",
-    "newrelic": "*",
-    "longjohn": "*"
+    "newrelic": "*"
   },
    "engines" : {
       "node" : "^0.10.30",

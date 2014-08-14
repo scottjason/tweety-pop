@@ -1,6 +1,5 @@
 // require modules
 require('newrelic')
-longjohn = require('longjohn');
 var Array = require('node-array');
 var express = require('express'),
     app = express(),
@@ -12,7 +11,6 @@ var express = require('express'),
     mongoose = require('mongoose');
 
 
-longjohn.async_trace_limit = 5;
 
 // declare artists
 var popTracker = [ "katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, lady gaga" ];
@@ -86,11 +84,10 @@ io.sockets.on('connection', function() {
       var newScore = new Rating ( { popStar: newTweet, tweetScore: sentiment(newTweet).score } )
       newScore.save(function(err) { if (err) { throw err } } )
       io.sockets.emit('message', newTweet, sentiment(newTweet).score) }
-
+  });
       // stream the database, emit to client
       var stream = Rating.find().stream();
       stream.on('data', function(doc)  {
-        doc = new Rating(doc)
       if (doc.popStar.indexOf('perry') != -1 && doc.tweetScore != 0)
     {
       this.pause()
@@ -195,5 +192,5 @@ io.sockets.on('connection', function() {
       console.log('database stream closed')
     });
    });
-  });
+
 });
