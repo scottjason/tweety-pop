@@ -9,18 +9,28 @@
     <link rel="stylesheet" type="text/css" href="node_modules/normalizecss/normalize.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
     <script src="/socket.io/socket.io.js"></script>
+
     <script type="text/javascript" src="javascripts/web.js"></script>
     <script type="text/javascript" src="javascripts/animation.js"></script>
+    <script type="text/javascript" src="javascripts/about.js"></script>
 
     <title>"Tweety Pop"</title>
 </head>
 
 <body>
+
   <div class="clearfix">
   <div id="tweet-pop"><h4>tweety pop</h4></div>
   <div id="slogan"><p>( ( streaming live from the twitterverse ) )</p></div>
 </div>
 
+<!-- Button that triggers the popup -->
+    <button id="about">POP IT UP</button>
+<!-- Element to pop up -->
+    <div id="element_to_pop_up">
+    <a class="b-close">x<a/>
+    Content of popup
+    </div>
 
     <table align="center" width="400" border="1" cellspacing="0" cellpadding="0">
 

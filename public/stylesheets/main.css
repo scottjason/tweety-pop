@@ -16,10 +16,22 @@ p {
     padding-left: 5px;
     padding-right: 5px;
 }
-#tile-slogan-container{
-
+#element_to_pop_up {
+    background-color:#fff;
+    border-radius:15px;
+    color:#000;
+    display:none;
+    padding:20px;
+    min-width:400px;
+    min-height: 180px;
 }
-#tweet-pop {
+.b-close{
+    cursor:pointer;
+    position:absolute;
+    right:10px;
+    top:5px;
+}
+#tile-slogan-container {} #tweet-pop {
     font-family: 'Poiret One', cursive;
     font-size: 3em;
     color: #3498db;

@@ -61,12 +61,13 @@ app.get('/', function(req, res) {
     search = req.query || "";
 });
 
+env('.env')
 // twitter authorization
 tweet = new twitter({
-    consumer_key: "Qz8vqLjcmgxOjhUpwd3hD2ZCw",
-    consumer_secret: "vRSxeLjj2pddubDxkpaZ1bqsonC0SrWsx9xMaBw91U2P8N42J2",
-    access_token_key: "195177239-1NI8bL9utZ2MnNXowy607mYLABlH83gp4k9TAgrA",
-    access_token_secret: "ZVusxwm9y4aJCnvtx3MHj7148REZikXyySeZURZsLUVGz"
+    consumer_key: process.env.consumer_key,
+    consumer_secret: process.env.consumer_secret,
+    access_token_key: process.env.access_token_key,
+    access_token_secret: process.env.access_token_secret
 });
 
 // stream incoming tweets, write to database, emit to client
