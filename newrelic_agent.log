@@ -56,3 +56,9 @@
 {"name":"newrelic","hostname":"Scotts-MacBook-Pro.local","pid":34315,"level":30,"msg":"Starting New Relic for Node.js connection process.","time":"2014-08-13T02:54:32.669Z","v":0}
 {"name":"newrelic","hostname":"Scotts-MacBook-Pro.local","pid":34315,"component":"new_relic_response","level":30,"msg":"Reporting to: https://rpm.newrelic.com/accounts/739981/applications/10651955","time":"2014-08-13T02:54:34.140Z","v":0}
 {"name":"newrelic","hostname":"Scotts-MacBook-Pro.local","pid":34315,"component":"collector_api","level":30,"msg":"Connected to collector-102.newrelic.com:443 with agent run ID 1443176327.","time":"2014-08-13T02:54:34.140Z","v":0}
+{"name":"newrelic","hostname":"Scotts-MacBook-Pro.local","pid":4628,"level":30,"msg":"Starting New Relic for Node.js connection process.","time":"2014-08-14T11:51:33.303Z","v":0}
+{"name":"newrelic","hostname":"Scotts-MacBook-Pro.local","pid":4628,"component":"new_relic_response","level":30,"msg":"Reporting to: https://rpm.newrelic.com/accounts/739981/applications/10651955","time":"2014-08-14T11:51:34.564Z","v":0}
+{"name":"newrelic","hostname":"Scotts-MacBook-Pro.local","pid":4628,"component":"collector_api","level":30,"msg":"Connected to collector-102.newrelic.com:443 with agent run ID 1452718446.","time":"2014-08-14T11:51:34.565Z","v":0}
+{"name":"newrelic","hostname":"Scotts-MacBook-Pro.local","pid":4637,"level":30,"msg":"Starting New Relic for Node.js connection process.","time":"2014-08-14T11:52:36.776Z","v":0}
+{"name":"newrelic","hostname":"Scotts-MacBook-Pro.local","pid":4637,"component":"new_relic_response","level":30,"msg":"Reporting to: https://rpm.newrelic.com/accounts/739981/applications/10651955","time":"2014-08-14T11:52:38.123Z","v":0}
+{"name":"newrelic","hostname":"Scotts-MacBook-Pro.local","pid":4637,"component":"collector_api","level":30,"msg":"Connected to collector-102.newrelic.com:443 with agent run ID 1452723700.","time":"2014-08-14T11:52:38.124Z","v":0}
