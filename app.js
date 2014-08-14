@@ -1,6 +1,6 @@
 // require modules
 require('newrelic')
-
+var dotenv = require('dotenv');
 var Array = require('node-array');
 var express = require('express'),
     app = express(),
@@ -9,8 +9,7 @@ var express = require('express'),
     twitter = require('twitter'),
     sentiment = require('sentiment'),
     env = require('node-env-file'),
-    mongoose = require('mongoose'),
-    dotenv = require('dotenv');
+    mongoose = require('mongoose');
 
 // load environment variables
 dotenv.load();
