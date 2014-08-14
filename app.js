@@ -1,6 +1,6 @@
 // require modules
-longjohn = require('newrelic')
-require('longjohn');
+require('newrelic')
+longjohn = require('longjohn');
 var Array = require('node-array');
 var express = require('express'),
     app = express(),
