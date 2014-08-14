@@ -11,7 +11,7 @@ var express = require('express'),
     mongoose = require('mongoose');
 
 // declare artists
-var popTracker = [ "katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, lady gaga" ];
+var popTracker = [ "katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adam levine, adamlevine, maroon 5, kayne west, miley cyrus, rihanna, demi lovato, lady gaga" ];
 
 // declare artist score arrays
 var perryScores = [];
@@ -21,7 +21,7 @@ var bieberScores = [];
 var rihannaScores = [];
 var eminemScores = [];
 var mileyScores = [];
-var brunoScores = [];
+var kanyeScores = [];
 var gagaScores = [];
 var swiftScores = [];
 var timberlakeScores = [];
@@ -147,12 +147,12 @@ io.sockets.on('connection', function() {
       io.sockets.emit('mileyScoreArray', mileyScores);
       self.resume()
     }
-    else if (doc.popStar.indexOf('bruno') != -1 && doc.tweetScore != 0)
+    else if (doc.popStar.indexOf('kanye') != -1 && doc.tweetScore != 0)
     {
       this.pause()
       var self = this
-      brunoScores.push(doc.tweetScore);
-      io.sockets.emit('brunoScoreArray', brunoScores);
+      kanyeScores.push(doc.tweetScore);
+      io.sockets.emit('kanyeScoreArray', kanyeScores);
       self.resume()
     }
     else if (doc.popStar.indexOf('gaga') != -1 && doc.tweetScore != 0)

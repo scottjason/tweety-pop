@@ -251,13 +251,13 @@ socket = io.connect()
         $('#miley-interpreter').text(interpreter);
     })
 
-     socket.on('brunoScoreArray', function(brunoScores) {
+     socket.on('kanyeScoreArray', function(kanyeScores) {
         // sentiment average over time
         var sum = 0;
-        for (var i = 0; i < brunoScores.length; i++) {
-            sum += parseInt(brunoScores[i], 10);
+        for (var i = 0; i < kanyeScores.length; i++) {
+            sum += parseInt(kanyeScores[i], 10);
         }
-        var avg = sum / brunoScores.length;
+        var avg = sum / kanyeScores.length;
 
         if (avg > 0 && avg < 1){
             var interpreter = "warm"
@@ -280,9 +280,9 @@ socket = io.connect()
         else  {
             var interpreter = "FREEZER BURN!"
         }
-        $( ".bruno-average-analyzing" ).hide();
-        $('#bruno-average').text(avg.toFixedDown(4));
-        $('#bruno-interpreter').text(interpreter);
+        $( ".kanye-average-analyzing" ).hide();
+        $('#kanye-average').text(avg.toFixedDown(4));
+        $('#kanye-interpreter').text(interpreter);
     })
 
      socket.on('gagaScoreArray', function(gagaScores) {
@@ -433,8 +433,8 @@ socket = io.connect()
             renderMiley(tweet, rating);
         } else if (tweet.indexOf('rihanna') != -1) {
             renderRihanna(tweet, rating);
-        } else if (tweet.indexOf('bruno') != -1) {
-            renderBruno(tweet, rating);
+        } else if (tweet.indexOf('kanye') != -1) {
+            renderKanye(tweet, rating);
         } else if (tweet.indexOf('gaga') != -1) {
             renderGaga(tweet, rating);
         } else if (tweet.indexOf('swift') != -1) {
@@ -521,12 +521,12 @@ socket = io.connect()
         });
     }
 
-    function renderBruno(tweet, rating) {
-        $( ".bruno-score-loading" ).hide();
-        $(".bruno").fadeOut(function() {
+    function renderKanye(tweet, rating) {
+        $( ".kanye-score-loading" ).hide();
+        $(".kanye").fadeOut(function() {
             $(this).text(tweet).fadeIn(3000);
         });
-           $("#bruno-incoming").fadeOut(function() {
+           $("#kanye-incoming").fadeOut(function() {
            $(this).text(rating).fadeIn(3000);
         });
     }

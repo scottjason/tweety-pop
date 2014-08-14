@@ -111,18 +111,18 @@ setInterval(function() {
 
 // ------------------------
 
-// bruno score loading
+// kanye score loading
 h = 0;
 setInterval(function() {
     h = ++h % 4;
-    $(".bruno-score-loading").html("waiting"+Array(h+1).join("."));
+    $(".kanye-score-loading").html("waiting"+Array(h+1).join("."));
 }, 500);
 
-// bruno average analyzing
+// kanye average analyzing
 hh = 0;
 setInterval(function() {
     hh = ++hh % 4;
-    $(".bruno-average-analyzing").html("analyzing"+Array(hh+1).join("."));
+    $(".kanye-average-analyzing").html("analyzing"+Array(hh+1).join("."));
 }, 500);
 
 // ------------------------
