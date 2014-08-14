@@ -39,7 +39,7 @@ var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000
                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
 
 env('.env')
-mongoose.connect(process.env.mongo_URI, function(err) {
+mongoose.connect(mongo_URI, function(err) {
   if (err) { throw err }
   else { console.log("Successfully initiated database connection") }
 });
