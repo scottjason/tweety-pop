@@ -42,7 +42,6 @@ mongoose.connect("mongodb://heroku_app28482092:tj98slsjoiakhud0ok64qm016a@ds0335
   if (err) { throw err }
   else { console.log("Successfully initiated database connection") }
 });
-  mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/heroku_app28482092
 
 // create schema
 var tweetSchema = mongoose.Schema(
