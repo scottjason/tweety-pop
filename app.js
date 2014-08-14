@@ -10,8 +10,6 @@ var express = require('express'),
     env = require('node-env-file'),
     mongoose = require('mongoose');
 
-
-
 // declare artists
 var popTracker = [ "katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, lady gaga" ];
 
@@ -71,7 +69,6 @@ tweet = new twitter({
 });
 
 // stream incoming tweets, write to database, emit to client
-
   tweet.stream('statuses/filter', { "track": popTracker },
     function(stream) {
       stream.on('data', function(data) {
@@ -85,14 +82,13 @@ tweet = new twitter({
       var newScore = new Rating ( { popStar: newTweet, tweetScore: sentiment(newTweet).score } );
       newScore.save(function(err) { if (err) { throw err } })
       io.sockets.emit('message', newTweet, sentiment(newTweet).score) }
-      // go();
    });
-  });
+});
 
+// stream the database, emit to client
 io.sockets.on('connection', function() {
-      // stream the database, emit to client
-      reOpenDbStream();
-      function reOpenDbStream(){
+      OpenDbStream();
+      function OpenDbStream(){
       var streamdB = Rating.find().stream();
       streamdB.on('data', function(doc)  {
       if (doc.popStar.indexOf('perry') != -1 && doc.tweetScore != 0)
@@ -197,9 +193,9 @@ io.sockets.on('connection', function() {
 
     }).on('close', function () {
       console.log('database stream closed')
-        reOpenDbStream();
+        OpenDbStream();
     });
   }
-      });
+});
 
 

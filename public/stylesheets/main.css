@@ -9,17 +9,46 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 table {
-    margin-top: 56px;
+    /*margin-top: 6px;*/
     text-align: center;
 }
 p {
     padding-left: 5px;
     padding-right: 5px;
 }
-#tile-slogan-container{
-
+a {
+    text-decoration: none;
+    color: #3498DB;
 }
-#tweet-pop {
+#logo {
+    font-family: 'Poiret One', cursive;
+    font-size: 3em!important;
+    display: block;
+    z-index: 1;
+    top: -50px;
+    margin-left: 130px;
+    position: relative;
+}
+#slogan {
+    top: 26px;
+    color: #1ABC9C;
+    text-align: right;
+    left: 380px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.8em!important;
+    display: inline-block;
+    position: fixed;
+}
+.top_block {
+    width: 100%;
+    display: block;
+    background-color: #000!important;
+}
+.header {
+    width: 100%;
+    height: 0px;
+}
+/*#tweet-pop {
     font-family: 'Poiret One', cursive;
     font-size: 3em;
     color: #3498db;
@@ -40,7 +69,8 @@ p {
     left: 26.2%;
     z-index: 3;
     float: right;
-}
+}*/
+
 .box {
     width: 300px;
     height: 331px;
