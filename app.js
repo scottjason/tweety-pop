@@ -83,10 +83,10 @@ tweet = new twitter({
       newScore.save(function(err) { if (err) { throw err } })
       io.sockets.emit('message', newTweet, sentiment(newTweet).score) }
    });
-  });
+});
 
+// stream the database, emit to client
 io.sockets.on('connection', function() {
-      // stream the database, emit to client
       OpenDbStream();
       function OpenDbStream(){
       var streamdB = Rating.find().stream();
