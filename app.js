@@ -1,18 +1,12 @@
 // require modules
 require('newrelic')
-var dotenv = require('dotenv');
-var Array = require('node-array');
 var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
     twitter = require('twitter'),
     sentiment = require('sentiment'),
-    env = require('node-env-file'),
     mongoose = require('mongoose');
-
-// load environment variables
-dotenv.load();
 
 // declare artists
 var popTracker = [ "katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, lady gaga" ];
@@ -41,8 +35,8 @@ console.log("Listening on " + port);
 var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
 
-// env('.env')
-mongoose.connect(process.env.MONGO_URI, function(err) {
+
+mongoose.connect("mongodb://heroku_app28424437:8imsdc9vn177u999bpjanfe2qv@ds033429.mongolab.com:33429/heroku_app28424437", function(err) {
   if (err) { throw err }
   else { console.log("Successfully initiated database connection") }
 });
@@ -67,10 +61,10 @@ app.get('/', function(req, res) {
 
 // twitter authorization
 tweet = new twitter({
-    consumer_key: process.env.consumer_key,
-    consumer_secret: process.env.consumer_secret,
-    access_token_key: process.env.access_token_key,
-    access_token_secret: process.env.access_token_secret
+consumer_key: "Qz8vqLjcmgxOjhUpwd3hD2ZCw",
+consumer_secret: "vRSxeLjj2pddubDxkpaZ1bqsonC0SrWsx9xMaBw91U2P8N42J2",
+access_token_key: "195177239-1NI8bL9utZ2MnNXowy607mYLABlH83gp4k9TAgrA",
+access_token_secret: "ZVusxwm9y4aJCnvtx3MHj7148REZikXyySeZURZsLUVGz",
 });
 
 // stream incoming tweets, write to database, emit to client
