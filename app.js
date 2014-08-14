@@ -83,9 +83,13 @@ io.sockets.on('connection', function() {
       var newScore = new Rating ( { popStar: newTweet, tweetScore: sentiment(newTweet).score } );
       newScore.save(function(err) { if (err) { throw err } })
       io.sockets.emit('message', newTweet, sentiment(newTweet).score) }
+    });
    });
+  }).on('error', function (err) { { throw err }
+  }).on('close', function () {
+      console.log('twitter stream closed')
 });
-});
+
 
 // stream the database, emit to client
 io.sockets.on('connection', function() {
