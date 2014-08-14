@@ -84,10 +84,10 @@ io.sockets.on('connection', function() {
       var newScore = new Rating ( { popStar: newTweet, tweetScore: sentiment(newTweet).score } )
       newScore.save(function(err) { if (err) { throw err } } )
       io.sockets.emit('message', newTweet, sentiment(newTweet).score) }
-  });
+
       // stream the database, emit to client
-      var stream = Rating.find().stream();
-      stream.on('data', function(doc)  {
+      var streamdB = Rating.find().stream();
+      streamdB.on('data', function(doc)  {
       if (doc.popStar.indexOf('perry') != -1 && doc.tweetScore != 0)
     {
       this.pause()
@@ -192,5 +192,5 @@ io.sockets.on('connection', function() {
       console.log('database stream closed')
     });
    });
-
+  });
 });
