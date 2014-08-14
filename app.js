@@ -69,6 +69,7 @@ tweet = new twitter({
 });
 
 // stream incoming tweets, write to database, emit to client
+io.sockets.on('connection', function() {
   tweet.stream('statuses/filter', { "track": popTracker },
     function(stream) {
       stream.on('data', function(data) {
@@ -83,6 +84,7 @@ tweet = new twitter({
       newScore.save(function(err) { if (err) { throw err } })
       io.sockets.emit('message', newTweet, sentiment(newTweet).score) }
    });
+});
 });
 
 // stream the database, emit to client
