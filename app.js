@@ -41,7 +41,7 @@ console.log("Listening on " + port);
 var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
 
-env('.env')
+// env('.env')
 mongoose.connect(process.env.MONGO_URI, function(err) {
   if (err) { throw err }
   else { console.log("Successfully initiated database connection") }
