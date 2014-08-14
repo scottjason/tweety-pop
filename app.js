@@ -38,10 +38,11 @@ console.log("Listening on " + port);
 var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
                 replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
 
-mongoose.connect("mongodb://heroku_app28424437:8imsdc9vn177u999bpjanfe2qv@ds033429.mongolab.com:33429/heroku_app28424437", function(err) {
+mongoose.connect("mongodb://heroku_app28482092:tj98slsjoiakhud0ok64qm016a@ds033559.mongolab.com:33559/heroku_app28482092", function(err) {
   if (err) { throw err }
   else { console.log("Successfully initiated database connection") }
 });
+  mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/heroku_app28482092
 
 // create schema
 var tweetSchema = mongoose.Schema(
