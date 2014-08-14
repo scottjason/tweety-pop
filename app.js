@@ -85,7 +85,8 @@ io.sockets.on('connection', function() {
       var newScore = new Rating ( { popStar: newTweet, tweetScore: sentiment(newTweet).score } );
       newScore.save(function(err) { if (err) { throw err } })
       io.sockets.emit('message', newTweet, sentiment(newTweet).score) }
-
+  });
+});
       // stream the database, emit to client
       var streamdB = Rating.find().stream();
       streamdB.on('data', function(doc)  {
@@ -193,5 +194,4 @@ io.sockets.on('connection', function() {
       console.log('database stream closed')
     });
    });
-  });
-});
+
