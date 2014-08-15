@@ -9,7 +9,6 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 table {
-    /*margin-top: 6px;*/
     text-align: center;
 }
 p {
@@ -23,30 +22,25 @@ a {
 #logo {
     font-family: 'Poiret One', cursive;
     font-size: 3em!important;
-    display: block;
-    z-index: 1;
-    top: -50px;
-    margin-left: 10%;
+    left: 9%;
+    display: inline-block;
     position: relative;
+    white-space: nowrap;
 }
 #slogan {
-    top: 25px;
     color: #1ABC9C;
-    text-align: right;
-    left: 28%;
     font-family: 'Open Sans', sans-serif;
     font-size: 0.8em!important;
+    left: 9%;
     display: inline-block;
-    position: absolute;
+    position: relative;
+    white-space: nowrap;
+    top: -8px;
 }
-.top_block {
+.content-header {
     width: 100%;
+    height: 50px;
     display: block;
-    background-color: #000!important;
-}
-.header {
-    width: 100%;
-    height: 0px;
 }
 .box {
     width: 300px;
