@@ -45,7 +45,7 @@ mongoose.connect("mongodb://heroku_app28482092:tj98slsjoiakhud0ok64qm016a@ds0335
 // create schema
 var tweetSchema = mongoose.Schema(
     { popStar: { type: String }, tweetScore: { type: Number } },
-    { capped: { size: 2000000, max: 10000, autoIndexId: true } }
+    { capped: { size: 2000000, max: 100000, autoIndexId: true } }
 );
 
 // create model Rating and 'score' collection
@@ -85,10 +85,9 @@ tweet = new twitter({
    });
   });
 
-io.sockets.on('connection', function() {
+// io.sockets.on('connection', function() {
       // stream the database, emit to client
-      OpenDbStream();
-      function OpenDbStream(){
+
       var streamdB = Rating.find().stream();
       streamdB.on('data', function(doc)  {
       if (doc.popStar.indexOf('perry') != -1 && doc.tweetScore != 0)
@@ -193,9 +192,7 @@ io.sockets.on('connection', function() {
 
     }).on('close', function () {
       console.log('database stream closed')
-        OpenDbStream();
     });
-  }
-});
+// });
 
 
