@@ -26,14 +26,14 @@ a {
     display: block;
     z-index: 1;
     top: -50px;
-    margin-left: 130px;
+    margin-left: 10%;
     position: relative;
 }
 #slogan {
-    top: 26px;
+    top: 25px;
     color: #1ABC9C;
     text-align: right;
-    left: 380px;
+    left: 28%;
     font-family: 'Open Sans', sans-serif;
     font-size: 0.8em!important;
     display: inline-block;
