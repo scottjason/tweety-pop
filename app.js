@@ -70,7 +70,7 @@ tweet = new twitter({
 
 
 // stream incoming tweets, write to database, emit to client
-
+io.sockets.on('connection', function() {
   tweet.stream('statuses/filter', { "track": popTracker },
     function(stream) {
       stream.on('data', function(data) {
@@ -87,7 +87,7 @@ tweet = new twitter({
   });
 });
 
-io.sockets.on('connection', function() {
+
       // stream the database, emit to client
       var streamdB = Rating.find().stream();
       streamdB.on('data', function(doc)  {
