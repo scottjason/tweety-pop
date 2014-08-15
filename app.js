@@ -85,9 +85,8 @@ tweet = new twitter({
    });
   });
 
-// io.sockets.on('connection', function() {
+io.sockets.on('connection', function() {
       // stream the database, emit to client
-
       var streamdB = Rating.find().stream();
       streamdB.on('data', function(doc)  {
       if (doc.popStar.indexOf('perry') != -1 && doc.tweetScore != 0)
@@ -193,6 +192,6 @@ tweet = new twitter({
     }).on('close', function () {
       console.log('database stream closed')
     });
-// });
+});
 
 
