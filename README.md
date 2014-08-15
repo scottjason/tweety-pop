@@ -16,9 +16,9 @@ Live website hosted by Heroku: http://tweetypop.herokuapp.com/
 
 ### Poject Milestones
 
-- Create a real-time stream from the server to the client for data transfer.
-- Measure sentitment of incoming tweet about the artist
-- Calculate average sentiment of all incoming tweets about the artist
+- Creates a real-time stream from the server to the client for data transfer.
+- Measures the sentitment of each incoming tweet about the artist.
+- Calculates the average sentiment of all incoming tweets about the artist.
 
 ### Technologies Used
 
