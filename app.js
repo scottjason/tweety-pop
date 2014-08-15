@@ -68,6 +68,8 @@ tweet = new twitter({
     access_token_secret: "ZVusxwm9y4aJCnvtx3MHj7148REZikXyySeZURZsLUVGz"
 });
 
+OpenDbStream();
+
 // stream incoming tweets, write to database, emit to client
   tweet.stream('statuses/filter', { "track": popTracker },
     function(stream) {
@@ -86,8 +88,8 @@ tweet = new twitter({
 });
 
 // stream the database, emit to client
-io.sockets.on('connection', function() {
-      OpenDbStream();
+// io.sockets.on('connection', function() {
+
       function OpenDbStream(){
       var streamdB = Rating.find().stream();
       streamdB.on('data', function(doc)  {
@@ -196,6 +198,6 @@ io.sockets.on('connection', function() {
         OpenDbStream();
     });
   }
-});
+// });
 
 
