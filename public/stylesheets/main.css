@@ -26,10 +26,28 @@ a {
 #logo {
     font-family: 'Poiret One', cursive;
     font-size: 3em!important;
-    margin-right: 900px;
-    /*display: inline-block;*/
+    margin-left: -900px;
+    display: inline-block;
     /*position: relative;*/
     /*white-space: nowrap;*/
+}
+#slogan {
+    color: #1ABC9C;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.8em!important;
+    margin-left: -320px;
+    top: 23px;
+    display: inline-block;
+    position: absolute;
+}
+#about {
+    color: #E74C3C;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.8em!important;
+    margin-left: 535px;
+    top: 23px;
+    display: inline-block;
+    position: absolute;
 }
 /*#slogan {
     color: #1ABC9C;
