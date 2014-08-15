@@ -4,7 +4,7 @@
 
 - Twitter visualization and data analytics project using Node.js, Express.js, & Socket.io.
 
-- Using Web Sockets, data is streamed from twitter and passes through a sentiment algorithm.
+- Using Web Sockets, data is streamed from twitter and passed through a sentiment algorithm.
 
 - The incoming sentiment score reflects the degree of positivity / negativty of the current tweet on-screen.
 
