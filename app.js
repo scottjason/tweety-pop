@@ -68,8 +68,14 @@ tweet = new twitter({
     access_token_secret: "ZVusxwm9y4aJCnvtx3MHj7148REZikXyySeZURZsLUVGz"
 });
 
-
-io.sockets.on('connection', function() {
+var allClients = [];
+io.sockets.on('connection', function(socket) {
+  allClients.push(socket);
+    socket.on('disconnect', function() {
+      console.log('Got disconnected!');
+       var i = allClients.indexOf(socket);
+      delete allClients[i];
+   });
 // stream incoming tweets, write to database, emit to client
   tweet.stream('statuses/filter', { "track": popTracker },
     function(stream) {
@@ -85,15 +91,14 @@ io.sockets.on('connection', function() {
       newScore.save(function(err) { if (err) { throw err } })
       io.sockets.emit('message', newTweet, sentiment(newTweet).score) }
 
-   });
 
-});
-                OpenDbStream();
+
+                // OpenDbStream();
 
 // stream the database, emit to client
 
   // OpenDbStream();
-      function OpenDbStream(){
+      // function OpenDbStream(){
       var streamdB = Rating.find().stream();
       streamdB.on('data', function(doc)  {
       if (doc.popStar.indexOf('perry') != -1 && doc.tweetScore != 0)
@@ -198,10 +203,12 @@ io.sockets.on('connection', function() {
 
     }).on('close', function () {
       console.log('database stream closed')
-        OpenDbStream();
+        // OpenDbStream();
         // this.resume()
     });
-  }
+});
+
 });
 
 
+   });
