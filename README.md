@@ -1,6 +1,6 @@
 ## Tweety Pop
 
-Live website hosted by Heroku: [https://github.com/scottjason/tweety-pop]
+Live website hosted by Heroku: http://tweetypop.herokuapp.com/
 
 ### Introduction
 
