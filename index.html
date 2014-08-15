@@ -13,15 +13,14 @@
     <script type="text/javascript" src="javascripts/animation.js"></script>
     <script type="text/javascript" src="javascripts/about.js"></script>
 
-    <title>"Tweety Pop"</title>
+    <title>Tweety Pop</title>
 </head>
 
 <body>
 
-
     <div id="element_to_pop_up">
     <a class="b-close">x<a/>
-        Tweety Pop
+    <p>Tweety Pop</p>
     <p>Twitter visualization and data analytics project using Node.js, Express.js, & Socket.io.</p>
     <p> Using Web Sockets, data is streamed from twitter and passes through a sentiment algorithm.</p>
     <p>The incoming sentiment score reflects the degree of positivity / negativty of the current tweet on-screen.</p>
@@ -33,181 +32,289 @@
 <table align="center" width="1200" border="0" cellspacing="0" cellpadding="0">
     <tr><td>
         <div class="content-header">
-        <h4 ><a id="logo" href="http://scottjason.github.io/saferoute">tweety pop</a></h4>
+        <h4 ><a id="logo" href="http://scottjason.github.io/saferoute">tweety pop</a>
+        </h4>
         <p id="slogan">( &nbsp; streaming live from the twitterverse &nbsp; )</p>
         <a id="about">about</a>
-        </div></td>
+    </div>
+    </td>
     </table>
     <table align="center" width="400" border="1" cellspacing="0" cellpadding="0">
+        </tr>
+        <tr>
+            <td>
+                <div class="box">
+                    <p class="katy"></p>
+                    <img id='katy-pic' src="images/katyperry.jpg">
+                    <div class="stats-box">
+                        <p id='incoming-static'>incoming sentiment score :</p>
+                        <p id='katy-incoming'>
+                            <a class="katy-score-loading" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id='average-static'>average sentiment score :</p>
+                        <p id='katy-average'>
+                            <a class="katy-average-analyzing" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id='interpreter-static'>tweety pop interpreter :</p>
+                        <p id='katy-interpreter'>
+                            <a class="katy-thinking" style="color:#e74c3c"></a>
+                        </p>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="box">
+                    <p class="levine"></p>
+                    <img id='levine-pic' src="images/levine.jpg">
+                    <div class="stats-box">
+                        <p id='incoming-static'>incoming sentiment score :</p>
+                        <p id='levine-incoming'>
+                            <a class="levine-score-loading" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id="average-static">average sentiment score :</p>
+                        <p id='levine-average'>
+                            <a class="levine-average-analyzing" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id='interpreter-static'>tweety pop interpreter :</p>
+                        <p id='levine-interpreter'>
+                            <a class="levine-thinking" style="color:#e74c3c"></a>
+                        </p>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="box">
+                    <p class="beyonce"></p>
+                    <img id='beyonce-pic' src="images/beyonce.jpg">
+                    <div class="stats-box">
+                        <p id='incoming-static'>incoming sentiment score :</p>
+                        <p id='beyonce-incoming'>
+                            <a class="beyonce-score-loading" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id="average-static">average sentiment score :</p>
+                        <p id='beyonce-average'>
+                            <a class="beyonce-average-analyzing" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id='interpreter-static'>tweety pop interpreter :</p>
+                        <p id='beyonce-interpreter'>
+                            <a class="beyonce-thinking" style="color:#e74c3c"></a>
+                        </p>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="box">
+                    <p class="bieber"></p>
+                    <img id='bieber-pic' src="images/bieber.jpg">
+                    <div class="stats-box">
+                        <p id='incoming-static'>incoming sentiment score :</p>
+                        <p id='bieber-incoming'>
+                            <a class="bieber-score-loading" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id="average-static">average sentiment score :</p>
+                        <p id='bieber-average'>
+                            <a class="bieber-average-analyzing" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id='interpreter-static'>tweety pop interpreter :</p>
+                        <p id='bieber-interpreter'>
+                            <a class="bieber-thinking" style="color:#e74c3c"></a>
+                        </p>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="box">
+                    <p class="rihanna"></p>
+                    <img id='rihanna-pic' src="images/rihanna.jpg">
+                    <div class="stats-box">
+                        <p id='incoming-static'>incoming sentiment score :</p>
+                        <p id='rihanna-incoming'>
+                            <a class="rihanna-score-loading" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id="average-static">average sentiment score :</p>
+                        <p id='rihanna-average'>
+                            <a class="rihanna-average-analyzing" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id='interpreter-static'>tweety pop interpreter :</p>
+                        <p id='rihanna-interpreter'>
+                            <a class="rihanna-thinking" style="color:#e74c3c"></a>
+                        </p>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="box">
+                    <p class="eminem"></p>
+                    <img id='eminem-pic' src="images/eminem.jpg">
+                    <div class="stats-box">
+                        <p id='incoming-static'>incoming sentiment score :</p>
+                        <p id='eminem-incoming'>
+                            <a class="eminem-score-loading" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id="average-static">average sentiment score :</p>
+                        <p id='eminem-average'>
+                            <a class="eminem-average-analyzing" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id='interpreter-static'>tweety pop interpreter :</p>
+                        <p id='eminem-interpreter'>
+                            <a class="eminem-thinking" style="color:#e74c3c"></a>
+                        </p>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="box">
+                    <p class="miley"></p>
+                    <img id='miley-pic' src="images/miley.jpg">
+                    <div class="stats-box">
+                        <p id='incoming-static'>incoming sentiment score :</p>
+                        <p id='miley-incoming'>
+                            <a class="miley-score-loading" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id="average-static">average sentiment score :</p>
+                        <p id='miley-average'>
+                            <a class="miley-average-analyzing" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id='interpreter-static'>tweety pop interpreter :</p>
+                        <p id='miley-interpreter'>
+                            <a class="miley-thinking" style="color:#e74c3c"></a>
+                        </p>
+                    </div>
+                </div>
+            </td>
 
-    </tr>
-      <tr>
-        <td><div class="box"><p class="katy"></p>
-        <img id='katy-pic' src="images/katyperry.jpg">
-        <div class="stats-box">
-        <p id='incoming-static'>incoming sentiment score :</p>
-        <p id='katy-incoming'><a class="katy-score-loading" style="color:#e74c3c"></a></p>
-        <br>
-        <p id='average-static'>average sentiment score :</p>
-        <p id='katy-average'><a class="katy-average-analyzing" style="color:#e74c3c"></a></p>
-        <br>
-        <p id='interpreter-static'>tweety pop interpreter :</p>
-        <p id='katy-interpreter'><a class="katy-thinking" style="color:#e74c3c"></a></p>
-        </div></div></td>
+            <td>
+                <div class="box">
+                    <p class="swift"></p>
+                    <img id='swift-pic' src="images/swift.jpg">
+                    <div class="stats-box">
+                        <p id='incoming-static'>incoming sentiment score :</p>
+                        <p id='swift-incoming'>
+                            <a class="swift-score-loading" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id="average-static">average sentiment score :</p>
+                        <p id='swift-average'>
+                            <a class="swift-average-analyzing" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id='interpreter-static'>tweety pop interpreter :</p>
+                        <p id='swift-interpreter'>
+                            <a class="swift-thinking" style="color:#e74c3c"></a>
+                        </p>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="box">
+                    <p class="kanye"></p>
+                    <img id='kanye-pic' src="images/kanye.jpg">
+                    <div class="stats-box">
+                        <p id='incoming-static'>incoming sentiment score :</p>
+                        <p id='kanye-incoming'>
+                            <a class="kanye-score-loading" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id="average-static">average sentiment score :</p>
+                        <p id='kanye-average'>
+                            <a class="kanye-average-analyzing" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id='interpreter-static'>tweety pop interpreter :</p>
+                        <p id='kanye-interpreter'>
+                            <a class="kanye-thinking" style="color:#e74c3c"></a>
+                        </p>
+                    </div>
+                </div>
+            </td>
 
-        <td><div class="box"><p class="levine"></p>
-        <img id='levine-pic'  src="images/levine.jpg">
-        <div class="stats-box">
-        <p id='incoming-static'>incoming sentiment score :</p>
-        <p id='levine-incoming'><a class="levine-score-loading" style="color:#e74c3c"></a></p>
-        <br>
-        <p id="average-static">average sentiment score :</p>
-        <p id='levine-average'><a class="levine-average-analyzing" style="color:#e74c3c"></a></p>
-        <br>
-        <p id='interpreter-static'>tweety pop interpreter :</p>
-        <p id='levine-interpreter'><a class="levine-thinking" style="color:#e74c3c"></a></p>
-        </div></div></td>
+            <td>
+                <div class="box">
+                    <p class="gaga"></p>
+                    <img id='gaga-pic' src="images/gaga.jpg">
+                    <div class="stats-box">
+                        <p id='incoming-static'>incoming sentiment score :</p>
+                        <p id='gaga-incoming'>
+                            <a class="gaga-score-loading" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id="average-static">average sentiment score :</p>
+                        <p id='gaga-average'>
+                            <a class="gaga-average-analyzing" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id='interpreter-static'>tweety pop interpreter :</p>
+                        <p id='gaga-interpreter'>
+                            <a class="gaga-thinking" style="color:#e74c3c"></a>
+                        </p>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="box">
+                    <p class="timberlake"></p>
+                    <img id='timberlake-pic' src="images/justintimberlake.jpg">
+                    <div class="stats-box">
+                        <p id='incoming-static'>incoming sentiment score :</p>
+                        <p id='timberlake-incoming'>
+                            <a class="timberlake-score-loading" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id="average-static">average sentiment score :</p>
+                        <p id='timberlake-average'>
+                            <a class="timberlake-average-analyzing" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id='interpreter-static'>tweety pop interpreter :</p>
+                        <p id='timberlake-interpreter'>
+                            <a class="timberlake-thinking" style="color:#e74c3c"></a>
+                        </p>
+                    </div>
+                </div>
+            </td>
 
-        <td><div class="box"><p class="beyonce"></p>
-        <img id='beyonce-pic' src="images/beyonce.jpg">
-        <div class="stats-box">
-        <p id='incoming-static'>incoming sentiment score :</p>
-        <p id='beyonce-incoming'><a class="beyonce-score-loading" style="color:#e74c3c"></a></p>
-        <br>
-        <p id="average-static">average sentiment score :</p>
-        <p id='beyonce-average'><a class="beyonce-average-analyzing" style="color:#e74c3c"></a></p>
-        <br>
-        <p id='interpreter-static'>tweety pop interpreter :</p>
-        <p id='beyonce-interpreter'><a class="beyonce-thinking" style="color:#e74c3c"></a></p>
-        </div></div></td>
-
-        <td><div class="box"><p class="bieber"></p>
-        <img id='bieber-pic'  src="images/bieber.jpg">
-        <div class="stats-box">
-        <p id='incoming-static'>incoming sentiment score :</p>
-        <p id='bieber-incoming'><a class="bieber-score-loading" style="color:#e74c3c"></a></p>
-        <br>
-        <p id="average-static">average sentiment score :</p>
-        <p id='bieber-average'><a class="bieber-average-analyzing" style="color:#e74c3c"></a></p>
-        <br>
-        <p id='interpreter-static'>tweety pop interpreter :</p>
-        <p id='bieber-interpreter'><a class="bieber-thinking" style="color:#e74c3c"></a></p>
-        </div></div></td>
-      </tr>
-
-      <tr>
-        <td><div class="box"><p class="rihanna"></p>
-        <img id='rihanna-pic' src="images/rihanna.jpg">
-        <div class="stats-box">
-        <p id='incoming-static'>incoming sentiment score :</p>
-        <p id='rihanna-incoming'><a class="rihanna-score-loading" style="color:#e74c3c"></a></p>
-        <br>
-        <p id="average-static">average sentiment score :</p>
-        <p id='rihanna-average'><a class="rihanna-average-analyzing" style="color:#e74c3c"></a></p>
-        <br>
-        <p id='interpreter-static'>tweety pop interpreter :</p>
-        <p id='rihanna-interpreter'><a class="rihanna-thinking" style="color:#e74c3c"></a></p>
-        </div></div></td>
-
-        <td><div class="box"><p class="eminem"></p>
-        <img id='eminem-pic' src="images/eminem.jpg">
-        <div class="stats-box">
-        <p id='incoming-static'>incoming sentiment score :</p>
-        <p id='eminem-incoming'><a class="eminem-score-loading" style="color:#e74c3c"></a></p>
-        <br>
-        <p id="average-static">average sentiment score :</p>
-        <p id='eminem-average'><a class="eminem-average-analyzing" style="color:#e74c3c"></a></p>
-        <br>
-        <p id='interpreter-static'>tweety pop interpreter :</p>
-        <p id='eminem-interpreter'><a class="eminem-thinking" style="color:#e74c3c"></a></p>
-        </div></div></td>
-
-        <td><div class="box"><p class="miley"></p>
-        <img id='miley-pic'  src="images/miley.jpg">
-        <div class="stats-box">
-        <p id='incoming-static'>incoming sentiment score :</p>
-        <p id='miley-incoming'><a class="miley-score-loading" style="color:#e74c3c"></a></p>
-        <br>
-        <p id="average-static">average sentiment score :</p>
-        <p id='miley-average'><a class="miley-average-analyzing" style="color:#e74c3c"></a></p>
-        <br>
-        <p id='interpreter-static'>tweety pop interpreter :</p>
-        <p id='miley-interpreter'><a class="miley-thinking" style="color:#e74c3c"></a></p>
-        </div></div></td>
-
-        <td><div class="box"><p class="swift"></p>
-        <img id='swift-pic' src="images/swift.jpg">
-        <div class="stats-box">
-        <p id='incoming-static'>incoming sentiment score :</p>
-        <p id='swift-incoming'><a class="swift-score-loading" style="color:#e74c3c"></a></p>
-        <br>
-        <p id="average-static">average sentiment score :</p>
-        <p id='swift-average'><a class="swift-average-analyzing" style="color:#e74c3c"></a></p>
-        <br>
-        <p id='interpreter-static'>tweety pop interpreter :</p>
-        <p id='swift-interpreter'><a class="swift-thinking" style="color:#e74c3c"></a></p>
-        </div></div></td>
-
-
-      </tr>
-
-      <tr>
-        <td><div class="box"><p class="kanye"></p>
-        <img id='kanye-pic' src="images/kanye.jpg">
-        <div class="stats-box">
-        <p id='incoming-static'>incoming sentiment score :</p>
-        <p id='kanye-incoming'><a class="kanye-score-loading" style="color:#e74c3c"></a></p>
-        <br>
-        <p id="average-static">average sentiment score :</p>
-        <p id='kanye-average'><a class="kanye-average-analyzing" style="color:#e74c3c"></a></p>
-        <br>
-        <p id='interpreter-static'>tweety pop interpreter :</p>
-        <p id='kanye-interpreter'><a class="kanye-thinking" style="color:#e74c3c"></a></p>
-        </div></div></td>
-
-        <td>
-        <div class="box"><p class="gaga"></p>
-        <img id='gaga-pic' src="images/gaga.jpg">
-        <div class="stats-box">
-        <p id='incoming-static'>incoming sentiment score :</p>
-        <p id='gaga-incoming'><a class="gaga-score-loading" style="color:#e74c3c"></a></p>
-        <br>
-        <p id="average-static">average sentiment score :</p>
-        <p id='gaga-average'><a class="gaga-average-analyzing" style="color:#e74c3c"></a></p>
-        <br>
-        <p id='interpreter-static'>tweety pop interpreter :</p>
-        <p id='gaga-interpreter'><a class="gaga-thinking" style="color:#e74c3c"></a></p>
-        </div></div></td>
-
-
-        <td><div class="box"><p class="timberlake"></p>
-        <img id='timberlake-pic' src="images/justintimberlake.jpg">
-        <div class="stats-box">
-        <p id='incoming-static'>incoming sentiment score :</p>
-        <p id='timberlake-incoming'><a class="timberlake-score-loading" style="color:#e74c3c"></a></p>
-        <br>
-        <p id="average-static">average sentiment score :</p>
-        <p id='timberlake-average'><a class="timberlake-average-analyzing" style="color:#e74c3c"></a></p>
-        <br>
-        <p id='interpreter-static'>tweety pop interpreter :</p>
-        <p id='timberlake-interpreter'><a class="timberlake-thinking" style="color:#e74c3c"></a></p>
-        </div></div></td>
-
-        <td><div class="box"><p class="lovato"></p>
-        <img id='lovato-pic' src="images/lovato.jpg">
-        <div class="stats-box">
-        <p id='incoming-static'>incoming sentiment score :</p>
-        <p id='lovato-incoming'><a class="lovato-score-loading" style="color:#e74c3c"></a></p>
-        <br>
-        <p id="average-static">average sentiment score :</p>
-        <p id='lovato-average'><a class="lovato-average-analyzing" style="color:#e74c3c"></a></p>
-        <br>
-        <p id='interpreter-static'>tweety pop interpreter :</p>
-        <p id='lovato-interpreter'><a class="lovato-thinking" style="color:#e74c3c"></a></p>
-        </div></div></td>
-      </tr>
-
-</table>
+            <td>
+                <div class="box">
+                    <p class="lovato"></p>
+                    <img id='lovato-pic' src="images/lovato.jpg">
+                    <div class="stats-box">
+                        <p id='incoming-static'>incoming sentiment score :</p>
+                        <p id='lovato-incoming'>
+                            <a class="lovato-score-loading" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id="average-static">average sentiment score :</p>
+                        <p id='lovato-average'>
+                            <a class="lovato-average-analyzing" style="color:#e74c3c"></a>
+                        </p>
+                        <br>
+                        <p id='interpreter-static'>tweety pop interpreter :</p>
+                        <p id='lovato-interpreter'>
+                            <a class="lovato-thinking" style="color:#e74c3c"></a>
+                        </p>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
 </body>
 
 </html>

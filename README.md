@@ -11,6 +11,7 @@
 - The tweety pop interpreter reflects the average sentiment score of the artist. 
 
 - Everything is rendered in real-time.
+
 ### Poject Milestones
 
 - Create a real-time stream from the server to the client for data transfer.
