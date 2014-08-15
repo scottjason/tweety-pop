@@ -12,6 +12,13 @@ setInterval(function() {
     $(".katy-average-analyzing").html("analyzing"+Array(aa+1).join("."));
 }, 500);
 
+// katy thinking
+aaa = 0;
+setInterval(function() {
+    aaa = ++aaa % 4;
+    $(".katy-thinking").html("thinking"+Array(aaa+1).join("."));
+}, 500);
+
 // ------------------------
 
 // levine score loading
@@ -26,6 +33,13 @@ bb = 0;
 setInterval(function() {
     bb = ++bb % 4;
     $(".levine-average-analyzing").html("analyzing"+Array(bb+1).join("."));
+}, 500);
+
+// levine thinking
+bbb = 0;
+setInterval(function() {
+    bbb = ++bbb % 4;
+    $(".levine-thinking").html("thinking"+Array(bbb+1).join("."));
 }, 500);
 
 // ------------------------
@@ -45,6 +59,13 @@ setInterval(function() {
     $(".beyonce-average-analyzing").html("analyzing"+Array(cc+1).join("."));
 }, 500);
 
+// beyonce thinking
+ccc = 0;
+setInterval(function() {
+    ccc = ++ccc % 4;
+    $(".beyonce-thinking").html("thinking"+Array(ccc+1).join("."));
+}, 500);
+
 // ------------------------
 
 // bieber score loading
@@ -62,6 +83,13 @@ setInterval(function() {
     $(".bieber-average-analyzing").html("analyzing"+Array(dd+1).join("."));
 }, 500);
 
+// bieber thinking
+ddd = 0;
+setInterval(function() {
+    ddd = ++ddd % 4;
+    $(".bieber-thinking").html("thinking"+Array(ddd+1).join("."));
+}, 500);
+
 // ------------------------
 
 // rihanna score loading
@@ -71,11 +99,21 @@ setInterval(function() {
     $(".rihanna-score-loading").html("waiting"+Array(e+1).join("."));
 }, 500);
 
+// rhianna average analyzing
+
 ee = 0;
 setInterval(function() {
     ee = ++ee % 4;
     $(".rihanna-average-analyzing").html("analyzing"+Array(ee+1).join("."));
 }, 500);
+
+//rihanna thinking
+eee = 0;
+setInterval(function() {
+    eee = ++eee % 4;
+    $(".rihanna-thinking").html("thinking"+Array(eee+1).join("."));
+}, 500);
+
 
 // ------------------------
 
@@ -91,6 +129,13 @@ ff = 0;
 setInterval(function() {
     ff = ++ff % 4;
     $(".eminem-average-analyzing").html("analyzing"+Array(ff+1).join("."));
+}, 500);
+
+// eminem thinking
+fff = 0;
+setInterval(function() {
+    fff = ++fff % 4;
+    $(".eminem-thinking").html("thinking"+Array(fff+1).join("."));
 }, 500);
 
 // ------------------------
@@ -109,37 +154,59 @@ setInterval(function() {
     $(".miley-average-analyzing").html("analyzing"+Array(gg+1).join("."));
 }, 500);
 
+// miley thinking
+ggg = 0;
+setInterval(function() {
+    ggg = ++ggg % 4;
+    $(".miley-thinking").html("thinking"+Array(ggg+1).join("."));
+}, 500);
+
 // ------------------------
 
-// kanye score loading
+// gaga score loading
 h = 0;
 setInterval(function() {
     h = ++h % 4;
-    $(".kanye-score-loading").html("waiting"+Array(h+1).join("."));
+    $(".gaga-score-loading").html("waiting"+Array(h+1).join("."));
 }, 500);
 
-// kanye average analyzing
+// gaga average analyzing
 hh = 0;
 setInterval(function() {
     hh = ++hh % 4;
-    $(".kanye-average-analyzing").html("analyzing"+Array(hh+1).join("."));
+    $(".gaga-average-analyzing").html("analyzing"+Array(hh+1).join("."));
+}, 500);
+
+// gaga thinking
+hhh = 0;
+setInterval(function() {
+    hhh = ++hhh % 4;
+    $(".gaga-thinking").html("thinking"+Array(hhh+1).join("."));
 }, 500);
 
 // ------------------------
 
-// adele score loading
+// kanye score loading
 i = 0;
 setInterval(function() {
     i = ++i % 4;
-    $(".adele-score-loading").html("waiting"+Array(i+1).join("."));
+    $(".kanye-score-loading").html("waiting"+Array(i+1).join("."));
 }, 500);
 
-// adele average analyzing
+// kanye average analyzing
 ii = 0;
 setInterval(function() {
     ii = ++ii % 4;
-    $(".adele-average-analyzing").html("analyzing"+Array(ii+1).join("."));
+    $(".kanye-average-analyzing").html("analyzing"+Array(ii+1).join("."));
 }, 500);
+
+// kanye thinking
+iii = 0;
+setInterval(function() {
+    iii = ++iii % 4;
+    $(".kanye-thinking").html("thinking"+Array(iii+1).join("."));
+}, 500);
+
 
 // ------------------------
 
@@ -157,6 +224,14 @@ setInterval(function() {
     $(".swift-average-analyzing").html("analyzing"+Array(jj+1).join("."));
 }, 500);
 
+// swift thinking
+jjj = 0;
+setInterval(function() {
+    jjj = ++jjj % 4;
+    $(".swift-thinking").html("thinking"+Array(jjj+1).join("."));
+}, 500);
+
+
 // ------------------------
 
 // timberlake score loading
@@ -173,6 +248,13 @@ setInterval(function() {
     $(".timberlake-average-analyzing").html("analyzing"+Array(kk+1).join("."));
 }, 500);
 
+// timberlake thinking
+kkk = 0;
+setInterval(function() {
+    kkk = ++kkk % 4;
+    $(".timberlake-thinking").html("thinking"+Array(kkk+1).join("."));
+}, 500);
+
 // ------------------------
 
 // lovato score loading
@@ -187,4 +269,11 @@ ll = 0;
 setInterval(function() {
     ll = ++ll % 4;
     $(".lovato-average-analyzing").html("analyzing"+Array(ll+1).join("."));
+}, 500);
+
+// lovato thinking
+lll = 0;
+setInterval(function() {
+    lll = ++lll % 4;
+    $(".lovato-thinking").html("thinking"+Array(lll+1).join("."));
 }, 500);
