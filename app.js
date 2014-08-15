@@ -90,8 +90,8 @@ tweet = new twitter({
 
 // stream the database, emit to client
 io.sockets.on('connection', function() {
-  OpenDbStream();
-      function OpenDbStream(){
+  // OpenDbStream();
+  //     function OpenDbStream(){
       var streamdB = Rating.find().stream();
       streamdB.on('data', function(doc)  {
       if (doc.popStar.indexOf('perry') != -1 && doc.tweetScore != 0)
@@ -196,9 +196,9 @@ io.sockets.on('connection', function() {
 
     }).on('close', function () {
       console.log('database stream closed')
-        OpenDbStream();
+        // OpenDbStream();
     });
-  }
+  // }
 });
 
 
