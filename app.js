@@ -67,8 +67,10 @@ tweet = new twitter({
     access_token_key: "195177239-1NI8bL9utZ2MnNXowy607mYLABlH83gp4k9TAgrA",
     access_token_secret: "ZVusxwm9y4aJCnvtx3MHj7148REZikXyySeZURZsLUVGz"
 });
-
+var allClients = [];
+io.sockets.on('connection', function(socket) {
 // stream incoming tweets, write to database, emit to client
+  allClients.push(socket);
   tweet.stream('statuses/filter', { "track": popTracker },
     function(stream) {
       stream.on('data', function(data) {
@@ -85,7 +87,7 @@ tweet = new twitter({
    });
   });
 
-io.sockets.on('connection', function() {
+
       // stream the database, emit to client
       var streamdB = Rating.find().stream();
       streamdB.on('data', function(doc)  {
@@ -192,6 +194,14 @@ io.sockets.on('connection', function() {
     }).on('close', function () {
       console.log('database stream closed')
     });
-});
+
+   socket.on('disconnect', function() {
+      console.log('Got disconnected!');
+
+      var i = allClients.indexOf(socket);
+      allClients.splice(i, 1)
+   });
+  });
+
 
 
