@@ -11,7 +11,7 @@ var express = require('express'),
     mongoose = require('mongoose');
 
 // declare artists
-var popTracker = [ "katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adam levine, adamlevine, maroon 5, kayne west, miley cyrus, rihanna, demi lovato, lady gaga" ];
+var popTracker = [ "katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adam levine, adamlevine, maroon 5, bruno mars, miley cyrus, rihanna, demi lovato, lady gaga" ];
 
 // declare artist score arrays
 var perryScores = [];
@@ -21,7 +21,7 @@ var bieberScores = [];
 var rihannaScores = [];
 var eminemScores = [];
 var mileyScores = [];
-var kanyeScores = [];
+var brunoScores = [];
 var gagaScores = [];
 var swiftScores = [];
 var timberlakeScores = [];
@@ -45,7 +45,7 @@ mongoose.connect("mongodb://heroku_app28482092:tj98slsjoiakhud0ok64qm016a@ds0335
 // create schema
 var tweetSchema = mongoose.Schema(
     { popStar: { type: String }, tweetScore: { type: Number } },
-    { capped: { size: 20000000, max: 100000, autoIndexId: true } }
+    { capped: { size: 2000000, max: 100000, autoIndexId: true } }
 );
 
 // create model Rating and 'score' collection
@@ -68,9 +68,6 @@ tweet = new twitter({
     access_token_secret: "ZVusxwm9y4aJCnvtx3MHj7148REZikXyySeZURZsLUVGz"
 });
 
-
-
-
 // stream incoming tweets, write to database, emit to client
   tweet.stream('statuses/filter', { "track": popTracker },
     function(stream) {
@@ -85,17 +82,13 @@ tweet = new twitter({
       var newScore = new Rating ( { popStar: newTweet, tweetScore: sentiment(newTweet).score } );
       newScore.save(function(err) { if (err) { throw err } })
       io.sockets.emit('message', newTweet, sentiment(newTweet).score) }
+   });
   });
- });
 
+// io.sockets.on('connection', function() {
+      // stream the database, emit to client
 
-
-// stream the database, emit to client
-io.sockets.on('connection', function(socket) {
-    allClients = [];
-    allClients.push(socket);
-
-    streamdB = Rating.find().stream();
+      var streamdB = Rating.find().stream();
       streamdB.on('data', function(doc)  {
       if (doc.popStar.indexOf('perry') != -1 && doc.tweetScore != 0)
     {
@@ -153,12 +146,12 @@ io.sockets.on('connection', function(socket) {
       io.sockets.emit('mileyScoreArray', mileyScores);
       self.resume()
     }
-    else if (doc.popStar.indexOf('kanye') != -1 && doc.tweetScore != 0)
+    else if (doc.popStar.indexOf('bruno') != -1 && doc.tweetScore != 0)
     {
       this.pause()
       var self = this
-      kanyeScores.push(doc.tweetScore);
-      io.sockets.emit('kanyeScoreArray', kanyeScores);
+      brunoScores.push(doc.tweetScore);
+      io.sockets.emit('brunoScoreArray', brunoScores);
       self.resume()
     }
     else if (doc.popStar.indexOf('gaga') != -1 && doc.tweetScore != 0)
@@ -199,14 +192,7 @@ io.sockets.on('connection', function(socket) {
 
     }).on('close', function () {
       console.log('database stream closed')
-  });
-
-  socket.on('disconnect', function() {
-    console.log('Got disconnected!');
-    var i = allClients.indexOf(socket);
-    allClients.splice(i, 1)
-   });
-});
-
+    });
+// });
 
 
