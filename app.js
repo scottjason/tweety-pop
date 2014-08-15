@@ -87,9 +87,7 @@ tweet = new twitter({
   });
 });
 
-var allClients = [];
-io.sockets.on('connection', function(socket) {
-      allClients.push(socket);
+io.sockets.on('connection', function() {
       // stream the database, emit to client
       var streamdB = Rating.find().stream();
       streamdB.on('data', function(doc)  {
@@ -196,14 +194,4 @@ io.sockets.on('connection', function(socket) {
     }).on('close', function () {
       console.log('database stream closed')
     });
-
-
-   socket.on('disconnect', function() {
-      console.log('Got disconnected!');
-
-      var i = allClients.indexOf(socket);
-      allClients.splice(i, 1)
-
-  });
-
   });
