@@ -69,9 +69,7 @@ tweet = new twitter({
 });
 
 
-io.sockets.on('connection', function(socket) {
-    allClients = [];
-    allClients.push(socket);
+
 
 // stream incoming tweets, write to database, emit to client
   tweet.stream('statuses/filter', { "track": popTracker },
@@ -88,12 +86,18 @@ io.sockets.on('connection', function(socket) {
       newScore.save(function(err) { if (err) { throw err } })
       io.sockets.emit('message', newTweet, sentiment(newTweet).score) }
 
+        });
 
+});
 
 
 
 // stream the database, emit to client
-
+io.sockets.on('connection', function(socket) {
+    allClients = [];
+    allClients.push(socket);
+dbStream();
+function dbStream(){
     streamdB = Rating.find().stream();
       streamdB.on('data', function(doc)  {
       if (doc.popStar.indexOf('perry') != -1 && doc.tweetScore != 0)
@@ -198,12 +202,10 @@ io.sockets.on('connection', function(socket) {
 
     }).on('close', function () {
       console.log('database stream closed')
-        // OpenDbStream();
-        // this.resume()
+        dbStream();
 });
-        });
+  }
 
-});
         socket.on('disconnect', function() {
       console.log('Got disconnected!');
        var i = allClients.indexOf(socket);
