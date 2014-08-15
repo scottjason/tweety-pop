@@ -11,18 +11,31 @@
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="javascripts/web.js"></script>
     <script type="text/javascript" src="javascripts/animation.js"></script>
+    <script type="text/javascript" src="javascripts/about.js"></script>
 
     <title>"Tweety Pop"</title>
 </head>
 
 <body>
 
+
+    <div id="element_to_pop_up">
+    <a class="b-close">x<a/>
+        Tweety Pop
+    <p>Twitter visualization and data analytics project using Node.js, Express.js, & Socket.io.</p>
+    <p> Using Web Sockets, data is streamed from twitter and passes through a sentiment algorithm.</p>
+    <p>The incoming sentiment score reflects the degree of positivity / negativty of the current tweet on-screen.</p>
+    <p>The tweety pop interpreter reflects the average sentiment score of the artist. </p>
+    <p>Everything is rendered in real-time.</p>
+    <p>Authored by Scott Jason  |  github.com/scottjason</p>
+    </div>
+
 <table align="center" width="1200" border="0" cellspacing="0" cellpadding="0">
     <tr><td>
         <div class="content-header">
         <h4 ><a id="logo" href="http://scottjason.github.io/saferoute">tweety pop</a></h4>
         <p id="slogan">( &nbsp; streaming live from the twitterverse &nbsp; )</p>
-        <p id="about">about</p>
+        <a id="about">about</a>
         </div></td>
     </table>
     <table align="center" width="400" border="1" cellspacing="0" cellpadding="0">

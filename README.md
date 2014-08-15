@@ -2,9 +2,15 @@
 
 ### Introduction
 
-Twitter visualization and data analytics project using Node.js, Express.js, & Socket.io. Streams data from twitter and pass it through a sentiment
-algorithm. Everything is rendered in the browser in real-time.
+- Twitter visualization and data analytics project using Node.js, Express.js, & Socket.io.
 
+- Using Web Sockets, data is streamed from twitter and passes through a sentiment algorithm.
+
+- The incoming sentiment score reflects the degree of positivity / negativty of the current tweet on-screen.
+
+- The tweety pop interpreter reflects the average sentiment score of the artist. 
+
+- Everything is rendered in real-time.
 ### Poject Milestones
 
 - Create a real-time stream from the server to the client for data transfer.
