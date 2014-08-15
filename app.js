@@ -33,24 +33,6 @@ server.listen(port, function() {
 console.log("Listening on " + port);
 });
 
-// initiate database connection
-var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
-                replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } };
-
-mongoose.connect("mongodb://heroku_app28482092:tj98slsjoiakhud0ok64qm016a@ds033559.mongolab.com:33559/heroku_app28482092", function(err) {
-  if (err) { throw err }
-  else { console.log("Successfully initiated database connection") }
-});
-
-// create schema
-var tweetSchema = mongoose.Schema(
-    { popStar: { type: String }, tweetScore: { type: Number } },
-    { capped: { size: 2000000, max: 100000, autoIndexId: true } }
-);
-
-// create model Rating and 'score' collection
-var Rating = mongoose.model('score', tweetSchema);
-
 // declare public folder
 app.use('/', express.static(__dirname + '/public'));
 
@@ -70,7 +52,7 @@ tweet = new twitter({
 
 
 // stream incoming tweets, write to database, emit to client
-io.sockets.on('connection', function() {
+
   tweet.stream('statuses/filter', { "track": popTracker },
     function(stream) {
       stream.on('data', function(data) {
@@ -81,117 +63,97 @@ io.sockets.on('connection', function() {
       newTweet = decodeURIComponent(escape(foreignCharacters));
 
       if (data.id != null) {
-      var newScore = new Rating ( { popStar: newTweet, tweetScore: sentiment(newTweet).score } );
-      newScore.save(function(err) { if (err) { throw err } })
-      io.sockets.emit('message', newTweet, sentiment(newTweet).score) }
+        var score = sentiment(newTweet).score
+        analyzeTweet(data.text, score)
+      io.sockets.emit('message', newTweet, score) }
+  })
 
 
-      // stream the database, emit to client
-      var streamdB = Rating.find().stream();
-      streamdB.on('data', function(doc)  {
-      if (doc.popStar.indexOf('perry') != -1 && doc.tweetScore != 0)
+function analyzeTweet(doc, score) {
+   if (doc.indexOf('perry') != -1 && score != 0)
     {
-      this.pause()
-      var self = this
-      perryScores.push(doc.tweetScore);
+
+      perryScores.push(score);
       io.sockets.emit('perryScoreArray', perryScores);
-      self.resume()
+
     }
-      else if (doc.popStar.indexOf('bieber') != -1 && doc.tweetScore != 0)
+      else if (doc.indexOf('bieber') != -1 && score != 0)
     {
-      this.pause()
-      var self = this
-      bieberScores.push(doc.tweetScore);
+
+      bieberScores.push(score);
       io.sockets.emit('bieberScoreArray', bieberScores);
-      self.resume()
+
     }
-      else if ((doc.popStar.indexOf('levine') != -1 || doc.popStar.indexOf('maroon') != -1) && doc.tweetScore != 0)
+      else if ((doc.indexOf('levine') != -1 || doc.indexOf('maroon') != -1) && score != 0)
     {
-      this.pause()
-      var self = this
-      levineScores.push(doc.tweetScore);
+
+      levineScores.push(score);
       io.sockets.emit('levineScoreArray', levineScores);
-      self.resume()
+
     }
-      else if (doc.popStar.indexOf('beyonce') != -1 && doc.tweetScore != 0)
+      else if (doc.indexOf('beyonce') != -1 && score != 0)
     {
-      this.pause()
-      var self = this
-      beyonceScores.push(doc.tweetScore);
+
+      beyonceScores.push(score);
       io.sockets.emit('beyonceScoreArray', beyonceScores);
-      self.resume()
+
     }
-    else if (doc.popStar.indexOf('rihanna') != -1 && doc.tweetScore != 0)
+    else if (doc.indexOf('rihanna') != -1 && score != 0)
     {
-      this.pause()
-      var self = this
-      rihannaScores.push(doc.tweetScore);
+
+      rihannaScores.push(score);
       io.sockets.emit('rihannaScoreArray', rihannaScores);
-      self.resume()
+
     }
-    else if (doc.popStar.indexOf('eminem') != -1 && doc.tweetScore != 0)
+    else if (doc.indexOf('eminem') != -1 && score != 0)
     {
-      this.pause()
-      var self = this
-      eminemScores.push(doc.tweetScore);
+
+      eminemScores.push(score);
       io.sockets.emit('eminemScoreArray', eminemScores);
-      self.resume()
+
     }
-    else if (doc.popStar.indexOf('miley') != -1 && doc.tweetScore != 0)
+    else if (doc.indexOf('miley') != -1 && score != 0)
     {
-      this.pause()
-      var self = this
-      mileyScores.push(doc.tweetScore);
+
+      mileyScores.push(score);
       io.sockets.emit('mileyScoreArray', mileyScores);
-      self.resume()
+
     }
-    else if (doc.popStar.indexOf('bruno') != -1 && doc.tweetScore != 0)
+    else if (doc.indexOf('bruno') != -1 && score != 0)
     {
-      this.pause()
-      var self = this
-      brunoScores.push(doc.tweetScore);
+
+      brunoScores.push(score);
       io.sockets.emit('brunoScoreArray', brunoScores);
-      self.resume()
+
     }
-    else if (doc.popStar.indexOf('gaga') != -1 && doc.tweetScore != 0)
+    else if (doc.indexOf('gaga') != -1 && score != 0)
     {
-      this.pause()
-      var self = this
-      gagaScores.push(doc.tweetScore);
+
+      gagaScores.push(score);
       io.sockets.emit('gagaScoreArray', gagaScores);
-      self.resume()
+
     }
-    else if (doc.popStar.indexOf('swift') != -1 && doc.tweetScore != 0)
+    else if (doc.indexOf('swift') != -1 && score != 0)
     {
-      this.pause()
-      var self = this
-      swiftScores.push(doc.tweetScore);
+
+      swiftScores.push(score);
       io.sockets.emit('swiftScoreArray', swiftScores);
-      self.resume()
+
     }
-    else if (doc.popStar.indexOf('timberlake') != -1 && doc.tweetScore != 0)
+    else if (doc.indexOf('timberlake') != -1 && score != 0)
     {
-      this.pause()
-      var self = this
-      timberlakeScores.push(doc.tweetScore);
+
+      timberlakeScores.push(score);
       io.sockets.emit('timberlakeScoreArray', timberlakeScores);
-      self.resume()
+
     }
-    else if (doc.popStar.indexOf('lovato') != -1 && doc.tweetScore != 0)
+    else if (doc.indexOf('lovato') != -1 && score != 0)
     {
-      this.pause()
-      var self = this
-      lovatoScores.push(doc.tweetScore);
+
+      lovatoScores.push(score);
       io.sockets.emit('lovatoScoreArray', lovatoScores);
-      self.resume()
+
     }
     else { console.log ('.. analyzing data stream ..') }
-
-    }).on('error', function (err) { { throw err }
-
-    }).on('close', function () {
-      console.log('database stream closed')
-      });
-    });
-  });
-});
+  }
+})
