@@ -45,7 +45,7 @@ mongoose.connect("mongodb://heroku_app28482092:tj98slsjoiakhud0ok64qm016a@ds0335
 // create schema
 var tweetSchema = mongoose.Schema(
     { popStar: { type: String }, tweetScore: { type: Number } },
-    { capped: { size: 2000000, max: 10000, autoIndexId: true } }
+    { capped: { size: 20000000, max: 100000, autoIndexId: true } }
 );
 
 // create model Rating and 'score' collection
@@ -69,10 +69,7 @@ tweet = new twitter({
 });
 
 
-io.sockets.on('connection', function(socket) {
 
-    allClients = [];
-    allClients.push(socket);
 
 // stream incoming tweets, write to database, emit to client
   tweet.stream('statuses/filter', { "track": popTracker },
@@ -85,17 +82,18 @@ io.sockets.on('connection', function(socket) {
       newTweet = decodeURIComponent(escape(foreignCharacters));
 
       if (data.id != null) {
-      // var newScore = new Rating ( { popStar: newTweet, tweetScore: sentiment(newTweet).score } );
-      // newScore.save(function(err) { if (err) { throw err } })
+      var newScore = new Rating ( { popStar: newTweet, tweetScore: sentiment(newTweet).score } );
+      newScore.save(function(err) { if (err) { throw err } })
       io.sockets.emit('message', newTweet, sentiment(newTweet).score) }
-
-        });
-
-});
+  });
+ });
 
 
 
 // stream the database, emit to client
+io.sockets.on('connection', function(socket) {
+    allClients = [];
+    allClients.push(socket);
 
     streamdB = Rating.find().stream();
       streamdB.on('data', function(doc)  {
@@ -201,16 +199,14 @@ io.sockets.on('connection', function(socket) {
 
     }).on('close', function () {
       console.log('database stream closed')
+  });
 
-});
-
-
-        socket.on('disconnect', function() {
-      console.log('Got disconnected!');
-       var i = allClients.indexOf(socket);
-      allClients.splice(i, 1)
+  socket.on('disconnect', function() {
+    console.log('Got disconnected!');
+    var i = allClients.indexOf(socket);
+    allClients.splice(i, 1)
    });
-          });
+});
 
 
 
