@@ -39,15 +39,19 @@ app.use('/', express.static(__dirname + '/public'));
 app.get('/', function(req, res) {
   res.sendfile(__dirname + '/index.html');
 
-  var tweetQuery = Rating.find({}).limit(1000);
-  tweetQuery.exec(function(err, docs) {
-    collectQuery(docs);
+  io.sockets.on('connection', function(socket) {
+    var tweetQuery = Rating.find( {} ).limit(1000);
+    tweetQuery.exec(function(err, docs) {
+      // emit database data to client
+      io.sockets.emit('queryLoaded', docs)
+
+      // Handle disconnects
+      socket.on('disconnect', function(docs) {
+        session.disconnect(io, socket, docs);
+      });
+    });
   });
 });
-
-function collectQuery(docs) {
-  io.sockets.emit('queryLoaded', docs);
-}
 
 // creates database schema
 var tweetSchema = mongoose.Schema({
