@@ -69,23 +69,23 @@ server.listen(port, function() {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // initiates database connection options
-// var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
-//   replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
-// };
+var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+  replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
+};
 
-// // initiates database connection
-// mongoose.connect("mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/heroku_app28482092", options, function(err) {
-//   if (!err) { console.log( 'Successfully initiated database connection.' ) }
-// });
+// initiates database connection
+mongoose.connect("mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/heroku_app28482092", options, function(err) {
+  if (!err) { console.log( 'Successfully initiated database connection.' ) }
+});
 
-// // creates database schema
-// var tweetSchema = mongoose.Schema(
-//   { popStar: { type: String }, tweetScore: { type: Number } },
-//   { capped: { size: 20000000, max: 100000, autoIndexId: false } }
-// );
+// creates database schema
+var tweetSchema = mongoose.Schema(
+  { popStar: { type: String }, tweetScore: { type: Number } },
+  { capped: { size: 20000000, max: 100000, autoIndexId: false } }
+);
 
-// // creates model Rating and 'score' collection
-// var Rating = mongoose.model('score', tweetSchema);
+// creates model Rating and 'score' collection
+var Rating = mongoose.model('score', tweetSchema);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Immediately Invoked Recursive Function To Query Database Every Ten Seconds For 1000 Tweets
@@ -131,9 +131,9 @@ tweet.stream('statuses/filter', {
       // declares conditions to both save and render
       if ( newTweet != null && score != 0 ) {
 
-      // var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
-      // newDocument.save(function(err) {
-      // if( err ) throw new Error( 'There was an error while saving to the database.' ) })
+      var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
+      newDocument.save(function(err) {
+      if( err ) throw new Error( 'There was an error while saving to the database.' ) })
         analyzeTweet( newTweet, score );
         io.sockets.emit( 'incoming', newTweet, score )}
 
