@@ -37,8 +37,8 @@ app.use('/', express.static(__dirname + '/public'));
 
 // declare routes, query database, emit results on query complettion
 app.get('/', function(req, res) {
-  res.sendfile(__dirname + '/index.html');
-  search = req.query || "";
+  // res.sendfile(__dirname + '/index.html');
+  // search = req.query || "";
   // Rating.find( {} ).limit(1000).exec(queryCallBack)
   var tweetQuery = Rating.find({}).limit(1000);
   tweetQuery.exec(function(err, docs) {
