@@ -14,14 +14,10 @@ var express = require('express'),
   mongoose = require('mongoose');
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Deckares Artist To Track & Store Current Time
+// Declares Artists To Track & Artist Sentiment Score Arrays
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 var popTracker = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adam levine, adamlevine, maroon 5, kaynewest, kanye west, miley cyrus, rihanna, demi lovato, lady gaga"];
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Deckares Artist Score Arrays
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 var perryScores = [],
     levineScores = [],
@@ -94,7 +90,7 @@ var tweetSchema = mongoose.Schema(
 var Rating = mongoose.model('score', tweetSchema);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Client Handling
+// Streams Incoming Tweets, Renders to View and Stores to Database
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // twitter authorization
@@ -105,7 +101,6 @@ tweet = new twitter({
   access_token_secret: "ZVusxwm9y4aJCnvtx3MHj7148REZikXyySeZURZsLUVGz"
 });
 
-// streams incoming tweets
 tweet.stream('statuses/filter', {
     "track": popTracker
   },
@@ -136,8 +131,12 @@ tweet.stream('statuses/filter', {
    });
 });
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Continuously Queries the Database for Tweets in Slices of 2000
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 io.sockets.on('connection', function (socket) {
-  console.log('Successfully initiated socket connection.')
+console.log('Successfully initiated socket connection.')
 // queries the database in chunks of 2000 collections
 console.log('The database successfully made a query.')
 var tweetQuery = Rating.find( {} ).limit(2000);
@@ -153,6 +152,10 @@ var tweetQuery = Rating.find( {} ).limit(2000);
   console.log('Tweety Pop has been temporarily disconnected.');
   });
 });
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Analyzes Tweets From Live Stream and From Database Query Before Being Passed To Client
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function analyzeTweet(newTweet, score) {
     if (newTweet.indexOf('perry') != -1 && score != 0) {
