@@ -69,17 +69,9 @@ var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000
 
 // initiates database connection
 mongoose.connect("mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/heroku_app28482092", options, function(err) {
-  if (!err) { dbConnectedStatus() }
-  else { dbDisconnectedStatus( 'not connected' ) } });
+  if (!err) { console.log( 'Tweety Pop has successfuly connected to the database.' ) }
+});
 
-// verifies state of database connection
-function dbConnectedStatus(){
-  return true
-};
-
-function dbDisconnectedStatus(state){
-  return state
-}
 // declares database connection events
 var db = mongoose.connection;
 
@@ -90,13 +82,11 @@ var db = mongoose.connection;
 // when successfully connected
 db.on('connected', function () {
 
-// immediately invoked function, calls itself every 10 seconds to query for 750 tweets in database
-(function queryMongo() {
+// queryMongo waits one second for mongo database to establish a connection,
+// then calls itself every 10 seconds to query for 750 tweets in the database
+setTimeout(queryMongo, 1000)
+function queryMongo() {
 
-  console.log( dbConnectedStatus() )
-  console.log( dbDisconnectedStatus() )
-// verifies the database has initiated a connection
-  if ( dbConnectedStatus() && dbDisconnectedStatus() == undefined ){
   console.log(".. querying the database ..");
 // queries database on db connection verification
   var tweetQuery = Rating.find({}).limit(750);
@@ -108,25 +98,21 @@ db.on('connected', function () {
     }
     setTimeout(queryMongo, 10000);
     });
-   }
-  })();
+  }
 });
 
 // if the connection throws an error
 db.on('error',function (err) {
-dbDisconnectedStatus( 'not connected' )
 console.log('Mongoose default connection error: ' + err);
 });
 
 // when the connection is disconnected
 db.on('disconnected', function () {
-  dbDisconnectedStatus( 'not connected' )
   console.log( 'Tweety Pop has been temporarily disconnected from the mongo database.' );
 });
 
 // if the node process ends, close the mongoose connection
 process.on('SIGINT', function() {
-  dbDisconnectedStatus(true)
   db.close(function () {
   console.log('Mongoose default connection disconnected through app termination');
   process.exit(0);
