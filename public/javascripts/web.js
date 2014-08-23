@@ -1,14 +1,13 @@
 $(document).ready(function() {
 
 // declare floating point number truncation
-    Number.prototype.toFixedDown = function(digits) {
-        var regularExp = new RegExp("(\\d+\\.\\d{" + digits + "})(\\d)"),
-        matchString = this.toString().match(regularExp);
-        return matchString ? parseFloat(matchString[1]) : this.valueOf();
-    };
-
+Number.prototype.toFixedDown = function(digits) {
+    var regularExp = new RegExp("(\\d+\\.\\d{" + digits + "})(\\d)"),
+    matchString = this.toString().match(regularExp);
+    return matchString ? parseFloat(matchString[1]) : this.valueOf();
+};
 // initiate socket connection
-socket = io.connect()
+socket = io.connect();
 
 socket.on('queryLoaded', function(docs) {
     alert('queryLoaded!')

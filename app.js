@@ -1,5 +1,6 @@
-// requires modules
 require('newrelic')
+
+// declares modules
 var express = require('express'),
   app = express(),
   server = require('http').createServer(app),
@@ -8,7 +9,6 @@ var express = require('express'),
   sentiment = require('sentiment'),
   env = require('node-env-file'),
   mongoose = require('mongoose');
-
 
 // declares artists
 var popTracker = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adam levine, adamlevine, maroon 5, kaynewest, kanye west, miley cyrus, rihanna, demi lovato, lady gaga"];
@@ -26,6 +26,21 @@ var gagaScores = [];
 var swiftScores = [];
 var timberlakeScores = [];
 var lovatoScores = [];
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Configure Socket.IO
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+var socketData = {};
+if(!process.env.NODE_ENV)
+{ io.attach( server, { 'serveClient': false } )}
+
+io.use(function(socket, next) {
+  var query = socket.request._query;
+  socketData[socket.id] = { myNumber: query.mynumber }
+  next();
+});
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Express configuration
@@ -59,9 +74,7 @@ var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000
 
 // initiates database connection
 mongoose.connect("mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/heroku_app28482092", options, function(err) {
-  if (!err) {
-    console.log("Successfully initiated database connection.");
-  }
+  if (!err) { console.log( 'Successfully initiated database connection.' ) }
 });
 
 // creates database schema
@@ -87,7 +100,6 @@ tweet = new twitter({
   access_token_secret: "ZVusxwm9y4aJCnvtx3MHj7148REZikXyySeZURZsLUVGz"
 });
 
-
 // streams incoming tweets
 tweet.stream('statuses/filter', {
     "track": popTracker
@@ -104,7 +116,7 @@ tweet.stream('statuses/filter', {
           var newScore = new Rating( { popStar: newTweet, tweetScore: score } )
 
           newScore.save(function(err) {
-            if (err) { throw err } })
+          if(err) throw new Error( 'There was an error while saving to the database.' ) })
 
         analyzeTweet(newTweet, score)
         io.sockets.emit('message', newTweet, score)
@@ -154,6 +166,7 @@ function analyzeTweet(doc, score) {
   }
 
 io.sockets.on('connection', function (socket) {
+  console.log('Successfully initiated socket connection.')
 // queries the database in chunks of 100 collections
 var tweetQuery = Rating.find( {} ).limit(1000);
   tweetQuery.exec(function(err, docs) {
@@ -161,9 +174,7 @@ var tweetQuery = Rating.find( {} ).limit(1000);
     // emit database data to client
     io.sockets.emit('queryLoaded', docs)
   });
-
-
-  socket.on('disconnect', function() {
+  socket.on('disconnect', function(socket) {
   console.log('Tweety Pop has been temporarily disconnected.');
   });
 });
