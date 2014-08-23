@@ -86,9 +86,9 @@ mongoose.connect("mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/
 
 // creates database schema
 var tweetSchema = mongoose.Schema({
-  popStar: { type: String }, tweetScore: { type: Number } },
-{
-  capped: { size: 2000000, max: 10000, autoIndexId: true }
+    popStar: { type: String }, tweetScore: { type: Number },
+    capped: { size: 2000000, max: 10000, autoIndexId: false },
+    createdAt: { type: Date, default: Date.now }
 });
 
 // creates model Rating and 'score' collection
@@ -120,7 +120,7 @@ tweet.stream('statuses/filter', {
       newTweet = decodeURIComponent(escape(foreignCharacters));
       var score = sentiment(newTweet).score
       if (newTweet != null && score != 0) {
-          var newScore = new Rating( { popStar: newTweet, tweetScore: score } )
+          // var newScore = new Rating( { popStar: newTweet, tweetScore: score } )
 
           newScore.save(function(err) {
           if(err) throw new Error( 'There was an error while saving to the database.' ) })
