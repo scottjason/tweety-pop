@@ -1,18 +1,78 @@
 $(document).ready(function() {
 
-// declare floating point number truncation
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Adds Floating Point Truncation to Number Type
+///////////////////////////////////////////////////////////////////////////////////////////////////
 Number.prototype.toFixedDown = function(digits) {
     var regularExp = new RegExp("(\\d+\\.\\d{" + digits + "})(\\d)"),
     matchString = this.toString().match(regularExp);
     return matchString ? parseFloat(matchString[1]) : this.valueOf();
 };
-// initiate socket connection
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Initiate Socket Connection
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 socket = io.connect();
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Incoming DataBase Analysis
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 socket.on('queryLoaded', function(docs) {
     console.log(docs);
 })
-// logic and render for database stream subscribers
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Incoming Tweet Analysis
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+socket.on('analysis', function(newTweet, score){
+  if (newTweet.indexOf('perry') != -1 && score != 0) {
+      perryScores.push(score);
+      io.sockets.emit('perryScoreArray', perryScores);
+    } else if (newTweet.indexOf('bieber') != -1 && score != 0) {
+      bieberScores.push(score);
+      io.sockets.emit('bieberScoreArray', bieberScores);
+    } else if ((newTweet.indexOf('levine') != -1 || newTweet.indexOf('maroon') != -1) && score != 0) {
+      levineScores.push(score);
+      io.sockets.emit('levineScoreArray', levineScores);
+    } else if (newTweet.indexOf('beyonce') != -1 && score != 0) {
+      beyonceScores.push(score);
+      io.sockets.emit('beyonceScoreArray', beyonceScores);
+    } else if (newTweet.indexOf('rihanna') != -1 && score != 0) {
+      rihannaScores.push(score);
+      io.sockets.emit('rihannaScoreArray', rihannaScores);
+    } else if (newTweet.indexOf('eminem') != -1 && score != 0) {
+      eminemScores.push(score);
+      io.sockets.emit('eminemScoreArray', eminemScores);
+    } else if (newTweet.indexOf('miley') != -1 && score != 0) {
+      mileyScores.push(score);
+      io.sockets.emit('mileyScoreArray', mileyScores);
+    } else if (newTweet.indexOf('kanye') != -1 && score != 0) {
+      kanyeScores.push(score);
+      io.sockets.emit('kanyeScoreArray', kanyeScores);
+    } else if (newTweet.indexOf('gaga') != -1 && score != 0) {
+      gagaScores.push(score);
+      io.sockets.emit('gagaScoreArray', gagaScores);
+    } else if (newTweet.indexOf('swift') != -1 && score != 0) {
+      swiftScores.push(score);
+      io.sockets.emit('swiftScoreArray', swiftScores);
+    } else if (newTweet.indexOf('timberlake') != -1 && score != 0) {
+      timberlakeScores.push(score);
+      io.sockets.emit('timberlakeScoreArray', timberlakeScores);
+    } else if (newTweet.indexOf('lovato') != -1 && score != 0) {
+      lovatoScores.push(score);
+      io.sockets.emit('lovatoScoreArray', lovatoScores);
+    } else {
+      console.log('.. analyzing data stream ..')
+    }
+});
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Logic and Render for Artist Score Anyalsis
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
     socket.on('perryScoreArray', function(perryScores) {
         // sentiment average over time
         var sum = 0;
@@ -452,7 +512,10 @@ socket.on('queryLoaded', function(docs) {
         }
     })
 
-// render for twitter stream subscribers
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Render for Incoming Tweet Stream
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
     function renderKatie(tweet, rating) {
         $( ".katie-score-loading" ).hide();
         $(".katy").fadeOut(function() {
