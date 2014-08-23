@@ -132,7 +132,7 @@ tweet.stream('statuses/filter', {
 io.sockets.on('connection', function (socket) {
 console.log('Successfully initiated socket connection.')
 
-var tweetQuery = Rating.find( {} ).limit(500);
+var tweetQuery = Rating.find( {} ).limit(750);
 console.log('The database successfully made a query.');
   tweetQuery.exec(function(err, docs) {
     if( err ) throw new Error( 'There was an error while retrieving instructions from the database.' );
@@ -188,7 +188,5 @@ function analyzeTweet(newTweet, score) {
     } else if ( newTweet.indexOf('lovato') != -1 ) {
       lovatoScores.push(score);
       io.sockets.emit('lovatoScoreArray', lovatoScores);
-    } else {
-      console.log('.. analyzing data stream ..')
-  }
+    } else {}
 }
