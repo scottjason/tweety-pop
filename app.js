@@ -125,7 +125,7 @@ tweet.stream('statuses/filter', {
           newScore.save(function(err) {
           if(err) throw new Error( 'There was an error while saving to the database.' ) })
 
-        // analyzeTweet(newTweet, score)
+        analyzeTweet(newTweet, score)
         io.sockets.emit('incoming', newTweet, score);
       }
     })
@@ -133,8 +133,9 @@ tweet.stream('statuses/filter', {
 
 io.sockets.on('connection', function (socket) {
   console.log('Successfully initiated socket connection.')
-// queries the database in chunks of 100 collections
-var tweetQuery = Rating.find( {} ).limit(1000);
+// queries the database in chunks of 2000 collections
+console.log('The database successfully made a query.')
+var tweetQuery = Rating.find( {} ).limit(2000);
   tweetQuery.exec(function(err, docs) {
     if(err) throw new Error( 'There was an error while retrieving instructions from the database.' );
       for (var i=0; i < docs.length; i++){
