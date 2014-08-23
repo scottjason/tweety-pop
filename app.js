@@ -90,7 +90,7 @@ var tweetSchema = mongoose.Schema(
 var Rating = mongoose.model('score', tweetSchema);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Immediately Invoked Recursive Function To Query Database Every Three Seconds For 1000 Tweets
+// Immediately Invoked Recursive Function To Query Database Every Ten Seconds For 1000 Tweets
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 (function queryMongo() {
