@@ -17,7 +17,7 @@ var express = require('express'),
 // Declares Artists To Track & Artist Sentiment Score Arrays
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-var popTracker = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adam levine, adamlevine, maroon 5, kaynewest, kanye west, miley cyrus, rihanna, demi lovato, lady gaga"];
+var popTracker = [ "katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, kaynewest, kanye west, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga" ];
 
 var perryScores = [],
     levineScores = [],
@@ -137,11 +137,14 @@ tweet.stream('statuses/filter', {
 
 io.sockets.on('connection', function (socket) {
 console.log('Successfully initiated socket connection.')
-// queries the database in chunks of 2000 collections
-console.log('The database successfully made a query.')
+// queries the database in chunks of 1000 collections
+
 var tweetQuery = Rating.find( {} ).limit(2000);
   tweetQuery.exec(function(err, docs) {
+
     if(err) throw new Error( 'There was an error while retrieving instructions from the database.' );
+      console.log( 'The database successfully made a query.' )
+
       for (var i=0; i < docs.length; i++){
         var dbTweet = docs[i].popStar;
         var dbScore = docs[i].tweetScore;
@@ -158,40 +161,40 @@ var tweetQuery = Rating.find( {} ).limit(2000);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function analyzeTweet(newTweet, score) {
-    if (newTweet.indexOf('perry') != -1 && score != 0) {
+    if (newTweet.indexOf('perry') != -1 ) {
       perryScores.push(score);
       io.sockets.emit('perryScoreArray', perryScores);
-    } else if (newTweet.indexOf('bieber') != -1 && score != 0) {
+    } else if ( newTweet.indexOf('bieber') != -1 ) {
       bieberScores.push(score);
       io.sockets.emit('bieberScoreArray', bieberScores);
-    } else if ((newTweet.indexOf('levine') != -1 || newTweet.indexOf('maroon') != -1) && score != 0) {
+    } else if (( newTweet.indexOf('levine') != -1 || newTweet.indexOf('maroon') != -1) ) {
       levineScores.push(score);
       io.sockets.emit('levineScoreArray', levineScores);
-    } else if (newTweet.indexOf('beyonce') != -1 && score != 0) {
+    } else if ( newTweet.indexOf('beyonce') != -1 ) {
       beyonceScores.push(score);
       io.sockets.emit('beyonceScoreArray', beyonceScores);
-    } else if (newTweet.indexOf('rihanna') != -1 && score != 0) {
+    } else if ( newTweet.indexOf('rihanna') != -1 ) {
       rihannaScores.push(score);
       io.sockets.emit('rihannaScoreArray', rihannaScores);
-    } else if (newTweet.indexOf('eminem') != -1 && score != 0) {
+    } else if ( newTweet.indexOf('eminem') != -1 ) {
       eminemScores.push(score);
       io.sockets.emit('eminemScoreArray', eminemScores);
-    } else if (newTweet.indexOf('miley') != -1 && score != 0) {
+    } else if ( newTweet.indexOf('miley') != -1 ) {
       mileyScores.push(score);
       io.sockets.emit('mileyScoreArray', mileyScores);
-    } else if (newTweet.indexOf('kanye') != -1 && score != 0) {
+    } else if ( newTweet.indexOf('kanye') != -1 ) {
       kanyeScores.push(score);
       io.sockets.emit('kanyeScoreArray', kanyeScores);
-    } else if (newTweet.indexOf('gaga') != -1 && score != 0) {
+    } else if ( newTweet.indexOf('gaga') != -1 ) {
       gagaScores.push(score);
       io.sockets.emit('gagaScoreArray', gagaScores);
-    } else if (newTweet.indexOf('swift') != -1 && score != 0) {
+    } else if ( newTweet.indexOf('swift') != -1 ) {
       swiftScores.push(score);
       io.sockets.emit('swiftScoreArray', swiftScores);
-    } else if (newTweet.indexOf('timberlake') != -1 && score != 0) {
+    } else if ( newTweet.indexOf('timberlake') != -1 ) {
       timberlakeScores.push(score);
       io.sockets.emit('timberlakeScoreArray', timberlakeScores);
-    } else if (newTweet.indexOf('lovato') != -1 && score != 0) {
+    } else if ( newTweet.indexOf('lovato') != -1 ) {
       lovatoScores.push(score);
       io.sockets.emit('lovatoScoreArray', lovatoScores);
     } else {
