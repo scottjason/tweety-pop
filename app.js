@@ -35,22 +35,25 @@ server.listen(port, function() {
 // declares public folder
 app.use('/', express.static(__dirname + '/public'));
 
-// declares routes, query database, emit results on query complettion
+// declares routes
 app.get('/', function(req, res) {
   res.sendfile(__dirname + '/index.html');
 
-  io.sockets.on('connection', function(socket) {
-    var tweetQuery = Rating.find( {} ).limit(1000);
+// initiate socket connection, query database, emit results to client on query completion
+io.sockets.on('connection', function(socket) {
+    // queries the database in chunks of 100 collections
+    var tweetQuery = Rating.find( {} ).limit(100);
     tweetQuery.exec(function(err, docs) {
-      // emit database data to client
-      io.sockets.emit('queryLoaded', docs)
 
-      // Handle disconnects
-      socket.on('disconnect', function(docs) {
-        session.disconnect(io, socket, docs);
-      });
-    });
+    // emit database data to client
+    socket.emit('queryLoaded', docs)
+
+    // Handle disconnects
+    socket.on('disconnect', function(docs) {
+    session.disconnect(io, socket, docs);
+   });
   });
+ });
 });
 
 // creates database schema
@@ -94,6 +97,10 @@ mongoose.connect("mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/
     console.log("Successfully initiated database connection.");
   }
 });
+
+
+
+
 
 // twitter authorization
 tweet = new twitter({
