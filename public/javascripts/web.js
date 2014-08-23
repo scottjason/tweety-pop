@@ -10,7 +10,6 @@ Number.prototype.toFixedDown = function(digits) {
 socket = io.connect();
 
 socket.on('queryLoaded', function(docs) {
-    alert('queryLoaded!')
     console.log(docs);
 })
 // logic and render for database stream subscribers
