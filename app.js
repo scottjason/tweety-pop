@@ -126,13 +126,13 @@ tweet.stream('statuses/filter', {
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Queries The DataBase On Socket Connection, Runs Query in Slices of 1000 Tweets
+// Queries The DataBase On Socket Connection, Runs Query in Slices of 500 Tweets
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 io.sockets.on('connection', function (socket) {
 console.log('Successfully initiated socket connection.')
 
-var tweetQuery = Rating.find( {} ).limit(1000);
+var tweetQuery = Rating.find( {} ).limit(500);
 console.log('The database successfully made a query.');
   tweetQuery.exec(function(err, docs) {
     if( err ) throw new Error( 'There was an error while retrieving instructions from the database.' );
