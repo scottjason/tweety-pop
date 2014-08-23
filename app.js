@@ -80,7 +80,7 @@ mongoose.connect("mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/
 // creates database schema
 var tweetSchema = mongoose.Schema(
   { popStar: { type: String }, tweetScore: { type: Number } },
-  { capped: { size: 20000000, max: 100000, autoIndexId: false } }
+  { capped: { size: 1000000, max: 5000, autoIndexId: false } }
 );
 
 // creates model Rating and 'score' collection
@@ -111,8 +111,8 @@ tweet.stream('statuses/filter', {
 
       // declares conditions to both save and render
       if ( newTweet != null && score != 0 ) {
-        var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
-        newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
+        // var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
+        // newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
 
         analyzeTweet( newTweet, score );
         io.sockets.emit( 'incoming', newTweet, score )}
@@ -132,7 +132,7 @@ tweet.stream('statuses/filter', {
 io.sockets.on('connection', function (socket) {
 console.log('Successfully initiated socket connection.')
 
-var tweetQuery = Rating.find( {} ).limit(750);
+var tweetQuery = Rating.find( {} ).limit(500);
 console.log('The database successfully made a query.');
   tweetQuery.exec(function(err, docs) {
     if( err ) throw new Error( 'There was an error while retrieving instructions from the database.' );
