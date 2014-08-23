@@ -16,7 +16,7 @@ Number.prototype.toFixedDown = function(digits) {
 ///////////////////////////////////////////////
 // initiates socket connection
 
-socket = io.connect();
+socket = io.connect('http://localhost:3000/');
 
 socket.on('perryScoreArray', function(perryScores) {
 var sum = 0;
