@@ -190,8 +190,5 @@ function analyzeTweet(newTweet, score) {
       io.sockets.emit('lovatoScoreArray', lovatoScores);
     } else {
       console.log('.. analyzing data stream ..')
-    }
   }
-
-
-// 'immediately invoked recursive function to query database every three seconds for 1000 tweets'
+}
