@@ -1,8 +1,26 @@
 $(document).ready(function() {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+// Declares Artist Score Arrays
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+var perryScores = [],
+    levineScores = [],
+    beyonceScores = [],
+    bieberScores = [],
+    rihannaScores = [],
+    eminemScores = [],
+    mileyScores = [],
+    kanyeScores = [],
+    gagaScores = [],
+    swiftScores = [],
+    timberlakeScores = [],
+    lovatoScores = [];
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 // Adds Floating Point Truncation to Number Type
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+
 Number.prototype.toFixedDown = function(digits) {
     var regularExp = new RegExp("(\\d+\\.\\d{" + digits + "})(\\d)"),
     matchString = this.toString().match(regularExp);
@@ -21,52 +39,6 @@ socket = io.connect();
 
 socket.on('queryLoaded', function(docs) {
     console.log(docs);
-})
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// Incoming Tweet Analysis
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-socket.on('analysis', function(newTweet, score){
-  if (newTweet.indexOf('perry') != -1 && score != 0) {
-      perryScores.push(score);
-      io.sockets.emit('perryScoreArray', perryScores);
-    } else if (newTweet.indexOf('bieber') != -1 && score != 0) {
-      bieberScores.push(score);
-      io.sockets.emit('bieberScoreArray', bieberScores);
-    } else if ((newTweet.indexOf('levine') != -1 || newTweet.indexOf('maroon') != -1) && score != 0) {
-      levineScores.push(score);
-      io.sockets.emit('levineScoreArray', levineScores);
-    } else if (newTweet.indexOf('beyonce') != -1 && score != 0) {
-      beyonceScores.push(score);
-      io.sockets.emit('beyonceScoreArray', beyonceScores);
-    } else if (newTweet.indexOf('rihanna') != -1 && score != 0) {
-      rihannaScores.push(score);
-      io.sockets.emit('rihannaScoreArray', rihannaScores);
-    } else if (newTweet.indexOf('eminem') != -1 && score != 0) {
-      eminemScores.push(score);
-      io.sockets.emit('eminemScoreArray', eminemScores);
-    } else if (newTweet.indexOf('miley') != -1 && score != 0) {
-      mileyScores.push(score);
-      io.sockets.emit('mileyScoreArray', mileyScores);
-    } else if (newTweet.indexOf('kanye') != -1 && score != 0) {
-      kanyeScores.push(score);
-      io.sockets.emit('kanyeScoreArray', kanyeScores);
-    } else if (newTweet.indexOf('gaga') != -1 && score != 0) {
-      gagaScores.push(score);
-      io.sockets.emit('gagaScoreArray', gagaScores);
-    } else if (newTweet.indexOf('swift') != -1 && score != 0) {
-      swiftScores.push(score);
-      io.sockets.emit('swiftScoreArray', swiftScores);
-    } else if (newTweet.indexOf('timberlake') != -1 && score != 0) {
-      timberlakeScores.push(score);
-      io.sockets.emit('timberlakeScoreArray', timberlakeScores);
-    } else if (newTweet.indexOf('lovato') != -1 && score != 0) {
-      lovatoScores.push(score);
-      io.sockets.emit('lovatoScoreArray', lovatoScores);
-    } else {
-      console.log('.. analyzing data stream ..')
-    }
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -74,7 +46,6 @@ socket.on('analysis', function(newTweet, score){
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
     socket.on('perryScoreArray', function(perryScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < perryScores.length; i++) {
             sum += parseInt(perryScores[i], 10);
@@ -109,7 +80,6 @@ socket.on('analysis', function(newTweet, score){
     })
 
     socket.on('levineScoreArray', function(levineScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < levineScores.length; i++) {
             sum += parseInt(levineScores[i], 10);
@@ -144,7 +114,6 @@ socket.on('analysis', function(newTweet, score){
     })
 
     socket.on('beyonceScoreArray', function(beyonceScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < beyonceScores.length; i++) {
             sum += parseInt(beyonceScores[i], 10);
@@ -179,7 +148,6 @@ socket.on('analysis', function(newTweet, score){
     })
 
     socket.on('bieberScoreArray', function(bieberScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < bieberScores.length; i++) {
             sum += parseInt(bieberScores[i], 10);
@@ -213,7 +181,6 @@ socket.on('analysis', function(newTweet, score){
     })
 
     socket.on('rihannaScoreArray', function(rihannaScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < rihannaScores.length; i++) {
             sum += parseInt(rihannaScores[i], 10);
@@ -247,7 +214,6 @@ socket.on('analysis', function(newTweet, score){
     })
 
     socket.on('eminemScoreArray', function(eminemScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < eminemScores.length; i++) {
             sum += parseInt(eminemScores[i], 10);
@@ -281,7 +247,6 @@ socket.on('analysis', function(newTweet, score){
     })
 
     socket.on('mileyScoreArray', function(mileyScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < mileyScores.length; i++) {
             sum += parseInt(mileyScores[i], 10);
@@ -314,7 +279,6 @@ socket.on('analysis', function(newTweet, score){
     })
 
      socket.on('kanyeScoreArray', function(kanyeScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < kanyeScores.length; i++) {
             sum += parseInt(kanyeScores[i], 10);
@@ -348,7 +312,6 @@ socket.on('analysis', function(newTweet, score){
     })
 
      socket.on('gagaScoreArray', function(gagaScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < gagaScores.length; i++) {
             sum += parseInt(gagaScores[i], 10);
@@ -381,7 +344,6 @@ socket.on('analysis', function(newTweet, score){
     })
 
     socket.on('swiftScoreArray', function(swiftScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < swiftScores.length; i++) {
             sum += parseInt(swiftScores[i], 10);
@@ -414,7 +376,6 @@ socket.on('analysis', function(newTweet, score){
     })
 
     socket.on('timberlakeScoreArray', function(timberlakeScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < timberlakeScores.length; i++) {
             sum += parseInt(timberlakeScores[i], 10);
@@ -447,7 +408,6 @@ socket.on('analysis', function(newTweet, score){
     })
 
     socket.on('lovatoScoreArray', function(lovatoScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < lovatoScores.length; i++) {
             sum += parseInt(lovatoScores[i], 10);
@@ -479,8 +439,11 @@ socket.on('analysis', function(newTweet, score){
         $('#lovato-interpreter').text(interpreter);
     })
 
-// logic for twitter stream subscribers
-    socket.on('message', function(tweet, rating) {
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Checks Artist on Incoming Twitter Stream
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    socket.on('incoming', function(tweet, rating) {
         if (tweet.indexOf('katy perry') != -1) {
             renderKatie(tweet, rating);
         } else if (tweet.indexOf('jtimberlake') != -1 || tweet.indexOf('justin timerblake') != -1) {
