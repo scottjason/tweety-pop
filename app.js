@@ -71,6 +71,33 @@ var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000
 mongoose.connect("mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/heroku_app28482092", options, function(err) {
   if (!err) { console.log( 'Successfully initiated database connection.' ) } });
 
+// declares database connection events
+var db = mongoose.connection;
+
+// MONGO DB CONNECTION EVENTS
+// when successfully connected
+db.on('connected', function () {
+console.log( 'Tweety Pop has successfully connected to the mongo database.' );
+});
+
+// if the connection throws an error
+mongoose.connection.on('error',function (err) {
+console.log('Mongoose default connection error: ' + err);
+});
+
+// when the connection is disconnected
+mongoose.connection.on('disconnected', function () {
+console.log( 'Tweety Pop has been temporarily disconnected from the mongo database.' );
+});
+
+// if the node process ends, close the mongoose connection
+process.on('SIGINT', function() {
+  mongoose.connection.close(function () {
+  console.log('Mongoose default connection disconnected through app termination');
+  process.exit(0);
+  });
+});
+
 // creates database schema
 var tweetSchema = mongoose.Schema(
   { popStar: { type: String }, tweetScore: { type: Number } },
@@ -120,13 +147,13 @@ tweet.stream('statuses/filter', {
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Queries The DataBase On Socket Connection, Runs Query in Slices of 500 Tweets
+// Queries The DataBase On Socket Connection, Runs Query in Slices of 750 Tweets
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 io.sockets.on('connection', function (socket) {
 console.log('Successfully initiated socket connection.')
 
-var tweetQuery = Rating.find( {} ).limit(500);
+var tweetQuery = Rating.find( {} ).limit(750);
 console.log('The database successfully made a query.');
   tweetQuery.exec(function(err, docs) {
     if( err ) throw new Error( 'There was an error while retrieving instructions from the database.' );
