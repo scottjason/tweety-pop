@@ -87,8 +87,7 @@ mongoose.connect("mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/
 // creates database schema
 var tweetSchema = mongoose.Schema(
   { popStar: { type: String }, tweetScore: { type: Number } },
-  { capped: { size: 2000000, max: 10000, autoIndexId: false } },
-  { createdAt: { type: Date } }
+  { capped: { size: 2000000, max: 10000, autoIndexId: false } }
 );
 
 // creates model Rating and 'score' collection
@@ -118,17 +117,17 @@ tweet.stream('statuses/filter', {
       var foreignCharacters = unescape(encodeURIComponent(newTweet));
       newTweet = decodeURIComponent(escape(foreignCharacters));
       var score = sentiment(newTweet).score
-      if (newTweet != null && score != 0) {
-          var timeIsNow = new Date();
-          var newDocument = new Rating( { popStar: newTweet, tweetScore: score, createdAt: timeIsNow } )
-
-          newDocument.save(function(err) {
-          if(err) throw new Error( 'There was an error while saving to the database.' ) })
-
+      // declares conditions to render
+      if ( newTweet != null ) {
         analyzeTweet(newTweet, score)
-        io.sockets.emit('incoming', newTweet, score);
-      }
-    })
+        io.sockets.emit( 'incoming', newTweet, score )}
+      // declares conditions to save
+      // else if ( newTweet != null && score != 0 ){
+        // var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
+        // newDocument.save(function(err) {
+      // if( err ) throw new Error( 'There was an error while saving to the database.' ) }) }
+      else {};
+    });
 });
 
 io.sockets.on('connection', function (socket) {
