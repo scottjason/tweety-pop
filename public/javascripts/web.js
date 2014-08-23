@@ -1,21 +1,43 @@
 $(document).ready(function() {
 
-// declare floating point number truncation
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Declares Artist Score Arrays
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+var perryScores = [],
+    levineScores = [],
+    beyonceScores = [],
+    bieberScores = [],
+    rihannaScores = [],
+    eminemScores = [],
+    mileyScores = [],
+    kanyeScores = [],
+    gagaScores = [],
+    swiftScores = [],
+    timberlakeScores = [],
+    lovatoScores = [];
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Adds Floating Point Truncation to Number Type
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 Number.prototype.toFixedDown = function(digits) {
     var regularExp = new RegExp("(\\d+\\.\\d{" + digits + "})(\\d)"),
     matchString = this.toString().match(regularExp);
     return matchString ? parseFloat(matchString[1]) : this.valueOf();
 };
-// initiate socket connection
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Initiate Socket Connection
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 socket = io.connect();
 
-socket.on('queryLoaded', function(docs) {
-    alert('queryLoaded!')
-    console.log(docs);
-})
-// logic and render for database stream subscribers
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Logic and Render for Artist Score Anyalsis
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
     socket.on('perryScoreArray', function(perryScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < perryScores.length; i++) {
             sum += parseInt(perryScores[i], 10);
@@ -50,7 +72,6 @@ socket.on('queryLoaded', function(docs) {
     })
 
     socket.on('levineScoreArray', function(levineScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < levineScores.length; i++) {
             sum += parseInt(levineScores[i], 10);
@@ -85,7 +106,6 @@ socket.on('queryLoaded', function(docs) {
     })
 
     socket.on('beyonceScoreArray', function(beyonceScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < beyonceScores.length; i++) {
             sum += parseInt(beyonceScores[i], 10);
@@ -120,7 +140,6 @@ socket.on('queryLoaded', function(docs) {
     })
 
     socket.on('bieberScoreArray', function(bieberScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < bieberScores.length; i++) {
             sum += parseInt(bieberScores[i], 10);
@@ -154,7 +173,6 @@ socket.on('queryLoaded', function(docs) {
     })
 
     socket.on('rihannaScoreArray', function(rihannaScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < rihannaScores.length; i++) {
             sum += parseInt(rihannaScores[i], 10);
@@ -188,7 +206,6 @@ socket.on('queryLoaded', function(docs) {
     })
 
     socket.on('eminemScoreArray', function(eminemScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < eminemScores.length; i++) {
             sum += parseInt(eminemScores[i], 10);
@@ -222,7 +239,6 @@ socket.on('queryLoaded', function(docs) {
     })
 
     socket.on('mileyScoreArray', function(mileyScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < mileyScores.length; i++) {
             sum += parseInt(mileyScores[i], 10);
@@ -255,7 +271,6 @@ socket.on('queryLoaded', function(docs) {
     })
 
      socket.on('kanyeScoreArray', function(kanyeScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < kanyeScores.length; i++) {
             sum += parseInt(kanyeScores[i], 10);
@@ -289,7 +304,6 @@ socket.on('queryLoaded', function(docs) {
     })
 
      socket.on('gagaScoreArray', function(gagaScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < gagaScores.length; i++) {
             sum += parseInt(gagaScores[i], 10);
@@ -322,7 +336,6 @@ socket.on('queryLoaded', function(docs) {
     })
 
     socket.on('swiftScoreArray', function(swiftScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < swiftScores.length; i++) {
             sum += parseInt(swiftScores[i], 10);
@@ -355,7 +368,6 @@ socket.on('queryLoaded', function(docs) {
     })
 
     socket.on('timberlakeScoreArray', function(timberlakeScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < timberlakeScores.length; i++) {
             sum += parseInt(timberlakeScores[i], 10);
@@ -388,7 +400,6 @@ socket.on('queryLoaded', function(docs) {
     })
 
     socket.on('lovatoScoreArray', function(lovatoScores) {
-        // sentiment average over time
         var sum = 0;
         for (var i = 0; i < lovatoScores.length; i++) {
             sum += parseInt(lovatoScores[i], 10);
@@ -420,8 +431,11 @@ socket.on('queryLoaded', function(docs) {
         $('#lovato-interpreter').text(interpreter);
     })
 
-// logic for twitter stream subscribers
-    socket.on('message', function(tweet, rating) {
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Checks Artist on Incoming Twitter Stream
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    socket.on('incoming', function(tweet, rating) {
         if (tweet.indexOf('katy perry') != -1) {
             renderKatie(tweet, rating);
         } else if (tweet.indexOf('jtimberlake') != -1 || tweet.indexOf('justin timerblake') != -1) {
@@ -453,7 +467,10 @@ socket.on('queryLoaded', function(docs) {
         }
     })
 
-// render for twitter stream subscribers
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Render for Incoming Tweet Stream
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
     function renderKatie(tweet, rating) {
         $( ".katie-score-loading" ).hide();
         $(".katy").fadeOut(function() {

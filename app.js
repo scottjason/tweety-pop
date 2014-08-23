@@ -1,6 +1,9 @@
 require('newrelic')
 
-// declares modules
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Declares Modules
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 var express = require('express'),
   app = express(),
   server = require('http').createServer(app),
@@ -10,27 +13,32 @@ var express = require('express'),
   env = require('node-env-file'),
   mongoose = require('mongoose');
 
-// declares artists
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Deckares Artist To Track
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 var popTracker = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adam levine, adamlevine, maroon 5, kaynewest, kanye west, miley cyrus, rihanna, demi lovato, lady gaga"];
 
-// declares artist score arrays
-var perryScores = [];
-var levineScores = [];
-var beyonceScores = [];
-var bieberScores = [];
-var rihannaScores = [];
-var eminemScores = [];
-var mileyScores = [];
-var kanyeScores = [];
-var gagaScores = [];
-var swiftScores = [];
-var timberlakeScores = [];
-var lovatoScores = [];
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Configure Socket.IO
+// Deckares Artist Score Arrays
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+var perryScores = [],
+    levineScores = [],
+    beyonceScores = [],
+    bieberScores = [],
+    rihannaScores = [],
+    eminemScores = [],
+    mileyScores = [],
+    kanyeScores = [],
+    gagaScores = [],
+    swiftScores = [],
+    timberlakeScores = [],
+    lovatoScores = [];
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Configures Socket.IO
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 var socketData = {};
 if(!process.env.NODE_ENV)
@@ -43,7 +51,7 @@ io.use(function(socket, next) {
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Express configuration
+// Configures Express
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // declares public folder
@@ -54,17 +62,16 @@ res.sendfile(__dirname + '/index.html');
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Server
+// Initiates Server Connection
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// initiates server connection
 var port = process.env.PORT || 3000;
 server.listen(port, function() {
   console.log("Tweety Pop successfully listening on " + port);
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Models & Database Initiation
+// Initiaties Models & Database
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // initiates database connection options
@@ -79,9 +86,9 @@ mongoose.connect("mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/
 
 // creates database schema
 var tweetSchema = mongoose.Schema({
-  popStar: { type: String }, tweetScore: { type: Number } },
-{
-  capped: { size: 2000000, max: 10000, autoIndexId: true }
+    popStar: { type: String }, tweetScore: { type: Number },
+    capped: { size: 2000000, max: 10000, autoIndexId: false },
+    createdAt: { type: Date, default: Date.now }
 });
 
 // creates model Rating and 'score' collection
@@ -113,68 +120,73 @@ tweet.stream('statuses/filter', {
       newTweet = decodeURIComponent(escape(foreignCharacters));
       var score = sentiment(newTweet).score
       if (newTweet != null && score != 0) {
-          var newScore = new Rating( { popStar: newTweet, tweetScore: score } )
+          // var newScore = new Rating( { popStar: newTweet, tweetScore: score } )
 
           newScore.save(function(err) {
           if(err) throw new Error( 'There was an error while saving to the database.' ) })
 
         analyzeTweet(newTweet, score)
-        io.sockets.emit('message', newTweet, score)
+        io.sockets.emit('incoming', newTweet, score);
       }
     })
-  })
-function analyzeTweet(doc, score) {
-    if (doc.indexOf('perry') != -1 && score != 0) {
+});
+
+io.sockets.on('connection', function (socket) {
+  console.log('Successfully initiated socket connection.')
+// queries the database in chunks of 2000 collections
+console.log('The database successfully made a query.')
+var tweetQuery = Rating.find( {} ).limit(2000);
+  tweetQuery.exec(function(err, docs) {
+    if(err) throw new Error( 'There was an error while retrieving instructions from the database.' );
+      for (var i=0; i < docs.length; i++){
+        var dbTweet = docs[i].popStar;
+        var dbScore = docs[i].tweetScore;
+        analyzeTweet(dbTweet, dbScore)
+    }
+  });
+  socket.on('disconnect', function(socket) {
+  console.log('Tweety Pop has been temporarily disconnected.');
+  });
+});
+
+function analyzeTweet(newTweet, score) {
+    if (newTweet.indexOf('perry') != -1 && score != 0) {
       perryScores.push(score);
       io.sockets.emit('perryScoreArray', perryScores);
-    } else if (doc.indexOf('bieber') != -1 && score != 0) {
+    } else if (newTweet.indexOf('bieber') != -1 && score != 0) {
       bieberScores.push(score);
       io.sockets.emit('bieberScoreArray', bieberScores);
-    } else if ((doc.indexOf('levine') != -1 || doc.indexOf('maroon') != -1) && score != 0) {
+    } else if ((newTweet.indexOf('levine') != -1 || newTweet.indexOf('maroon') != -1) && score != 0) {
       levineScores.push(score);
       io.sockets.emit('levineScoreArray', levineScores);
-    } else if (doc.indexOf('beyonce') != -1 && score != 0) {
+    } else if (newTweet.indexOf('beyonce') != -1 && score != 0) {
       beyonceScores.push(score);
       io.sockets.emit('beyonceScoreArray', beyonceScores);
-    } else if (doc.indexOf('rihanna') != -1 && score != 0) {
+    } else if (newTweet.indexOf('rihanna') != -1 && score != 0) {
       rihannaScores.push(score);
       io.sockets.emit('rihannaScoreArray', rihannaScores);
-    } else if (doc.indexOf('eminem') != -1 && score != 0) {
+    } else if (newTweet.indexOf('eminem') != -1 && score != 0) {
       eminemScores.push(score);
       io.sockets.emit('eminemScoreArray', eminemScores);
-    } else if (doc.indexOf('miley') != -1 && score != 0) {
+    } else if (newTweet.indexOf('miley') != -1 && score != 0) {
       mileyScores.push(score);
       io.sockets.emit('mileyScoreArray', mileyScores);
-    } else if (doc.indexOf('kanye') != -1 && score != 0) {
+    } else if (newTweet.indexOf('kanye') != -1 && score != 0) {
       kanyeScores.push(score);
       io.sockets.emit('kanyeScoreArray', kanyeScores);
-    } else if (doc.indexOf('gaga') != -1 && score != 0) {
+    } else if (newTweet.indexOf('gaga') != -1 && score != 0) {
       gagaScores.push(score);
       io.sockets.emit('gagaScoreArray', gagaScores);
-    } else if (doc.indexOf('swift') != -1 && score != 0) {
+    } else if (newTweet.indexOf('swift') != -1 && score != 0) {
       swiftScores.push(score);
       io.sockets.emit('swiftScoreArray', swiftScores);
-    } else if (doc.indexOf('timberlake') != -1 && score != 0) {
+    } else if (newTweet.indexOf('timberlake') != -1 && score != 0) {
       timberlakeScores.push(score);
       io.sockets.emit('timberlakeScoreArray', timberlakeScores);
-    } else if (doc.indexOf('lovato') != -1 && score != 0) {
+    } else if (newTweet.indexOf('lovato') != -1 && score != 0) {
       lovatoScores.push(score);
       io.sockets.emit('lovatoScoreArray', lovatoScores);
     } else {
       console.log('.. analyzing data stream ..')
     }
   }
-
-io.sockets.on('connection', function (socket) {
-  console.log('Successfully initiated socket connection.')
-// queries the database in chunks of 100 collections
-var tweetQuery = Rating.find( {} ).limit(1000);
-  tweetQuery.exec(function(err, docs) {
-    if(err) throw new Error( 'There was an error while retrieving instructions from the database.' );
-    // emit database data to client
-    io.sockets.emit('queryLoaded', docs)
-  });
-  socket.on('disconnect', function(socket) {
-  console.log('Tweety Pop has been temporarily disconnected.');
-  });
-});
