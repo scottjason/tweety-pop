@@ -10,6 +10,10 @@ $(document).ready(function() {
 // initiate socket connection
 socket = io.connect()
 
+socket.on('queryLoaded', function(docs) {
+    alert('queryLoaded!')
+    console.log(docs);
+})
 // logic and render for database stream subscribers
     socket.on('perryScoreArray', function(perryScores) {
         // sentiment average over time

@@ -35,10 +35,15 @@ server.listen(port, function() {
 // declare public folder
 app.use('/', express.static(__dirname + '/public'));
 
-// declare routes
+// declare routes, query database, emit results on query complettion
 app.get('/', function(req, res) {
   res.sendfile(__dirname + '/index.html');
   search = req.query || "";
+  // Rating.find( {} ).limit(1000).exec(queryCallBack)
+  var tweetQuery = Rating.find({}).limit(1000);
+  tweetQuery.exec(function(err, docs) {
+    io.sockets.emit('queryLoaded', docs);
+  });
 });
 
 // create database schema
@@ -78,10 +83,8 @@ var options = {
 
 // initiate database connection
 mongoose.connect("mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/heroku_app28482092", function(err) {
-  if (err) {
-    throw err
-  } else {
-    console.log("Successfully initiated database connection")
+  if (!err) {
+    console.log("Successfully initiated database connection.");
   }
 });
 
@@ -100,16 +103,27 @@ tweet.stream('statuses/filter', {
   function(stream) {
     stream.on('data', function(data) {
 
-        // remove foreign characters from tweets
+      // remove foreign characters from tweets
       var newTweet = data.text;
       var foreignCharacters = unescape(encodeURIComponent(newTweet));
       newTweet = decodeURIComponent(escape(foreignCharacters));
 
-        if (newTweet != null) {
-          var score = sentiment(newTweet).score
-          var newScore = new Rating ( { popStar: newTweet, tweetScore: score } );
-          newScore.save(function(err) { if (err) { throw err } })
-          analyzeTweet(newTweet, score)
+      if (newTweet != null) {
+        var score = sentiment(newTweet).score
+
+        if (score != 0) {
+          var newScore = new Rating({
+            popStar: newTweet,
+            tweetScore: score
+          })
+          newScore.save(function(err) {
+            if (err) {
+              throw err
+            }
+          })
+        }
+
+        analyzeTweet(newTweet, score)
         io.sockets.emit('message', newTweet, score)
       }
     })
