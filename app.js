@@ -1,4 +1,4 @@
-// require modules
+// requires modules
 require('newrelic')
 var express = require('express'),
   app = express(),
@@ -9,10 +9,10 @@ var express = require('express'),
   env = require('node-env-file'),
   mongoose = require('mongoose');
 
-// declare artists
+// declares artists
 var popTracker = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adam levine, adamlevine, maroon 5, kaynewest, kanye west, miley cyrus, rihanna, demi lovato, lady gaga"];
 
-// declare artist score arrays
+// declares artist score arrays
 var perryScores = [];
 var levineScores = [];
 var beyonceScores = [];
@@ -26,33 +26,30 @@ var swiftScores = [];
 var timberlakeScores = [];
 var lovatoScores = [];
 
-// initiate server connection
+// initiates server connection
 var port = process.env.PORT || 3000;
 server.listen(port, function() {
   console.log("Listening on " + port);
 });
 
-// declare public folder
+// declares public folder
 app.use('/', express.static(__dirname + '/public'));
 
-// declare routes, query database, emit results on query complettion
+// declares routes, query database, emit results on query complettion
 app.get('/', function(req, res) {
   res.sendfile(__dirname + '/index.html');
-  // search = req.query || "";
-  // Rating.find( {} ).limit(1000).exec(queryCallBack)
 
   var tweetQuery = Rating.find({}).limit(1000);
   tweetQuery.exec(function(err, docs) {
     collectQuery(docs);
-
   });
 });
 
-function collectQuery(docs){
+function collectQuery(docs) {
   io.sockets.emit('queryLoaded', docs);
 }
 
-// create database schema
+// creates database schema
 var tweetSchema = mongoose.Schema({
   popStar: {
     type: String
@@ -68,10 +65,10 @@ var tweetSchema = mongoose.Schema({
   }
 });
 
-// create model Rating and 'score' collection
+// creates model Rating and 'score' collection
 var Rating = mongoose.model('score', tweetSchema);
 
-// initiate database connection options
+// initiates database connection options
 var options = {
   server: {
     socketOptions: {
@@ -87,7 +84,7 @@ var options = {
   }
 };
 
-// initiate database connection
+// initiates database connection
 mongoose.connect("mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/heroku_app28482092", function(err) {
   if (!err) {
     console.log("Successfully initiated database connection.");
@@ -102,7 +99,7 @@ tweet = new twitter({
   access_token_secret: "ZVusxwm9y4aJCnvtx3MHj7148REZikXyySeZURZsLUVGz"
 });
 
-// stream incoming tweets
+// streams incoming tweets
 tweet.stream('statuses/filter', {
     "track": popTracker
   },
