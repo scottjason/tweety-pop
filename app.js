@@ -85,7 +85,7 @@ tweet = new twitter({
   access_token_secret: "ZVusxwm9y4aJCnvtx3MHj7148REZikXyySeZURZsLUVGz"
 });
 
-io.sockets.on('connection', function (socket) {
+
 // streams incoming tweets
 tweet.stream('statuses/filter', {
     "track": popTracker
@@ -109,16 +109,7 @@ tweet.stream('statuses/filter', {
       }
     })
   })
-
-// queries the database in chunks of 100 collections
-var tweetQuery = Rating.find( {} ).limit(100);
-  tweetQuery.exec(function(err, docs) {
-    if(err) throw new Error( 'There was an error while retrieving instructions from the database.' );
-    // emit database data to client
-    io.sockets.emit('queryLoaded', docs)
-  });
-
-  function analyzeTweet(doc, score) {
+function analyzeTweet(doc, score) {
     if (doc.indexOf('perry') != -1 && score != 0) {
       perryScores.push(score);
       io.sockets.emit('perryScoreArray', perryScores);
@@ -159,6 +150,17 @@ var tweetQuery = Rating.find( {} ).limit(100);
       console.log('.. analyzing data stream ..')
     }
   }
+
+io.sockets.on('connection', function (socket) {
+// queries the database in chunks of 100 collections
+var tweetQuery = Rating.find( {} ).limit(1000);
+  tweetQuery.exec(function(err, docs) {
+    if(err) throw new Error( 'There was an error while retrieving instructions from the database.' );
+    // emit database data to client
+    io.sockets.emit('queryLoaded', docs)
+  });
+
+
   socket.on('disconnect', function() {
   console.log('Tweety Pop has been temporarily disconnected.');
   });
