@@ -69,7 +69,11 @@ var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000
 
 // initiates database connection
 mongoose.connect("mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/heroku_app28482092", options, function(err) {
-  if (!err) { console.log( 'Successfully initiated database connection.' ) } });
+  if (!err) { connectionStatus() } });
+
+function connectionStatus(){
+  return true
+}
 
 // declares database connection events
 var db = mongoose.connection;
@@ -81,17 +85,23 @@ var db = mongoose.connection;
 // when successfully connected
 db.on('connected', function () {
 
-// immediately invoked function, calls itself every 5 seconds to query for 500 tweets in database
+// immediately invoked function, calls itself every 10 seconds to query for 750 tweets in database
 (function queryMongo() {
-  var tweetQuery = Rating.find({}).limit(500);
+
+// verifies the database has initiated a connection
+  if ( connectionStatus() ){
+  console.log(".. querying the database ..");
+// queries database on db connection verification
+  var tweetQuery = Rating.find({}).limit(750);
   tweetQuery.exec(function(err, docs) {
     if (err) throw new Error('There was an error while querying the database.');
 
     for (var i = 0; i < docs.length; i++) {
       analyzeTweet(docs[i].popStar, docs[i].tweetScore)
     }
-    setTimeout(queryMongo, 5000);
-   });
+    setTimeout(queryMongo, 10000);
+    });
+   }
   })();
 });
 
