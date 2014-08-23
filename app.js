@@ -17,7 +17,7 @@ var express = require('express'),
 // Deckares Artist To Track & Store Current Time
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-var popTracker = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adam levine, adamlevine, maroon 5, kaynewest, kanye west, miley cyrus, rihanna, demi lovato, lady gaga"],
+var popTracker = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adam levine, adamlevine, maroon 5, kaynewest, kanye west, miley cyrus, rihanna, demi lovato, lady gaga"];
 var timeIsNow = Date.now;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
