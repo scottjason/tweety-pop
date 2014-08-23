@@ -84,21 +84,21 @@ db.on('connected', function () {
 
 // queryMongo waits one second for mongo database to establish a connection,
 // then calls itself every 10 seconds to query for 750 tweets in the database
-setTimeout(queryMongo, 1000)
-function queryMongo() {
+
+(function queryMongo() {
 
   console.log(".. querying the database ..");
 // queries database on db connection verification
-  var tweetQuery = Rating.find({}).limit(750);
+  var tweetQuery = Rating.find({}).limit(500);
   tweetQuery.exec(function(err, docs) {
     if (err) throw new Error('There was an error while querying the database.');
 
     for (var i = 0; i < docs.length; i++) {
       analyzeTweet(docs[i].popStar, docs[i].tweetScore)
     }
-    setTimeout(queryMongo, 10000);
+    setTimeout(queryMongo, 5000);
     });
-  }
+  })()
 });
 
 // if the connection throws an error
