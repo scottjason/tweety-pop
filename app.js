@@ -40,9 +40,11 @@ app.get('/', function(req, res) {
   res.sendfile(__dirname + '/index.html');
   // search = req.query || "";
   // Rating.find( {} ).limit(1000).exec(queryCallBack)
+io.sockets.on('connection', function() {
   var tweetQuery = Rating.find({}).limit(1000);
   tweetQuery.exec(function(err, docs) {
     io.sockets.emit('queryLoaded', docs);
+  });
   });
 });
 
