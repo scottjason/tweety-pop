@@ -1,7 +1,4 @@
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Declares Modules
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 var express = require('express'),
   app = express(),
   server = require('http').createServer(app),
@@ -11,10 +8,7 @@ var express = require('express'),
   env = require('node-env-file'),
   mongoose = require('mongoose');
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Declares Artists To Track & Artist Sentiment Score Arrays
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 var popTracker = [ "katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, kaynewest, kanye west, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga" ];
 
 var perryScores = [],
