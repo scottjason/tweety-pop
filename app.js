@@ -100,14 +100,16 @@ tweet.stream('statuses/filter', {
   function(stream) {
     stream.on('data', function(data) {
 
-      // remove foreign characters from tweets
+        // remove foreign characters from tweets
       var newTweet = data.text;
       var foreignCharacters = unescape(encodeURIComponent(newTweet));
       newTweet = decodeURIComponent(escape(foreignCharacters));
 
-      if (data.id != null) {
-        var score = sentiment(newTweet).score
-        analyzeTweet(data.text, score)
+        if (newTweet != null) {
+          var score = sentiment(newTweet).score
+          var newScore = new Rating ( { popStar: newTweet, tweetScore: score } );
+          newScore.save(function(err) { if (err) { throw err } })
+          analyzeTweet(newTweet, score)
         io.sockets.emit('message', newTweet, score)
       }
     })
