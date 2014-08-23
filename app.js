@@ -69,12 +69,17 @@ var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000
 
 // initiates database connection
 mongoose.connect("mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/heroku_app28482092", options, function(err) {
-  if (!err) { connectionStatus() } });
+  if (!err) { dbConnectedStatus() }
+  else { dbDisconnectedStatus( 'not connected' ) } });
 
-function connectionStatus(){
+// verifies state of database connection
+function dbConnectedStatus(){
   return true
-}
+};
 
+function dbDisconnectedStatus(state){
+  return state
+}
 // declares database connection events
 var db = mongoose.connection;
 
@@ -88,8 +93,10 @@ db.on('connected', function () {
 // immediately invoked function, calls itself every 10 seconds to query for 750 tweets in database
 (function queryMongo() {
 
+  console.log( dbConnectedStatus() )
+  console.log( dbDisconnectedStatus() )
 // verifies the database has initiated a connection
-  if ( connectionStatus() ){
+  if ( dbConnectedStatus() && dbDisconnectedStatus() == undefined ){
   console.log(".. querying the database ..");
 // queries database on db connection verification
   var tweetQuery = Rating.find({}).limit(750);
@@ -107,16 +114,19 @@ db.on('connected', function () {
 
 // if the connection throws an error
 db.on('error',function (err) {
+dbDisconnectedStatus( 'not connected' )
 console.log('Mongoose default connection error: ' + err);
 });
 
 // when the connection is disconnected
 db.on('disconnected', function () {
-console.log( 'Tweety Pop has been temporarily disconnected from the mongo database.' );
+  dbDisconnectedStatus( 'not connected' )
+  console.log( 'Tweety Pop has been temporarily disconnected from the mongo database.' );
 });
 
 // if the node process ends, close the mongoose connection
 process.on('SIGINT', function() {
+  dbDisconnectedStatus(true)
   db.close(function () {
   console.log('Mongoose default connection disconnected through app termination');
   process.exit(0);
