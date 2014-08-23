@@ -125,11 +125,29 @@ tweet.stream('statuses/filter', {
           newScore.save(function(err) {
           if(err) throw new Error( 'There was an error while saving to the database.' ) })
 
-        analyzeTweet(newTweet, score)
+        // analyzeTweet(newTweet, score)
         io.sockets.emit('incoming', newTweet, score);
       }
     })
-  })
+});
+
+io.sockets.on('connection', function (socket) {
+  console.log('Successfully initiated socket connection.')
+// queries the database in chunks of 100 collections
+var tweetQuery = Rating.find( {} ).limit(1000);
+  tweetQuery.exec(function(err, docs) {
+    if(err) throw new Error( 'There was an error while retrieving instructions from the database.' );
+      for (var i=0; i < docs.length; i++){
+        var dbTweet = docs[i].popStar;
+        var dbScore = docs[i].tweetScore;
+        analyzeTweet(dbTweet, dbScore)
+    }
+  });
+  socket.on('disconnect', function(socket) {
+  console.log('Tweety Pop has been temporarily disconnected.');
+  });
+});
+
 function analyzeTweet(newTweet, score) {
     if (newTweet.indexOf('perry') != -1 && score != 0) {
       perryScores.push(score);
@@ -171,18 +189,3 @@ function analyzeTweet(newTweet, score) {
       console.log('.. analyzing data stream ..')
     }
   }
-
-io.sockets.on('connection', function (socket) {
-  console.log('Successfully initiated socket connection.')
-// queries the database in chunks of 100 collections
-var tweetQuery = Rating.find( {} ).limit(1000);
-  tweetQuery.exec(function(err, docs) {
-    if(err) throw new Error( 'There was an error while retrieving instructions from the database.' );
-    var dbTweet = docs.popStar;
-    var dbScore = docs.tweetScore;
-    analyzeTweet(dbTweet, dbScore)
-  });
-  socket.on('disconnect', function(socket) {
-  console.log('Tweety Pop has been temporarily disconnected.');
-  });
-});
