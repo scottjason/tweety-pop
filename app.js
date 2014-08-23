@@ -74,36 +74,18 @@ var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000
 };
 
 // initiates database connection
-mongoose.connect("mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/heroku_app28482092", options, function(err) {
-  if (!err) { console.log( 'Successfully initiated database connection.' ) }
-});
+// mongoose.connect("mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/heroku_app28482092", options, function(err) {
+//   if (!err) { console.log( 'Successfully initiated database connection.' ) }
+// });
 
 // creates database schema
-var tweetSchema = mongoose.Schema(
-  { popStar: { type: String }, tweetScore: { type: Number } },
-  { capped: { size: 20000000, max: 100000, autoIndexId: false } }
-);
+// var tweetSchema = mongoose.Schema(
+//   { popStar: { type: String }, tweetScore: { type: Number } },
+//   { capped: { size: 20000000, max: 100000, autoIndexId: false } }
+// );
 
 // creates model Rating and 'score' collection
-var Rating = mongoose.model('score', tweetSchema);
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Immediately Invoked Recursive Function To Query Database Every Ten Seconds For 1000 Tweets
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-(function queryMongo() {
-var tweetQuery = Rating.find( {} ).limit(1000);
-  tweetQuery.exec(function(err, docs) {
-    if(err) throw new Error( 'There was an error while retrieving instructions from the database.' );
-
-      for (var i=0; i < docs.length; i++){
-        var dbTweet = docs[i].popStar;
-        var dbScore = docs[i].tweetScore;
-        analyzeTweet(dbTweet, dbScore)
-    }
-    setTimeout(queryMongo, 10000);
-  })
-})();
+// var Rating = mongoose.model('score', tweetSchema);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Streams Incoming Tweets, Renders to View and Stores to Database
@@ -130,20 +112,38 @@ tweet.stream('statuses/filter', {
 
       // declares conditions to both save and render
       if ( newTweet != null && score != 0 ) {
+        // var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
+        // newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
 
-      var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
-      newDocument.save(function(err) {
-      if( err ) throw new Error( 'There was an error while saving to the database.' ) })
         analyzeTweet( newTweet, score );
         io.sockets.emit( 'incoming', newTweet, score )}
 
       // declares conditions to render only
       else if ( newTweet != null ) {
-      analyzeTweet( newTweet, score );
-      io.sockets.emit( 'incoming', newTweet, score )}
+        analyzeTweet( newTweet, score );
+        io.sockets.emit( 'incoming', newTweet, score )}
       else {};
    });
 });
+
+// queries the database continuously in chunks of 1000 collections on socket connection
+// io.sockets.on('connection', function (socket) {
+// console.log('Successfully initiated socket connection.')
+
+// var tweetQuery = Rating.find( {} ).limit(1000);
+// console.log('The database successfully made a query.');
+//   tweetQuery.exec(function(err, docs) {
+//     if( err ) throw new Error( 'There was an error while retrieving instructions from the database.' );
+
+//       for (var i=0; i < docs.length; i++){
+//         analyzeTweet( docs[i].popStar, docs[i].tweetScore );
+//     }
+//   });
+
+//   socket.on('disconnect', function(socket) {
+//   console.log('Tweety Pop has been temporarily disconnected.');
+//   });
+// });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Analyzes Tweets From Live Stream and From Database Query Before Being Passed To Client
