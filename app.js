@@ -18,7 +18,6 @@ var express = require('express'),
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 var popTracker = ["katy perry, eminem, justin bieber, beyonce, taylor swift, jtimberlake, timberlake, adam levine, adamlevine, maroon 5, kaynewest, kanye west, miley cyrus, rihanna, demi lovato, lady gaga"];
-var timeIsNow = Date.now;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Deckares Artist Score Arrays
@@ -89,7 +88,7 @@ mongoose.connect("mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/
 var tweetSchema = mongoose.Schema(
   { popStar: { type: String }, tweetScore: { type: Number } },
   { capped: { size: 2000000, max: 10000, autoIndexId: false } },
-  { createdAt: { type: Date, default: Date.now } }
+  { createdAt: { type: Date } }
 );
 
 // creates model Rating and 'score' collection
@@ -120,10 +119,11 @@ tweet.stream('statuses/filter', {
       newTweet = decodeURIComponent(escape(foreignCharacters));
       var score = sentiment(newTweet).score
       if (newTweet != null && score != 0) {
-          var newDocument = new Rating( { popStar: newTweet, tweetScore: score, createdAt: timeIsNow } )
+          var timeIsNow = new Date();
+          // var newDocument = new Rating( { popStar: newTweet, tweetScore: score, createdAt: timeIsNow } )
 
-          newDocument.save(function(err) {
-          if(err) throw new Error( 'There was an error while saving to the database.' ) })
+          // newDocument.save(function(err) {
+          // if(err) throw new Error( 'There was an error while saving to the database.' ) })
 
         analyzeTweet(newTweet, score)
         io.sockets.emit('incoming', newTweet, score);
