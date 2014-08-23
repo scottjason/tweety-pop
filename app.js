@@ -120,10 +120,10 @@ tweet.stream('statuses/filter', {
       newTweet = decodeURIComponent(escape(foreignCharacters));
       var score = sentiment(newTweet).score
       if (newTweet != null && score != 0) {
-          // var newDocument = new Rating( { popStar: newTweet, tweetScore: score, createdAt: timeIsNow } )
+          var newDocument = new Rating( { popStar: newTweet, tweetScore: score, createdAt: timeIsNow } )
 
-          // newDocument.save(function(err) {
-          // if(err) throw new Error( 'There was an error while saving to the database.' ) })
+          newDocument.save(function(err) {
+          if(err) throw new Error( 'There was an error while saving to the database.' ) })
 
         analyzeTweet(newTweet, score)
         io.sockets.emit('incoming', newTweet, score);
