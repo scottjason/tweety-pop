@@ -111,23 +111,29 @@ tweet.stream('statuses/filter', {
   },
   function(stream) {
     stream.on('data', function(data) {
-
-      // remove foreign characters from tweets
+      // removes foreign characters from tweets, create sentiment score
       var newTweet = data.text;
       var foreignCharacters = unescape(encodeURIComponent(newTweet));
       newTweet = decodeURIComponent(escape(foreignCharacters));
       var score = sentiment(newTweet).score
-      // declares conditions to render
-      if ( newTweet != null ) {
-        analyzeTweet(newTweet, score)
+
+      // declares conditions to both save and render
+      if ( newTweet != null && score != 0 ) {
+
+      var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
+      newDocument.save(function(err) {
+
+        if( err ) throw new Error( 'There was an error while saving to the database.' ) })
+        analyzeTweet( newTweet, score );
         io.sockets.emit( 'incoming', newTweet, score )}
-      // declares conditions to save
-      // else if ( newTweet != null && score != 0 ){
-        // var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
-        // newDocument.save(function(err) {
-      // if( err ) throw new Error( 'There was an error while saving to the database.' ) }) }
+
+      // declares conditions to render only
+      else if ( newTweet != null ) {
+      analyzeTweet( newTweet, score );
+      io.sockets.emit( 'incoming', newTweet, score )}
+
       else {};
-    });
+   });
 });
 
 io.sockets.on('connection', function (socket) {
