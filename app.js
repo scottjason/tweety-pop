@@ -24,9 +24,9 @@ var perryScores = [],
     timberlakeScores = [],
     lovatoScores = [];
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////
 // Configures Socket.IO
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////
 
 var socketData = {};
 if(!process.env.NODE_ENV)
@@ -38,9 +38,9 @@ io.use(function(socket, next) {
   next();
 });
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////
 // Configures Express
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////
 
 // declares public folder
 app.use('/', express.static(__dirname + '/public'));
@@ -49,18 +49,18 @@ app.get('/', function(req, res) {
 res.sendfile(__dirname + '/index.html');
 });
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////
 // Initiates Server Connection
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////
 
 var port = process.env.PORT || 3000;
 server.listen(port, function() {
   console.log("Tweety Pop successfully listening on " + port);
 });
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////
 // Initiaties Models & Database
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////
 
 // initiates database connection options
 var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
@@ -74,25 +74,40 @@ mongoose.connect("mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/
 // declares database connection events
 var db = mongoose.connection;
 
+///////////////////////////////////////////////
 // MONGO DB CONNECTION EVENTS
+///////////////////////////////////////////////
+
 // when successfully connected
 db.on('connected', function () {
-console.log( 'Tweety Pop has successfully connected to the mongo database.' );
+
+// immediately invoked function, calls itself every 5 seconds to query for 500 tweets in database
+(function queryMongo() {
+  var tweetQuery = Rating.find({}).limit(500);
+  tweetQuery.exec(function(err, docs) {
+    if (err) throw new Error('There was an error while querying the database.');
+
+    for (var i = 0; i < docs.length; i++) {
+      analyzeTweet(docs[i].popStar, docs[i].tweetScore)
+    }
+    setTimeout(queryMongo, 5000);
+   });
+  })();
 });
 
 // if the connection throws an error
-mongoose.connection.on('error',function (err) {
+db.on('error',function (err) {
 console.log('Mongoose default connection error: ' + err);
 });
 
 // when the connection is disconnected
-mongoose.connection.on('disconnected', function () {
+db.on('disconnected', function () {
 console.log( 'Tweety Pop has been temporarily disconnected from the mongo database.' );
 });
 
 // if the node process ends, close the mongoose connection
 process.on('SIGINT', function() {
-  mongoose.connection.close(function () {
+  db.close(function () {
   console.log('Mongoose default connection disconnected through app termination');
   process.exit(0);
   });
@@ -107,9 +122,9 @@ var tweetSchema = mongoose.Schema(
 // creates model Rating and 'score' collection
 var Rating = mongoose.model('score', tweetSchema);
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////
 // Streams Incoming Tweets, Renders to View and Stores to Database
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////
 
 // twitter authorization
 tweet = new twitter({
@@ -146,31 +161,9 @@ tweet.stream('statuses/filter', {
    });
 });
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Queries The DataBase On Socket Connection, Runs Query in Slices of 750 Tweets
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-io.sockets.on('connection', function (socket) {
-console.log('Successfully initiated socket connection.')
-
-var tweetQuery = Rating.find( {} ).limit(750);
-console.log('The database successfully made a query.');
-  tweetQuery.exec(function(err, docs) {
-    if( err ) throw new Error( 'There was an error while retrieving instructions from the database.' );
-
-      for (var i=0; i < docs.length; i++){
-        analyzeTweet( docs[i].popStar, docs[i].tweetScore );
-    }
-  });
-
-  socket.on('disconnect', function() {
-  console.log('Tweety Pop has been temporarily disconnected.');
-  });
-});
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Analyzes Tweets From Live Stream and From Database Query Before Being Passed To Client
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////
+// Analyzes Tweet Stream and Database Query
+///////////////////////////////////////////////
 
 function analyzeTweet(newTweet, score) {
     if (newTweet.indexOf('perry') != -1 ) {
