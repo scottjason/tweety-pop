@@ -83,11 +83,29 @@ mongoose.connect("mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/
 // creates database schema
 var tweetSchema = mongoose.Schema(
   { popStar: { type: String }, tweetScore: { type: Number } },
-  { capped: { size: 2000000, max: 10000, autoIndexId: false } }
+  { capped: { size: 20000000, max: 100000, autoIndexId: false } }
 );
 
 // creates model Rating and 'score' collection
 var Rating = mongoose.model('score', tweetSchema);
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Immediately Invoked Recursive Function To Query Database Every Three Seconds For 1000 Tweets
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+(function queryMongo() {
+var tweetQuery = Rating.find( {} ).limit(1000);
+  tweetQuery.exec(function(err, docs) {
+    if(err) throw new Error( 'There was an error while retrieving instructions from the database.' );
+
+      for (var i=0; i < docs.length; i++){
+        var dbTweet = docs[i].popStar;
+        var dbScore = docs[i].tweetScore;
+        analyzeTweet(dbTweet, dbScore)
+    }
+    setTimeout(queryMongo, 10000);
+  })
+})();
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Streams Incoming Tweets, Renders to View and Stores to Database
@@ -115,10 +133,9 @@ tweet.stream('statuses/filter', {
       // declares conditions to both save and render
       if ( newTweet != null && score != 0 ) {
 
-      var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
-      newDocument.save(function(err) {
-
-        if( err ) throw new Error( 'There was an error while saving to the database.' ) })
+      // var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
+      // newDocument.save(function(err) {
+      // if( err ) throw new Error( 'There was an error while saving to the database.' ) })
         analyzeTweet( newTweet, score );
         io.sockets.emit( 'incoming', newTweet, score )}
 
@@ -126,34 +143,8 @@ tweet.stream('statuses/filter', {
       else if ( newTweet != null ) {
       analyzeTweet( newTweet, score );
       io.sockets.emit( 'incoming', newTweet, score )}
-
       else {};
    });
-});
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Continuously Queries the Database for Tweets in Slices of 2000
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-io.sockets.on('connection', function (socket) {
-console.log('Successfully initiated socket connection.')
-// queries the database in chunks of 1000 collections
-
-var tweetQuery = Rating.find( {} ).limit(2000);
-  tweetQuery.exec(function(err, docs) {
-
-    if(err) throw new Error( 'There was an error while retrieving instructions from the database.' );
-      console.log( 'The database successfully made a query.' )
-
-      for (var i=0; i < docs.length; i++){
-        var dbTweet = docs[i].popStar;
-        var dbScore = docs[i].tweetScore;
-        analyzeTweet(dbTweet, dbScore)
-    }
-  });
-  socket.on('disconnect', function(socket) {
-  console.log('Tweety Pop has been temporarily disconnected.');
-  });
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -199,5 +190,5 @@ function analyzeTweet(newTweet, score) {
       io.sockets.emit('lovatoScoreArray', lovatoScores);
     } else {
       console.log('.. analyzing data stream ..')
-    }
   }
+}
