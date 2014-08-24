@@ -10,9 +10,9 @@ Live website hosted by Heroku: http://tweetypop.herokuapp.com/
 
 - On arrival, each tweet is rendered in the browser and stored in a non-relational database holding 100,000 tweets.
 
-- The **"incoming sentiment score"** reflects the degree of positivity / negativty of the current tweet on-screen.
+- The **incoming sentiment score** reflects the degree of positivity / negativty of the current tweet on-screen.
 
-- The "tweety pop interpreter" reflects the average sentiment score of the artist and is calculated by both the incoming, real-time tweet on-screen as well as the 100,000 tweets stored-in and collected-from the database.
+- The **tweety pop interpreter** reflects the average sentiment score of the artist and is calculated by both the incoming, real-time tweet on-screen as well as the 100,000 tweets stored-in and collected-from the database.
 
 - The application fetches 1,000 tweets every five seconds from the database to build up this average in an effort to provide meaningful data about the artist.
 
