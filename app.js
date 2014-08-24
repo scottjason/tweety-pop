@@ -89,16 +89,16 @@ db.on('connected', function () {
 
   console.log(".. querying the database ..");
 // queries database on db connection verification
-  var tweetQuery = Rating.find({}).limit(1000);
+  var tweetQuery = Rating.find({}).limit(300);
   tweetQuery.exec(function(err, docs) {
     if (err) throw new Error('There was an error while querying the database.');
 
     for (var i = 0; i < docs.length; i++) {
       analyzeTweet(docs[i].popStar, docs[i].tweetScore)
     }
-    setTimeout(queryMongo, 1000000);
+    setTimeout(queryMongo, 5000);
     });
-  })()
+  })();
 });
 
 // if the connection throws an error
