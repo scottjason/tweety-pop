@@ -1,4 +1,4 @@
-// Declares Modules
+// declares modules
 var express = require('express'),
   app = express(),
   server = require('http').createServer(app),
@@ -8,7 +8,7 @@ var express = require('express'),
   env = require('node-env-file'),
   mongoose = require('mongoose');
 
-// Declares Artists To Track & Artist Sentiment Score Arrays
+// declares artists to track and artist sentiment score arrays
 var popTracker = [ "katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, kaynewest, kanye west, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga" ];
 
 var perryScores = [],
@@ -83,11 +83,11 @@ var db = mongoose.connection;
 db.on('connected', function () {
 
 // queryMongo waits one second for mongo database to establish a connection,
-// then calls itself every 10 seconds to query for 750 tweets in the database
+// then calls itself every 5 seconds to query for 500 tweets in the database
 
 (function queryMongo() {
-
   console.log(".. querying the database ..");
+
 // queries database on db connection verification
   var tweetQuery = Rating.find({}).limit(500);
   tweetQuery.exec(function(err, docs) {
