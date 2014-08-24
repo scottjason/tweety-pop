@@ -1,5 +1,5 @@
 {
-  "name": "Tweety Pop",
+  "name": "tweety-pop",
   "version": "0.0.2",
   "description": "Streaming Live From the Twitterverse",
   "main": "app.js",
@@ -26,7 +26,7 @@
     "type": "git",
     "url": "https://github.com/scottjason/tweety-pop.git"
   },
-  "author": "Scott Jason",
+  "author": "Scott-Jason",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/scottjason/tweety-pop/issues"
