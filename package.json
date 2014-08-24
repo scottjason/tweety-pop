@@ -1,7 +1,7 @@
 {
-  "name": "tweety-pop",
-  "version": "0.0.0",
-  "description": "streaming-live-from-the-twitterverse",
+  "name": "Tweety Pop",
+  "version": "0.0.2",
+  "description": "Streaming Live From the Twitterverse",
   "main": "app.js",
   "dependencies": {
     "express": "^4.7.4",
@@ -26,10 +26,10 @@
     "type": "git",
     "url": "https://github.com/scottjason/tweety-pop.git"
   },
-  "author": "scott-jason",
+  "author": "Scott Jason",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/scottjason/tweety-pop/issues"
   },
-  "homepage": "https://github.com/scottjason/tweety-pop"
+  "homepage": "http://tweetypop.herokuapp.com/"
 }
