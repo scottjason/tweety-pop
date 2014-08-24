@@ -46,7 +46,7 @@ io.use(function(socket, next) {
 app.use('/', express.static(__dirname + '/public'));
 // declares routes
 app.get('/', function(req, res) {
-res.sendfile(__dirname + '/index.html');
+res.sendFile(__dirname + '/index.html');
 });
 
 ///////////////////////////////////////////////
