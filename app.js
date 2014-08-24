@@ -83,7 +83,7 @@ var db = mongoose.connection;
 db.on('connected', function () {
 
 // queryMongo waits one second for mongo database to establish a connection,
-// then calls itself every 10 seconds to query for 750 tweets in the database
+// then calls itself every 10 seconds to query for 500 tweets in the database
 
 (function queryMongo() {
 
@@ -96,7 +96,7 @@ db.on('connected', function () {
     for (var i = 0; i < docs.length; i++) {
       analyzeTweet(docs[i].popStar, docs[i].tweetScore)
     }
-    setTimeout(queryMongo, 5000);
+    setTimeout(queryMongo, 10000);
     });
   })()
 });
