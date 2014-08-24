@@ -1,4 +1,5 @@
-// declares modules
+(function(){
+
 var express = require('express'),
   app = express(),
   server = require('http').createServer(app),
@@ -96,7 +97,7 @@ db.on('connected', function () {
     for (var i = 0; i < docs.length; i++) {
       analyzeTweet(docs[i].popStar, docs[i].tweetScore)
     }
-    setTimeout(queryMongo, 10000);
+    setTimeout(queryMongo, 7000);
     });
   })();
 });
@@ -210,3 +211,4 @@ function analyzeTweet(newTweet, score) {
       io.sockets.emit('lovatoScoreArray', lovatoScores);
     } else {}
 }
+})();
