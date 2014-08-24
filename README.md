@@ -6,15 +6,15 @@ Live website hosted by Heroku: http://tweetypop.herokuapp.com/
 
 - Twitter visualization and data analytics project using Node.js, Express.js & Socket.io, MongoDB
 
-- Using Web Sockets, data is streamed from twitter and passed through a sentiment algorithm.
+- Using web sockets, data is streamed from twitter and passed through a sentiment algorithm.
 
-- 100,000 Tweets are stored in the database, as they come in. This application employs a 'last-one-out-on-new-one-in' collection cycle.
+- 100,000 tweets are stored in the database, as they come in. This application employs a 'last-one-out-on-new-one-in' collection cycle.
 
 - The incoming sentiment score reflects the degree of positivity / negativty of the current tweet on-screen.
 
-- The tweety pop interpreter reflects the average sentiment score of the artist and is calculated by both the incoming, real-time tweet on-screen as well as the 100,000 tweets stored per artist.
+- The application fetches 1,000 tweets every five seconds from the database to build up this average in an effort to provide meaningful data about the artist.
 
-- The application fetches 1000 tweets every five seconds from the database to build up this average in an effort to provide meaningful data about the artist.
+- The tweety pop interpreter reflects the average sentiment score of the artist and is calculated by both the incoming, real-time tweet on-screen as well as the 100,000 tweets stored per artist.
 
 - Each artists score is building on an average of approximately 10,000 tweets. Tweets anaylized as neutral (a score of 0) are not applied to the average.
 
