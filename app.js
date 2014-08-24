@@ -96,7 +96,7 @@ db.on('connected', function () {
     for (var i = 0; i < docs.length; i++) {
       analyzeTweet(docs[i].popStar, docs[i].tweetScore)
     }
-    setTimeout(queryMongo, 10000);
+    setTimeout(queryMongo, 20000);
     });
   })()
 });
