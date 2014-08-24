@@ -153,8 +153,8 @@ tweet.stream('statuses/filter', {
 
       // declares conditions to both save and render
       if ( newTweet != null && score != 0 ) {
-        // var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
-        // newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
+        var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
+        newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
 
         analyzeTweet( newTweet, score );
         io.sockets.emit( 'incoming', newTweet, score )}
