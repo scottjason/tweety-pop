@@ -64,9 +64,7 @@ server.listen(port, function() {
 ///////////////////////////////////////////////
 
 // initiates database connection
-var db = mongoose.createConnection('mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/Y7pexexa', options, function(err)
-  { if (!err) { console.log( 'Tweety Pop has successfuly connected to the database.' ) }
-});
+var db = mongoose.createConnection( 'mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/Y7pexexa' )
 
 
 ///////////////////////////////////////////////
