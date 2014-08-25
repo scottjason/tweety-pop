@@ -72,8 +72,8 @@ var db = mongoose.connection;
 db.on('connected', function () {
 // creates database schema
 var tweetSchema = mongoose.Schema(
-  { popStar: { type: String }, tweetScore: { type: Number } },
-  { capped: { size: 10000, max: 5000, autoIndexId: false } }
+  { popStar: { type: String }, tweetScore: { type: Number } }
+  // { capped: { size: 10000, max: 5000, autoIndexId: false } }
 );
 // creates model Rating and 'score' collection
 var Rating = mongoose.model( 'Score', tweetSchema );
