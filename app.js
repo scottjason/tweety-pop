@@ -68,7 +68,7 @@ var db = mongoose.createConnection('mongodb://scottjason:tweetypop084@proximus.m
 // MONGO DB CONNECTION EVENTS
 ///////////////////////////////////////////////
 
-db.on('connected', function () {
+// db.on('connected', function () {
 // creates database schema
 var tweetSchema = mongoose.Schema(
   { popStar: { type: String }, tweetScore: { type: Number } }
@@ -102,7 +102,7 @@ tweet.stream('statuses/filter', {
       if ( newTweet != null && score != 0 ) {
         var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
         newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
-          console.log('about to send to analyze')
+          // console.log('about to send to analyze')
         // analyzeTweet( newTweet, score );
         io.sockets.emit( 'incoming', newTweet, score )}
 
@@ -115,7 +115,7 @@ tweet.stream('statuses/filter', {
 });
 
 
-});
+// });
 
 // if the connection throws an error
 db.on( 'error', console.error );
