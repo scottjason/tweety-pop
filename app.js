@@ -62,7 +62,7 @@ server.listen(port, function() {
 ///////////////////////////////////////////////
 // INITIATES DATABASE CONNECTION
 ///////////////////////////////////////////////
-var db = mongoose.createConnection('mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/w9uwedoS');
+mongoose.connect('mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/w9uwedoS');
 
 ///////////////////////////////////////////////
 // MONGO DB CONNECTION EVENTS
@@ -118,7 +118,7 @@ tweet.stream('statuses/filter', {
 // });
 
 // if the connection throws an error
-db.on( 'error', console.error );
+// db.on( 'error', console.error );
 
 
 
