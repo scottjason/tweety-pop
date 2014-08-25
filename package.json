@@ -1,5 +1,5 @@
 {
-  "name": "tweety-pop",
+  "name": "Tweety-Pop",
   "version": "0.0.2",
   "description": "Twitter Visualization and Data Analytics Streaming Live From the Twitterverse",
   "main": "app.js",
@@ -31,5 +31,5 @@
   "bugs": {
     "url": "https://github.com/scottjason/tweety-pop/issues"
   },
-  "homepage": "http://tweetypop.herokuapp.com/"
+  "homepage": "http://tweetypop-21842.onmodulus.net/"
 }
