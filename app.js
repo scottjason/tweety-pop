@@ -62,7 +62,7 @@ server.listen(port, function() {
 ///////////////////////////////////////////////
 // INITIATES DATABASE CONNECTION
 ///////////////////////////////////////////////
-mongoose.connect('mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/w9uwedoS');
+mongoose.connect('mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/eraTod3e');
 
 ///////////////////////////////////////////////
 // MONGO DB CONNECTION EVENTS
@@ -72,7 +72,7 @@ mongoose.connect('mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27
 // creates database schema
 var tweetSchema = mongoose.Schema(
   { popStar: { type: String }, tweetScore: { type: Number } }
-  // { capped: { size: 10000, max: 5000, autoIndexId: false } }
+  { capped: { size: 10000, max: 5, autoIndexId: false } }
 );
 // creates model Rating and 'score' collection
 var Rating = mongoose.model( 'Score', tweetSchema );
@@ -123,12 +123,12 @@ tweet.stream('statuses/filter', {
 
 
 // if the node process ends, close the mongoose connection
-process.on('SIGINT', function() {
-  db.close(function () {
-  console.log('Mongoose default connection disconnected through app termination');
-  process.exit(0);
-  });
-});
+// process.on('SIGINT', function() {
+//   db.close(function () {
+//   console.log('Mongoose default connection disconnected through app termination');
+//   process.exit(0);
+//   });
+// });
 
 
 
