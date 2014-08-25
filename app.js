@@ -51,7 +51,7 @@ res.sendFile(__dirname + '/index.html');
 });
 
 ///////////////////////////////////////////////
-// Initiates Server Connection
+// INITIATES SERVER & DATABASE CONNECTION
 ///////////////////////////////////////////////
 
 var port = process.env.PORT || 3000;
@@ -59,25 +59,17 @@ server.listen(port, function() {
   console.log("Tweety Pop successfully listening on " + port);
 });
 
-///////////////////////////////////////////////
-// INITIATES DATABASE CONNECTION
-///////////////////////////////////////////////
 mongoose.connect('mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/eraTod3e');
 
-///////////////////////////////////////////////
-// MONGO DB CONNECTION EVENTS
-///////////////////////////////////////////////
-
-// db.on('connected', function () {
 // creates database schema
 var tweetSchema = mongoose.Schema(
-  { popStar: { type: String }, tweetScore: { type: Number } }
+  { popStar: { type: String }, tweetScore: { type: Number } },
   { capped: { size: 10000, max: 5, autoIndexId: false } }
 );
+
+
 // creates model Rating and 'score' collection
 var Rating = mongoose.model( 'Score', tweetSchema );
-
-/////
 
 // twitter authorization
 tweet = new twitter({
@@ -86,6 +78,10 @@ tweet = new twitter({
   access_token_key: "195177239-1NI8bL9utZ2MnNXowy607mYLABlH83gp4k9TAgrA",
   access_token_secret: "ZVusxwm9y4aJCnvtx3MHj7148REZikXyySeZURZsLUVGz"
 });
+
+///////////////////////////////////////////////////////////////////
+// Streams Incoming Tweets, Renders to View and Stores to Database
+///////////////////////////////////////////////////////////////////
 
 tweet.stream('statuses/filter', {
     "track": popTracker
@@ -113,29 +109,6 @@ tweet.stream('statuses/filter', {
       else {};
    });
 });
-
-
-// });
-
-// if the connection throws an error
-// db.on( 'error', console.error );
-
-
-
-// if the node process ends, close the mongoose connection
-// process.on('SIGINT', function() {
-//   db.close(function () {
-//   console.log('Mongoose default connection disconnected through app termination');
-//   process.exit(0);
-//   });
-// });
-
-
-
-///////////////////////////////////////////////////////////////////
-// Streams Incoming Tweets, Renders to View and Stores to Database
-///////////////////////////////////////////////////////////////////
-
 
 
 ///////////////////////////////////////////////
