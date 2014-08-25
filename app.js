@@ -69,8 +69,8 @@ var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000
 };
 
 // initiates database connection
-mongoose.connect("mongodb://scottjason:tweetypop084@ds033559.mongolab.com:33559/heroku_app28482092", options, function(err) {
-  if (!err) { console.log( 'Tweety Pop has successfuly connected to the database.' ) }
+mongoose.connect('mongodb://scottjason:tweetypop084@dbh84.mongolab.com:27847/tweety-pop', options, function(err)
+  { if (!err) { console.log( 'Tweety Pop has successfuly connected to the database.' ) }
 });
 
 // declares database connection events
