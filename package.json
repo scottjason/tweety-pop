@@ -1,7 +1,7 @@
 {
   "name": "tweety-pop",
   "version": "0.0.2",
-  "description": "Streaming Live From the Twitterverse",
+  "description": "Twitter Visualization and Data Analytics Streaming Live From the Twitterverse",
   "main": "app.js",
   "dependencies": {
     "express": "^4.7.4",
