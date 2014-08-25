@@ -60,7 +60,7 @@ server.listen(port, function() {
 });
 
 // initiates database connection
-mongoose.connect("mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/Wupyqu8g")
+mongoose.connect("mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/zOwupo9h")
 
 // declares database connection events
 var db = mongoose.connection;
