@@ -63,15 +63,10 @@ server.listen(port, function() {
 // Initiaties Models & Database
 ///////////////////////////////////////////////
 
-// initiates database connection options
-var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
-  replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
-};
+
 
 // initiates database connection
-mongoose.connect('mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/Y7pexexa', options, function(err)
-  { if (!err) { console.log( 'Tweety Pop has successfuly connected to the database.' ) }
-});
+mongoose.connect('mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/Y7pexexa')
 
 var db = mongoose.connection;
 ///////////////////////////////////////////////
