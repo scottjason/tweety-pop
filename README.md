@@ -2,6 +2,8 @@
 
 Live website hosted by Heroku: http://tweetypop.herokuapp.com/
 
+[ ![Build Status for scottjason/tweety-pop](https://www.codeship.io/projects/4b24b7f0-0e2f-0132-708c-6622b841f5fb/status)](https://www.codeship.io/projects/32375)
+
 ### Introduction
 
 - Twitter visualization and data analytics project using Node.js, Express, Socket.io and MongoDB.
