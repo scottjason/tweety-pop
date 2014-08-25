@@ -54,7 +54,7 @@ res.sendFile(__dirname + '/index.html');
 // Initiates Server Connection
 ///////////////////////////////////////////////
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8080;
 server.listen(port, function() {
   console.log("Tweety Pop successfully listening on " + port);
 });
@@ -63,10 +63,18 @@ server.listen(port, function() {
 // Initiaties Models & Database
 ///////////////////////////////////////////////
 
+// creates database schema
+var tweetSchema = mongoose.Schema(
+  { popStar: { type: String }, tweetScore: { type: Number } },
+  { capped: { size: 10000, max: 50000, autoIndexId: false } }
+);
+
+// creates model Rating and 'score' collection
+var Rating = mongoose.model('score', tweetSchema);
 
 
 // initiates database connection
-mongoose.connect("mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/Ohowud6i")
+mongoose.connect("mongodb://<user>:<pass>@proximus.modulusmongo.net:27017/zaJyz6et")
 
 // declares database connection events
 var db = mongoose.connection;
@@ -77,24 +85,24 @@ var db = mongoose.connection;
 
 // when successfully connected
 db.on('connected', function () {
+console.log('Tweety Pop has succesfully connected to the database.')
+// // queryMongo waits one second for mongo database to establish a connection,
+// // then calls itself every 10 seconds to query for 500 tweets in the database
 
-// queryMongo waits one second for mongo database to establish a connection,
-// then calls itself every 10 seconds to query for 500 tweets in the database
+// (function queryMongo() {
 
-(function queryMongo() {
+//   console.log(".. querying the database ..");
+// // queries database on db connection verification
+//   var tweetQuery = Rating.find({}).limit(300);
+//   tweetQuery.exec(function(err, docs) {
+//     if (err) throw new Error('There was an error while querying the database.');
 
-  console.log(".. querying the database ..");
-// queries database on db connection verification
-  var tweetQuery = Rating.find({}).limit(300);
-  tweetQuery.exec(function(err, docs) {
-    if (err) throw new Error('There was an error while querying the database.');
-
-    for (var i = 0; i < docs.length; i++) {
-      analyzeTweet(docs[i].popStar, docs[i].tweetScore)
-    }
-    setTimeout(queryMongo, 10000);
-    });
-  })();
+//     for (var i = 0; i < docs.length; i++) {
+//       analyzeTweet(docs[i].popStar, docs[i].tweetScore)
+//     }
+//     setTimeout(queryMongo, 10000);
+//     });
+//   })();
 });
 
 // if the connection throws an error
@@ -115,14 +123,6 @@ process.on('SIGINT', function() {
   });
 });
 
-// creates database schema
-var tweetSchema = mongoose.Schema(
-  { popStar: { type: String }, tweetScore: { type: Number } },
-  { capped: { size: 10000, max: 5000, autoIndexId: false } }
-);
-
-// creates model Rating and 'score' collection
-var Rating = mongoose.model('score', tweetSchema);
 
 ///////////////////////////////////////////////
 // Streams Incoming Tweets, Renders to View and Stores to Database
