@@ -73,9 +73,7 @@ mongoose.connect('mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27
   { if (!err) { console.log( 'Tweety Pop has successfuly connected to the database.' ) }
 });
 
-// declares database connection events
 var db = mongoose.connection;
-
 ///////////////////////////////////////////////
 // MONGO DB CONNECTION EVENTS
 ///////////////////////////////////////////////
@@ -97,8 +95,8 @@ db.on('connected', function () {
     for (var i = 0; i < docs.length; i++) {
       analyzeTweet(docs[i].popStar, docs[i].tweetScore)
     }
+  })
     setTimeout(queryMongo, 10000);
-    });
   })();
 });
 
