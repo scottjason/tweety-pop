@@ -62,8 +62,7 @@ server.listen(port, function() {
 ///////////////////////////////////////////////
 // INITIATES DATABASE CONNECTION
 ///////////////////////////////////////////////
-mongoose.connect('mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/Y7pexexa')
-var db = mongoose.connection;
+var db = mongoose.createConnection('mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/w9uwedoS');
 
 ///////////////////////////////////////////////
 // MONGO DB CONNECTION EVENTS
@@ -104,12 +103,12 @@ tweet.stream('statuses/filter', {
         var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
         newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
           console.log('about to send to analyze')
-        analyzeTweet( newTweet, score );
+        // analyzeTweet( newTweet, score );
         io.sockets.emit( 'incoming', newTweet, score )}
 
       // declares conditions to render only
       else if ( newTweet != null ) {
-        analyzeTweet( newTweet, score );
+        // analyzeTweet( newTweet, score );
         io.sockets.emit( 'incoming', newTweet, score )}
       else {};
    });
