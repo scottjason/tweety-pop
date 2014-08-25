@@ -9,7 +9,7 @@ var express = require('express'),
   env = require('node-env-file'),
   mongoose = require('mongoose');
 
-queryMongo()
+// queryMongo()
 
 // declares artists to track & artist sentiment score arrays
 var popTracker = [ "katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, kaynewest, kanye west, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga" ];
@@ -66,7 +66,7 @@ var db = mongoose.connection;
 // initiates database connection
 db.on('error', console.error);
 
-db.once('open', function() {
+// db.once('open', function() {
 // creates tweetSchema
 var tweetSchema = mongoose.Schema(
   { popStar: { type: String }, tweetScore: { type: Number } },
@@ -74,27 +74,27 @@ var tweetSchema = mongoose.Schema(
 );
 // creates model Rating and 'score' collection
 var Rating = mongoose.model('score', tweetSchema);
-});
+// });
 
 mongoose.connect("mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/zOwupo9h");
 ///////////////////////////////////////////////
 // Streams Incoming Tweets & Queries Database
 ///////////////////////////////////////////////
-function queryMongo() {
+// function queryMongo() {
 
-  console.log(".. querying the database ..");
-// queries database on db connection verification
-  var tweetModel = mongoose.model('score');
-  var tweetQuery = tweetModel.find({}).limit(300);
-  tweetQuery.exec(function(err, docs) {
-    if (err) throw new Error('There was an error while querying the database.');
+//   console.log(".. querying the database ..");
+// // queries database on db connection verification
+//   var tweetModel = mongoose.model('score');
+//   var tweetQuery = tweetModel.find({}).limit(300);
+//   tweetQuery.exec(function(err, docs) {
+//     if (err) throw new Error('There was an error while querying the database.');
 
-    for (var i = 0; i < docs.length; i++) {
-      analyzeTweet(docs[i].popStar, docs[i].tweetScore)
-    }
-    setTimeout(queryMongo, 10000);
-    });
-  }
+//     for (var i = 0; i < docs.length; i++) {
+//       analyzeTweet(docs[i].popStar, docs[i].tweetScore)
+//     }
+//     setTimeout(queryMongo, 10000);
+//     });
+//   }
 
 
 // twitter authorization
@@ -105,33 +105,33 @@ tweet = new twitter({
   access_token_secret: "ZVusxwm9y4aJCnvtx3MHj7148REZikXyySeZURZsLUVGz"
 });
 
-tweet.stream('statuses/filter', {
-    "track": popTracker
-  },
-  function(stream) {
-    stream.on('data', function(data) {
-      // removes foreign characters from tweets, create sentiment score
-      var tweetModel = mongoose.model('score')
-      var newTweet = data.text;
-      var foreignCharacters = unescape(encodeURIComponent(newTweet));
-      newTweet = decodeURIComponent(escape(foreignCharacters));
-      var score = sentiment(newTweet).score
+// tweet.stream('statuses/filter', {
+//     "track": popTracker
+//   },
+//   function(stream) {
+//     stream.on('data', function(data) {
+//       // removes foreign characters from tweets, create sentiment score
+//       var tweetModel = mongoose.model('score')
+//       var newTweet = data.text;
+//       var foreignCharacters = unescape(encodeURIComponent(newTweet));
+//       newTweet = decodeURIComponent(escape(foreignCharacters));
+//       var score = sentiment(newTweet).score
 
-      // declares conditions to both save and render
-      if ( newTweet != null && score != 0 ) {
-        var newDocument = new tweetModel ( { popStar: newTweet, tweetScore: score } );
-        newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
+//       // declares conditions to both save and render
+//       if ( newTweet != null && score != 0 ) {
+//         var newDocument = new tweetModel ( { popStar: newTweet, tweetScore: score } );
+//         newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
 
-        analyzeTweet( newTweet, score );
-        io.sockets.emit( 'incoming', newTweet, score )}
+//         analyzeTweet( newTweet, score );
+//         io.sockets.emit( 'incoming', newTweet, score )}
 
-      // declares conditions to render only
-      else if ( newTweet != null ) {
-        analyzeTweet( newTweet, score );
-        io.sockets.emit( 'incoming', newTweet, score )}
-      else {};
-   });
-});
+//       // declares conditions to render only
+//       else if ( newTweet != null ) {
+//         analyzeTweet( newTweet, score );
+//         io.sockets.emit( 'incoming', newTweet, score )}
+//       else {};
+//    });
+// });
 
 ///////////////////////////////////////////////
 // Analyzes Tweet Stream and Database Query
