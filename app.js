@@ -69,7 +69,7 @@ var options = { server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000
 };
 
 // initiates database connection
-mongoose.connect('mongodb://scottjason:tweetypop084@dbh84.mongolab.com:27847/tweety-pop', options, function(err)
+mongoose.connect('mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/Y7pexexa', options, function(err)
   { if (!err) { console.log( 'Tweety Pop has successfuly connected to the database.' ) }
 });
 
