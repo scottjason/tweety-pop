@@ -60,68 +60,25 @@ server.listen(port, function() {
 });
 
 ///////////////////////////////////////////////
-// Initiaties Models & Database
+// INITIATES DATABASE CONNECTION
 ///////////////////////////////////////////////
-
-
-
-// initiates database connection
 mongoose.connect('mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/Y7pexexa')
-
 var db = mongoose.connection;
+
 ///////////////////////////////////////////////
 // MONGO DB CONNECTION EVENTS
 ///////////////////////////////////////////////
 
-// when successfully connected
 db.on('connected', function () {
-
-(function queryMongo() {
-
-  console.log(".. querying the database ..");
-// queries database on db connection verification
-  var tweetQuery = Rating.find({}).limit(1000);
-  tweetQuery.exec(function(err, docs) {
-    if (err) throw new Error('There was an error while querying the database.');
-
-    for (var i = 0; i < docs.length; i++) {
-      analyzeTweet(docs[i].popStar, docs[i].tweetScore)
-    }
-  })
-    setTimeout(queryMongo, 10000);
-  })();
-});
-
-// if the connection throws an error
-db.on('error',function (err) {
-console.log('Mongoose default connection error: ' + err);
-});
-
-// when the connection is disconnected
-db.on('disconnected', function () {
-  console.log( 'Tweety Pop has been temporarily disconnected from the mongo database.' );
-});
-
-// if the node process ends, close the mongoose connection
-process.on('SIGINT', function() {
-  db.close(function () {
-  console.log('Mongoose default connection disconnected through app termination');
-  process.exit(0);
-  });
-});
-
 // creates database schema
 var tweetSchema = mongoose.Schema(
   { popStar: { type: String }, tweetScore: { type: Number } },
   { capped: { size: 10000, max: 5000, autoIndexId: false } }
 );
-
 // creates model Rating and 'score' collection
-var Rating = mongoose.model('score', tweetSchema);
+var Rating = mongoose.model( 'Score', tweetSchema );
 
-///////////////////////////////////////////////
-// Streams Incoming Tweets, Renders to View and Stores to Database
-///////////////////////////////////////////////
+/////
 
 // twitter authorization
 tweet = new twitter({
@@ -146,7 +103,7 @@ tweet.stream('statuses/filter', {
       if ( newTweet != null && score != 0 ) {
         var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
         newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
-
+          console.log('about to send to analyze')
         analyzeTweet( newTweet, score );
         io.sockets.emit( 'incoming', newTweet, score )}
 
@@ -158,11 +115,36 @@ tweet.stream('statuses/filter', {
    });
 });
 
+
+});
+
+// if the connection throws an error
+db.on( 'error', console.error );
+
+
+
+// if the node process ends, close the mongoose connection
+process.on('SIGINT', function() {
+  db.close(function () {
+  console.log('Mongoose default connection disconnected through app termination');
+  process.exit(0);
+  });
+});
+
+
+
+///////////////////////////////////////////////////////////////////
+// Streams Incoming Tweets, Renders to View and Stores to Database
+///////////////////////////////////////////////////////////////////
+
+
+
 ///////////////////////////////////////////////
 // Analyzes Tweet Stream and Database Query
 ///////////////////////////////////////////////
 
 function analyzeTweet(newTweet, score) {
+  console.log('made it to analyze')
     if (newTweet.indexOf('perry') != -1 ) {
       perryScores.push(score);
       io.sockets.emit('perryScoreArray', perryScores);
@@ -202,3 +184,19 @@ function analyzeTweet(newTweet, score) {
     } else {}
 }
 })();
+
+
+// (function queryMongo() {
+
+//   console.log(".. querying the database ..");
+// // queries database on db connection verification
+//   var tweetQuery = Rating.find({}).limit(1000);
+//   tweetQuery.exec(function(err, docs) {
+//     if (err) throw new Error('There was an error while querying the database.');
+
+//     for (var i = 0; i < docs.length; i++) {
+//       analyzeTweet(docs[i].popStar, docs[i].tweetScore)
+//     }
+//   })
+//     setTimeout(queryMongo, 10000);
+//   })();
