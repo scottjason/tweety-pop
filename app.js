@@ -66,7 +66,7 @@ var db = mongoose.connection;
 // initiates database connection
 db.on('error', console.error);
 
-// db.once('open', function() {
+db.once('open', function() {
 // creates tweetSchema
 var tweetSchema = mongoose.Schema(
   { popStar: { type: String }, tweetScore: { type: Number } },
@@ -74,7 +74,7 @@ var tweetSchema = mongoose.Schema(
 );
 // creates model Rating and 'score' collection
 var Rating = mongoose.model('score', tweetSchema);
-// });
+});
 
 mongoose.connect("mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/zOwupo9h");
 ///////////////////////////////////////////////
