@@ -81,9 +81,6 @@ var db = mongoose.connection;
 // when successfully connected
 db.on('connected', function () {
 
-// queryMongo waits one second for mongo database to establish a connection,
-// then calls itself every 10 seconds to query for 500 tweets in the database
-
 (function queryMongo() {
 
   console.log(".. querying the database ..");
