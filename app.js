@@ -63,8 +63,8 @@ mongoose.connect('mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27
 
 // creates database schema
 var tweetSchema = mongoose.Schema(
-  { popStar: { type: String }, tweetScore: { type: Number } },
-  { capped: { size: 10000, max: 5, autoIndexId: false } }
+  { popStar: { type: String }, tweetScore: { type: Number } }
+  // { capped: { size: 10000, max: 5, autoIndexId: false } }
 );
 
 
@@ -158,17 +158,17 @@ function analyzeTweet(newTweet, score) {
 })();
 
 
-// (function queryMongo() {
+(function queryMongo() {
 
-//   console.log(".. querying the database ..");
-// // queries database on db connection verification
-//   var tweetQuery = Rating.find({}).limit(1000);
-//   tweetQuery.exec(function(err, docs) {
-//     if (err) throw new Error('There was an error while querying the database.');
+  console.log(".. querying the database ..");
+// queries database on db connection verification
+  var tweetQuery = Rating.find({}).limit(1000);
+  tweetQuery.exec(function(err, docs) {
+    if (err) throw new Error('There was an error while querying the database.');
 
-//     for (var i = 0; i < docs.length; i++) {
-//       analyzeTweet(docs[i].popStar, docs[i].tweetScore)
-//     }
-//   })
-//     setTimeout(queryMongo, 10000);
-//   })();
+    for (var i = 0; i < docs.length; i++) {
+      analyzeTweet(docs[i].popStar, docs[i].tweetScore)
+    }
+  })
+    setTimeout(queryMongo, 10000);
+  })();
