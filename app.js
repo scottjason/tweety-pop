@@ -1,4 +1,3 @@
-(function(){
 var express = require('express'),
     twitter = require('twitter'),
     sentiment = require('sentiment'),
@@ -195,4 +194,3 @@ function analyzeTweet(newTweet, score) {
       io.sockets.emit('lovatoScoreArray', lovatoScores);
     } else {}
   }
-})();
