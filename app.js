@@ -36,6 +36,8 @@ app.get('/', function(req, res) {
 res.sendFile(__dirname + '/index.html');
 });
 
+app.set('port', process.env.PORT || 3000);
+app.set('host', process.env.HOST || '127.0.0.1');
 
 
 
@@ -44,9 +46,11 @@ res.sendFile(__dirname + '/index.html');
 ///////////////////////////////////////////////
 
 var port = process.env.PORT || 8080;
-server.listen(port, function() {
-console.log("Tweety Pop successfully listening on " + port);
-})
+server.listen(app.get('port'), app.get('host'), function(){
+  console.log("Express server listening on port " + app.get('port'));
+});
+
+
 
 var count;
 
