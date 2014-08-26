@@ -84,7 +84,7 @@ var queryMongo = (function() {
 
     var tweetQuery = Rating.find({}).limit(500);
     tweetQuery.exec(function(err, docs) {
-      if (err) throw new Error('There was an error while querying the database.');
+      if (err) console.log(err);
       for (var i = 0; i < docs.length; i++) {
         analyzeTweet(docs[i].popStar, docs[i].tweetScore)
       }
