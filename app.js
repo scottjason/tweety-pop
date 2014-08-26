@@ -41,10 +41,7 @@ res.sendFile(__dirname + '/index.html');
 ///////////////////////////////////////////////
 
 // initiates serer connection
-var port = process.env.PORT || 3000;
-server.listen(port, function() {
-  console.log("Tweety Pop successfully listening on " + port);
-});
+
 
 // creates the database connection string
 var dbURI = "mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/zOwupo9h";
@@ -58,7 +55,11 @@ mongoose.connection.on('connected', function () {
 });
 
 mongoose.connection.on('open', function () {
-  console.log('The database has been actived');
+  console.log('The database has been actived, initiating sever');
+  var port = process.env.PORT || 3000;
+  server.listen(port, function() {
+  console.log("Tweety Pop successfully listening on " + port);
+});
   queryMongo();
 });
 
