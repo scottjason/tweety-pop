@@ -52,10 +52,7 @@ mongoose.connect(dbURI);
 // When successfully connected
 mongoose.connection.on('connected', function () {
   console.log('Mongoose default connection open to ' + dbURI);
-    var port = process.env.PORT || 3000;
-  server.listen(port, function() {
-  console.log("Tweety Pop successfully listening on " + port);
-});
+  initiateServer();
   queryMongo();
 });
 
@@ -196,4 +193,11 @@ function analyzeTweet(newTweet, score) {
       io.sockets.emit('lovatoScoreArray', lovatoScores);
     } else {}
   }
+
+function initiateServer(){
+  var port = process.env.PORT || 3000;
+  server.listen(port, function() {
+  console.log("Tweety Pop successfully listening on " + port);
+  });
+ }
 })();
