@@ -37,7 +37,7 @@ res.sendFile(__dirname + '/index.html');
 });
 
 app.set('port', process.env.PORT || 3000);
-app.set('host', process.env.HOST || '127.0.0.1');
+app.set('host', process.env.HOST || '0.0.0.0');
 
 
 
@@ -51,7 +51,7 @@ server.listen(app.get('port'), app.get('host'), function(){
 
 
 
-var count;
+// var count;
 
 // io.sockets.on('connection', function (socket) {
 //     // queryMongo();
