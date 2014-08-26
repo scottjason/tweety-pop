@@ -1,4 +1,4 @@
-(function(){
+'use strict';
 var express = require('express'),
   app = express(),
   server = require('http').createServer(app),
@@ -28,15 +28,12 @@ var perryScores = [],
 // Configures Socket.IO
 ///////////////////////////////////////////////
 
-var socketData = {};
-if(!process.env.NODE_ENV)
-{ io.attach( server, { 'serveClient': false } )}
-
-io.use(function(socket, next) {
-  var query = socket.request._query;
-  socketData[socket.id] = { myNumber: query.mynumber }
-  next();
+io.on('connection', function (socket) {
+    // do all the session stuff
+    socket.join(socket.handshake.sessionID);
+    // socket.io will leave the room upon disconnect
 });
+
 
 ///////////////////////////////////////////////
 // Configures Express
@@ -47,7 +44,9 @@ app.use('/', express.static(__dirname + '/public'));
 // declares routes
 app.get('/', function(req, res) {
 res.sendFile(__dirname + '/index.html');
+io.sockets.in(req.sessionID).send('Man, good to see you back!');
 });
+
 
 ///////////////////////////////////////////////
 // Initiates Database Connection
@@ -114,7 +113,7 @@ var queryMongo = (function() {
 
 
 // twitter authorization
-tweet = new twitter({
+var tweet = new twitter({
   consumer_key: "Qz8vqLjcmgxOjhUpwd3hD2ZCw",
   consumer_secret: "vRSxeLjj2pddubDxkpaZ1bqsonC0SrWsx9xMaBw91U2P8N42J2",
   access_token_key: "195177239-1NI8bL9utZ2MnNXowy607mYLABlH83gp4k9TAgrA",
@@ -197,8 +196,7 @@ function analyzeTweet(newTweet, score) {
 // Initiates Server Connection
 ///////////////////////////////////////////////
 
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 3000;
 server.listen(port, function() {
   console.log("Tweety Pop successfully listening on " + port);
- });
-})()
+});

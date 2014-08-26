@@ -1,3 +1,4 @@
+"use strict";
 $(document).ready(function() {
 
 ///////////////////////////////////////////////
@@ -16,7 +17,6 @@ Number.prototype.toFixedDown = function(digits) {
 ///////////////////////////////////////////////
 // initiates socket connection
 
-socket = io.connect();
 
 socket.on('perryScoreArray', function(perryScores) {
 var sum = 0;
