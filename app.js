@@ -104,9 +104,9 @@ var queryMongo = (function() {
   var count = 0;
   var queryCounter = function() {
     ++count;
-    if ( count == 7 ) {
-      count = 0;
-      setTimeout( queryMongo(), 15000 ) }
+    if ( count == 5 ) { return }
+      // count = 0;
+      // setTimeout( queryMongo(), 10000 ) }
     console.log("Tweety Pop has queryed the database " + count + " times.");
 
     var tweetQuery = Rating.find({}).limit(500);
