@@ -1,5 +1,3 @@
-(function(){
-
 var express = require('express'),
   app = express(),
   server = require('http').createServer(app),
@@ -54,21 +52,45 @@ res.sendFile(__dirname + '/index.html');
 // Initiates Server And DataBase Connection
 ///////////////////////////////////////////////
 
+// initiates serer connection
 var port = process.env.PORT || 8080;
 server.listen(port, function() {
   console.log("Tweety Pop successfully listening on " + port);
 });
 
-// initiates database connection
-mongoose.connect("mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/zOwupo9h")
+// creates the database connection string
+var dbURI = "mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/zOwupo9h";
 
-// declares database connection events
-var db = mongoose.connection;
+// initiate the database connection
+mongoose.connect(dbURI);
 
-///////////////////////////////////////////////
-// MONGO DB CONNECTION EVENTS
-///////////////////////////////////////////////
+// When successfully connected
+mongoose.connection.on('connected', function () {
+  console.log('Mongoose default connection open to ' + dbURI);
+  queryMongo();
+  streamTwitter();
+});
 
+// If the connection throws an error
+mongoose.connection.on('error',function (err) {
+  console.log('Mongoose default connection error: ' + err);
+});
+
+// When the connection is disconnected
+mongoose.connection.on('disconnected', function () {
+  console.log('Mongoose default connection disconnected');
+});
+
+// If the Node process ends, close the Mongoose connection
+process.on('SIGINT', function() {
+  mongoose.connection.close(function () {
+    console.log('Mongoose default connection disconnected through app termination');
+    process.exit(0);
+  });
+});
+
+
+// creates schema
 var tweetSchema = mongoose.Schema(
   { popStar: { type: String }, tweetScore: { type: Number } },
   { capped: { size: 5000000, max: 50000, autoIndexId: false } }
@@ -80,10 +102,10 @@ var Rating = mongoose.model('score', tweetSchema);
 ///////////////////////////////////////////////
 // Streams Incoming Tweets & Queries Database
 ///////////////////////////////////////////////
-(function queryMongo() {
 
+function queryMongo() {
   console.log(".. querying the database ..");
-// queries database on db connection verification
+
   var tweetQuery = Rating.find({}).limit(300);
   tweetQuery.exec(function(err, docs) {
     if (err) throw new Error('There was an error while querying the database.');
@@ -93,7 +115,10 @@ var Rating = mongoose.model('score', tweetSchema);
     }
     setTimeout(queryMongo, 10000);
     });
-  })();
+  }
+
+function streamTwitter(){
+
 // twitter authorization
 tweet = new twitter({
   consumer_key: "Qz8vqLjcmgxOjhUpwd3hD2ZCw",
@@ -127,7 +152,8 @@ tweet.stream('statuses/filter', {
         io.sockets.emit( 'incoming', newTweet, score )}
       else {};
    });
-});
+ });
+}
 
 ///////////////////////////////////////////////
 // Analyzes Tweet Stream and Database Query
@@ -172,12 +198,3 @@ function analyzeTweet(newTweet, score) {
       io.sockets.emit('lovatoScoreArray', lovatoScores);
     } else {}
 }
-
-// if the node process ends, close the mongoose connection
-process.on('SIGINT', function() {
-  db.close(function () {
-  console.log('Mongoose default connection disconnected through app termination');
-  process.exit(0);
-  });
-});
-})();
