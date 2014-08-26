@@ -1,4 +1,4 @@
-'use strict';
+
 var express = require('express'),
   app = express(),
   server = require('http').createServer(app),
@@ -25,17 +25,6 @@ var perryScores = [],
     lovatoScores = [];
 
 ///////////////////////////////////////////////
-// Configures Socket.IO
-///////////////////////////////////////////////
-
-io.on('connection', function (socket) {
-    // do all the session stuff
-    socket.join(socket.handshake.sessionID);
-    // socket.io will leave the room upon disconnect
-});
-
-
-///////////////////////////////////////////////
 // Configures Express
 ///////////////////////////////////////////////
 
@@ -44,9 +33,7 @@ app.use('/', express.static(__dirname + '/public'));
 // declares routes
 app.get('/', function(req, res) {
 res.sendFile(__dirname + '/index.html');
-io.sockets.in(req.sessionID).send('Man, good to see you back!');
 });
-
 
 ///////////////////////////////////////////////
 // Initiates Database Connection
@@ -81,7 +68,6 @@ var tweetSchema = mongoose.Schema(
 );
 // creates model Rating and 'score' collection
 var Rating = mongoose.model('score', tweetSchema);
-
 
 ///////////////////////////////////////////////
 // Writes to and Queries the Database
@@ -134,7 +120,7 @@ tweet.stream('statuses/filter', {
       // declares conditions to both save and render
       if ( newTweet != null && score != 0 ) {
         var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
-        newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
+        newDocument.save(function(err) { if( err ) console.log( err ) })
 
         analyzeTweet( newTweet, score );
         io.sockets.emit( 'incoming', newTweet, score )}
@@ -196,7 +182,7 @@ function analyzeTweet(newTweet, score) {
 // Initiates Server Connection
 ///////////////////////////////////////////////
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8080;
 server.listen(port, function() {
   console.log("Tweety Pop successfully listening on " + port);
 });
