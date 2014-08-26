@@ -7,6 +7,25 @@ var express = require('express'),
   env = require('node-env-file'),
   mongoose = require('mongoose');
 
+  // var sio = require('socket.io')();
+  // sio.use(function(socket, next){
+  //   if (socket.request.headers.cookie) return next();
+  //   next(new Error('Authentication error'));
+  // });
+
+  // var io = require('socket.io')();
+  // // or
+  // var Server = require('socket.io');
+  // var io = new Server();
+  // // var sio = socketio();
+
+  // var io = require('socket.io')(http, { serveClient: false });
+
+  // // sio.use(function(socket, next){
+  // //   if (socket.request.headers.cookie) return next();
+  // //   next(new Error('Authentication error'));
+  // // });
+
 // declares artists to track & artist sentiment score arrays
 var popTracker = [ "katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, kaynewest, kanye west, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga" ];
 
@@ -25,7 +44,7 @@ var perryScores = [],
 
 
 ///////////////////////////////////////////////
-// Configures Express
+// Configures Express, Initiate Server
 ///////////////////////////////////////////////
 
 // declares public folder
@@ -36,14 +55,11 @@ app.get('/', function(req, res) {
 res.sendFile(__dirname + '/index.html');
 });
 
+// Important!
 app.set('port', process.env.PORT || 3000);
 app.set('host', process.env.HOST || '0.0.0.0');
 
 
-
-///////////////////////////////////////////////
-// Configure Sockets And DataBase Connection
-///////////////////////////////////////////////
 
 server.listen(app.get('port'), app.get('host'), function(){
   console.log("Express server listening on port " + app.get('port'));
@@ -69,19 +85,20 @@ server.listen(app.get('port'), app.get('host'), function(){
 //     });
 // });
 // var dbURI = "mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/zOwupo9h"
-// initiates database connection
+// // initiates database connection
 // mongoose.connect(dbURI)
 
-// stores the database connection
+// // stores the database connection
 // var db = mongoose.connection;
 
 ///////////////////////////////////////////////
 // MONGO DB CONNECTION EVENTS
 ///////////////////////////////////////////////
 
-// When successfully connected
+// // When successfully connected
 // db.on('connected', function () {
 //   console.log('Mongoose default connection open to ' + dbURI);
+//   queryMongo()
 // });
 
 // // If the connection throws an error
@@ -117,14 +134,14 @@ var Rating = mongoose.model('score', tweetSchema);
 
 
 // function queryMongo() {
-//   var tweetQuery = Rating.find({}).limit(500);
-//     tweetQuery.exec(function(err, docs) {
-//       if (err) console.log(err);
-//       for (var i = 0; i < docs.length; i++) {
-//         analyzeTweet(docs[i].popStar, docs[i].tweetScore)
-//       }
-//   })
-// }
+// //   var tweetQuery = Rating.find({}).limit(500);
+// //     tweetQuery.exec(function(err, docs) {
+// //       if (err) console.log(err);
+// //       for (var i = 0; i < docs.length; i++) {
+// //         analyzeTweet(docs[i].popStar, docs[i].tweetScore)
+// //       }
+// //   })
+// // }
 
 // var queryMongo = (function() {
 //   var count = 0;
@@ -138,7 +155,7 @@ var Rating = mongoose.model('score', tweetSchema);
 //         analyzeTweet(docs[i].popStar, docs[i].tweetScore)
 //       }
 //     });
-//     setTimeout(ClientStatus.prototype.verify, 2000);
+//     setTimeout(queryMongo, 5000);
 //   };
 //   queryCounter.count = function() {
 //     return count;
@@ -223,6 +240,5 @@ function analyzeTweet(newTweet, score) {
       lovatoScores.push(score);
       io.sockets.emit('lovatoScoreArray', lovatoScores);
     } else {}
-
 }
 
