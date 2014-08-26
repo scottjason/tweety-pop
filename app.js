@@ -50,21 +50,21 @@ console.log("Tweety Pop successfully listening on " + port);
 
 var count;
 
-io.sockets.on('connection', function (socket) {
-    // queryMongo();
-    count++;
-    io.sockets.emit('count', {
-        number: count
-    });
+// io.sockets.on('connection', function (socket) {
+//     // queryMongo();
+//     count++;
+//     io.sockets.emit('count', {
+//         number: count
+//     });
 
-    socket.on('disconnect', function () {
-        console.log('client disconnected. ');
-        count--;
-        io.sockets.emit('count', {
-            number: count
-        });
-    });
-});
+//     socket.on('disconnect', function () {
+//         console.log('client disconnected. ');
+//         count--;
+//         io.sockets.emit('count', {
+//             number: count
+//         });
+//     });
+// });
 // var dbURI = "mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/zOwupo9h"
 // initiates database connection
 // mongoose.connect(dbURI)
