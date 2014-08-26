@@ -55,6 +55,10 @@ mongoose.connect(dbURI);
 // When successfully connected
 mongoose.connection.on('connected', function () {
   console.log('Mongoose default connection open to ' + dbURI);
+});
+
+mongoose.connection.on('open', function () {
+  console.log('The database has been actived');
   queryMongo();
 });
 
