@@ -1,5 +1,5 @@
 
-(function(){
+
 var express = require('express'),
   app = express(),
   server = require('http').createServer(app),
@@ -51,24 +51,18 @@ res.sendFile(__dirname + '/index.html');
 });
 
 ///////////////////////////////////////////////
-// Initiates Server And DataBase Connection
+// Initiates Database Connection
 ///////////////////////////////////////////////
 
-// initiates serer connection
-var port = process.env.PORT || 3000;
-server.listen(port, function() {
-  console.log("Tweety Pop successfully listening on " + port);
-});
-
 // creates the database connection string
-var dbURI = "mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/zOwupo9h";
+var uri = "mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/zOwupo9h";
 
 // initiate the database connection
-mongoose.connect(dbURI);
+mongoose.connect(uri);
 
 // When successfully connected
 mongoose.connection.on('connected', function () {
-  console.log('Mongoose default connection open to ' + dbURI);
+  console.log('Mongoose default connection open to ' + uri);
   queryMongo();
 });
 
@@ -82,15 +76,6 @@ mongoose.connection.on('disconnected', function () {
   console.log('Mongoose default connection disconnected');
 });
 
-// If the Node process ends, close the Mongoose connection
-process.on('SIGINT', function() {
-  mongoose.connection.close(function () {
-    console.log('Mongoose default connection disconnected through app termination');
-    process.exit(0);
-  });
-});
-
-
 // creates schema
 var tweetSchema = mongoose.Schema(
   { popStar: { type: String }, tweetScore: { type: Number } },
@@ -101,13 +86,16 @@ var Rating = mongoose.model('score', tweetSchema);
 
 
 ///////////////////////////////////////////////
-// Streams Incoming Tweets & Queries Database
+// Writes to and Queries the Database
 ///////////////////////////////////////////////
+
 var queryMongo = (function() {
   var count = 0;
   var queryCounter = function() {
     ++count;
-    if ( count == 7) { return }
+    if ( count == 7 ) {
+      count = 0;
+      setTimeout( queryMongo(), 15000 ) }
     console.log("Tweety Pop has queryed the database " + count + " times.");
 
     var tweetQuery = Rating.find({}).limit(500);
@@ -117,7 +105,7 @@ var queryMongo = (function() {
         analyzeTweet(docs[i].popStar, docs[i].tweetScore)
       }
     });
-    setTimeout(queryMongo, 70000);
+    setTimeout(queryMongo, 7000);
   };
   queryCounter.count = function() {
     return count;
@@ -205,4 +193,12 @@ function analyzeTweet(newTweet, score) {
       io.sockets.emit('lovatoScoreArray', lovatoScores);
     } else {}
   }
-})();
+
+///////////////////////////////////////////////
+// Initiates Server Connection
+///////////////////////////////////////////////
+
+var port = process.env.PORT || 3000;
+server.listen(port, function() {
+  console.log("Tweety Pop successfully listening on " + port);
+});
