@@ -1,5 +1,3 @@
-(function(){
-
 var express = require('express'),
   app = express(),
   server = require('http').createServer(app),
@@ -38,14 +36,24 @@ res.sendFile(__dirname + '/index.html');
 });
 
 ///////////////////////////////////////////////
-// Initiates Server And DataBase Connection
+// Configure Sockets And DataBase Connection
 ///////////////////////////////////////////////
+var count = 0;
+io.sockets.on('connection', function (socket) {
+    console.log('client connected')
+    count++;
+    io.sockets.emit('count', {
+        number: count
+    });
 
-var port = process.env.PORT || 8080;
-server.listen(port, function() {
-  console.log("Tweety Pop successfully listening on " + port);
+    socket.on('disconnect', function () {
+        console.log('client disconnected. ');
+        count--;
+        io.sockets.emit('count', {
+            number: count
+        });
+    });
 });
-
 var dbURI = "mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/zOwupo9h"
 // initiates database connection
 mongoose.connect(dbURI)
@@ -193,4 +201,9 @@ function analyzeTweet(newTweet, score) {
       io.sockets.emit('lovatoScoreArray', lovatoScores);
     } else {}
 }
-})();
+
+var port = process.env.PORT || 8080;
+server.listen(port, function() {
+console.log("Tweety Pop successfully listening on " + port);
+
+})
