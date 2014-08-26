@@ -1,4 +1,3 @@
-"use strict";
 $(document).ready(function() {
 
 ///////////////////////////////////////////////
@@ -17,21 +16,7 @@ Number.prototype.toFixedDown = function(digits) {
 ///////////////////////////////////////////////
 // initiates socket connection
 
- var socket = io.connect();
-
-  socket.on('connect', function() {
-    console.log('connected');
-  });
-  socket.on('disconnect', function() {
-    console.log('disconnected');
-  });
-  socket.on('error', function(err) {
-    if(err === 'handshake error') {
-      console.log('handshake error', err);
-    } else {
-      console.log('io error', err);
-    }
-  });
+socket = io.connect();
 
 socket.on('perryScoreArray', function(perryScores) {
 var sum = 0;

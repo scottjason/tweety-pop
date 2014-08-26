@@ -1,3 +1,4 @@
+(function(){
 
 var express = require('express'),
   app = express(),
@@ -8,7 +9,7 @@ var express = require('express'),
   env = require('node-env-file'),
   mongoose = require('mongoose');
 
-// declares artists to track, artist sentiment score arrays & mongoIncrementer closure
+// declares artists to track & artist sentiment score arrays
 var popTracker = [ "katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, kaynewest, kanye west, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga" ];
 
 var perryScores = [],
@@ -32,36 +33,55 @@ var perryScores = [],
 app.use('/', express.static(__dirname + '/public'));
 // declares routes
 app.get('/', function(req, res) {
+
 res.sendFile(__dirname + '/index.html');
 });
 
 ///////////////////////////////////////////////
-// Initiates Database Connection
+// Initiates Server And DataBase Connection
 ///////////////////////////////////////////////
 
-// creates the database connection string
-var uri = "mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/zOwupo9h";
+var port = process.env.PORT || 8080;
+server.listen(port, function() {
+  console.log("Tweety Pop successfully listening on " + port);
+});
 
-// initiate the database connection
-mongoose.connect(uri);
+var dbURI = "mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/zOwupo9h"
+// initiates database connection
+mongoose.connect(dbURI)
+
+// stores the database connection
+var db = mongoose.connection;
+
+///////////////////////////////////////////////
+// MONGO DB CONNECTION EVENTS
+///////////////////////////////////////////////
 
 // When successfully connected
-mongoose.connection.on('connected', function () {
-  console.log('Mongoose default connection open to ' + uri);
+db.on('connected', function () {
+  console.log('Mongoose default connection open to ' + dbURI);
   queryMongo();
 });
 
 // If the connection throws an error
-mongoose.connection.on('error',function (err) {
+db.on('error',function (err) {
   console.log('Mongoose default connection error: ' + err);
 });
 
 // When the connection is disconnected
-mongoose.connection.on('disconnected', function () {
+db.on('disconnected', function () {
   console.log('Mongoose default connection disconnected');
 });
 
-// creates schema
+// If the Node process ends, close the Mongoose connection
+process.on('SIGINT', function() {
+  db.close(function () {
+    console.log('Mongoose default connection disconnected through app termination');
+    process.exit(0);
+  });
+});
+
+// schemas and models
 var tweetSchema = mongoose.Schema(
   { popStar: { type: String }, tweetScore: { type: Number } },
   { capped: { size: 5000000, max: 50000, autoIndexId: false } }
@@ -70,9 +90,8 @@ var tweetSchema = mongoose.Schema(
 var Rating = mongoose.model('score', tweetSchema);
 
 ///////////////////////////////////////////////
-// Writes to and Queries the Database
+// Streams Incoming Tweets & Queries Database
 ///////////////////////////////////////////////
-
 var queryMongo = (function() {
   var count = 0;
   var queryCounter = function() {
@@ -95,11 +114,9 @@ var queryMongo = (function() {
     return count;
   };
   return queryCounter;
-}());
-
-
+}())
 // twitter authorization
-var tweet = new twitter({
+tweet = new twitter({
   consumer_key: "Qz8vqLjcmgxOjhUpwd3hD2ZCw",
   consumer_secret: "vRSxeLjj2pddubDxkpaZ1bqsonC0SrWsx9xMaBw91U2P8N42J2",
   access_token_key: "195177239-1NI8bL9utZ2MnNXowy607mYLABlH83gp4k9TAgrA",
@@ -120,7 +137,7 @@ tweet.stream('statuses/filter', {
       // declares conditions to both save and render
       if ( newTweet != null && score != 0 ) {
         var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
-        newDocument.save(function(err) { if( err ) console.log( err ) })
+        newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
 
         analyzeTweet( newTweet, score );
         io.sockets.emit( 'incoming', newTweet, score )}
@@ -131,8 +148,7 @@ tweet.stream('statuses/filter', {
         io.sockets.emit( 'incoming', newTweet, score )}
       else {};
    });
- });
-
+});
 
 ///////////////////////////////////////////////
 // Analyzes Tweet Stream and Database Query
@@ -176,13 +192,5 @@ function analyzeTweet(newTweet, score) {
       lovatoScores.push(score);
       io.sockets.emit('lovatoScoreArray', lovatoScores);
     } else {}
-  }
-
-///////////////////////////////////////////////
-// Initiates Server Connection
-///////////////////////////////////////////////
-
-var port = process.env.PORT || 8080;
-server.listen(port, function() {
-  console.log("Tweety Pop successfully listening on " + port);
-});
+}
+})();
