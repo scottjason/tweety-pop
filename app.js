@@ -7,25 +7,6 @@ var express = require('express'),
   env = require('node-env-file'),
   mongoose = require('mongoose');
 
-  // var sio = require('socket.io')();
-  // sio.use(function(socket, next){
-  //   if (socket.request.headers.cookie) return next();
-  //   next(new Error('Authentication error'));
-  // });
-
-  // var io = require('socket.io')();
-  // // or
-  // var Server = require('socket.io');
-  // var io = new Server();
-  // // var sio = socketio();
-
-  // var io = require('socket.io')(http, { serveClient: false });
-
-  // // sio.use(function(socket, next){
-  // //   if (socket.request.headers.cookie) return next();
-  // //   next(new Error('Authentication error'));
-  // // });
-
 // declares artists to track & artist sentiment score arrays
 var popTracker = [ "katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, kaynewest, kanye west, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga" ];
 
@@ -44,7 +25,7 @@ var perryScores = [],
 
 
 ///////////////////////////////////////////////
-// Configures Express, Initiate Server
+// Configures Express
 ///////////////////////////////////////////////
 
 // declares public folder
@@ -55,11 +36,14 @@ app.get('/', function(req, res) {
 res.sendFile(__dirname + '/index.html');
 });
 
-// Important!
 app.set('port', process.env.PORT || 3000);
 app.set('host', process.env.HOST || '0.0.0.0');
 
 
+
+///////////////////////////////////////////////
+// Configure Sockets And DataBase Connection
+///////////////////////////////////////////////
 
 server.listen(app.get('port'), app.get('host'), function(){
   console.log("Express server listening on port " + app.get('port'));
@@ -69,12 +53,12 @@ server.listen(app.get('port'), app.get('host'), function(){
 
 // var count;
 
-io.sockets.on('connection', function (socket) {
-    queryMongo();
-    // count++;
-    // io.sockets.emit('count', {
-    //     number: count
-    });
+// io.sockets.on('connection', function (socket) {
+//     // queryMongo();
+//     count++;
+//     io.sockets.emit('count', {
+//         number: count
+//     });
 
 //     socket.on('disconnect', function () {
 //         console.log('client disconnected. ');
@@ -84,39 +68,39 @@ io.sockets.on('connection', function (socket) {
 //         });
 //     });
 // });
-var dbURI = "mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/zOwupo9h"
+// var dbURI = "mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/zOwupo9h"
 // initiates database connection
-mongoose.connect(dbURI)
+// mongoose.connect(dbURI)
 
 // stores the database connection
-var db = mongoose.connection;
+// var db = mongoose.connection;
 
 ///////////////////////////////////////////////
 // MONGO DB CONNECTION EVENTS
 ///////////////////////////////////////////////
 
 // When successfully connected
-db.on('connected', function () {
-  console.log('Mongoose default connection open to ' + dbURI);
-});
+// db.on('connected', function () {
+//   console.log('Mongoose default connection open to ' + dbURI);
+// });
 
-// If the connection throws an error
-db.on('error',function (err) {
-  console.log('Mongoose default connection error: ' + err);
-});
+// // If the connection throws an error
+// db.on('error',function (err) {
+//   console.log('Mongoose default connection error: ' + err);
+// });
 
-// When the connection is disconnected
-db.on('disconnected', function () {
-  console.log('Mongoose default connection disconnected');
-});
+// // When the connection is disconnected
+// db.on('disconnected', function () {
+//   console.log('Mongoose default connection disconnected');
+// });
 
-// If the Node process ends, close the Mongoose connection
-process.on('SIGINT', function() {
-  db.close(function () {
-    console.log('Mongoose default connection disconnected through app termination');
-    process.exit(0);
-  });
-});
+// // If the Node process ends, close the Mongoose connection
+// process.on('SIGINT', function() {
+//   db.close(function () {
+//     console.log('Mongoose default connection disconnected through app termination');
+//     process.exit(0);
+//   });
+// });
 
 // schemas and models
 var tweetSchema = mongoose.Schema(
@@ -133,34 +117,34 @@ var Rating = mongoose.model('score', tweetSchema);
 
 
 // function queryMongo() {
-// //   var tweetQuery = Rating.find({}).limit(500);
-// //     tweetQuery.exec(function(err, docs) {
-// //       if (err) console.log(err);
-// //       for (var i = 0; i < docs.length; i++) {
-// //         analyzeTweet(docs[i].popStar, docs[i].tweetScore)
-// //       }
-// //   })
-// // }
+//   var tweetQuery = Rating.find({}).limit(500);
+//     tweetQuery.exec(function(err, docs) {
+//       if (err) console.log(err);
+//       for (var i = 0; i < docs.length; i++) {
+//         analyzeTweet(docs[i].popStar, docs[i].tweetScore)
+//       }
+//   })
+// }
 
-var queryMongo = (function() {
-  var count = 0;
-  var queryCounter = function() {
-    ++count;
-    console.log("Tweety Pop has queryed the database " + count + " times.");
-    var tweetQuery = Rating.find({}).limit(500);
-    tweetQuery.exec(function(err, docs) {
-      if (err) console.log(err);
-      for (var i = 0; i < docs.length; i++) {
-        analyzeTweet(docs[i].popStar, docs[i].tweetScore)
-      }
-    });
-    // setTimeout(queryMongo, 5000);
-  };
-  queryCounter.count = function() {
-    return count;
-  };
-  return queryCounter;
-}())
+// var queryMongo = (function() {
+//   var count = 0;
+//   var queryCounter = function() {
+//     ++count;
+//     console.log("Tweety Pop has queryed the database " + count + " times.");
+//     var tweetQuery = Rating.find({}).limit(500);
+//     tweetQuery.exec(function(err, docs) {
+//       if (err) console.log(err);
+//       for (var i = 0; i < docs.length; i++) {
+//         analyzeTweet(docs[i].popStar, docs[i].tweetScore)
+//       }
+//     });
+//     setTimeout(ClientStatus.prototype.verify, 2000);
+//   };
+//   queryCounter.count = function() {
+//     return count;
+//   };
+//   return queryCounter;
+// }())
 // twitter authorization
 
 var tweet = new twitter({
@@ -239,5 +223,6 @@ function analyzeTweet(newTweet, score) {
       lovatoScores.push(score);
       io.sockets.emit('lovatoScoreArray', lovatoScores);
     } else {}
+
 }
 
