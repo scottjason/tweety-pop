@@ -45,7 +45,6 @@ app.set('host', process.env.HOST || '127.0.0.1');
 // Configure Sockets And DataBase Connection
 ///////////////////////////////////////////////
 
-var port = process.env.PORT || 8080;
 server.listen(app.get('port'), app.get('host'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
