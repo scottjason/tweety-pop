@@ -9,7 +9,7 @@ var express = require('express'),
   env = require('node-env-file'),
   mongoose = require('mongoose');
 
-// declares artists to track & artist sentiment score arrays
+// declares artists to track, artist sentiment score arrays & mongoIncrementer closure
 var popTracker = [ "katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, kaynewest, kanye west, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga" ];
 
 var perryScores = [],
@@ -103,21 +103,27 @@ var Rating = mongoose.model('score', tweetSchema);
 ///////////////////////////////////////////////
 // Streams Incoming Tweets & Queries Database
 ///////////////////////////////////////////////
+var queryMongo = (function() {
+  var count = 0;
+  var queryCounter = function() {
+    ++count;
+    if ( count == 7) { return }
+    console.log("Tweety Pop has queryed the database " + count + " times.");
 
-function queryMongo() {
-  console.log(".. querying the database ..");
-
-  var tweetQuery = Rating.find({}).limit(300);
-  tweetQuery.exec(function(err, docs) {
-    if (err) throw new Error('There was an error while querying the database.');
-
-    for (var i = 0; i < docs.length; i++) {
-      analyzeTweet(docs[i].popStar, docs[i].tweetScore)
-    }
-    setTimeout(queryMongo, 10000);
+    var tweetQuery = Rating.find({}).limit(500);
+    tweetQuery.exec(function(err, docs) {
+      if (err) throw new Error('There was an error while querying the database.');
+      for (var i = 0; i < docs.length; i++) {
+        analyzeTweet(docs[i].popStar, docs[i].tweetScore)
+      }
     });
-  }
-
+    setTimeout(queryMongo, 70000);
+  };
+  queryCounter.count = function() {
+    return count;
+  };
+  return queryCounter;
+}());
 
 
 // twitter authorization
