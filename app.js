@@ -1,3 +1,4 @@
+(function(){
 var express = require('express'),
     twitter = require('twitter'),
     sentiment = require('sentiment'),
@@ -51,16 +52,17 @@ mongoose.connect(dbURI);
 // When successfully connected
 mongoose.connection.on('connected', function () {
   console.log('Mongoose default connection open to ' + dbURI);
-});
-
-mongoose.connection.on('open', function () {
-  console.log('The database has been actived, initiating sever');
-  var port = process.env.PORT || 3000;
+    var port = process.env.PORT || 3000;
   server.listen(port, function() {
   console.log("Tweety Pop successfully listening on " + port);
 });
   queryMongo();
 });
+
+// mongoose.connection.on('open', function () {
+//   console.log('The database has been actived, initiating sever');
+
+// });
 
 // If the connection throws an error
 mongoose.connection.on('error',function (err) {
@@ -194,3 +196,4 @@ function analyzeTweet(newTweet, score) {
       io.sockets.emit('lovatoScoreArray', lovatoScores);
     } else {}
   }
+})();
