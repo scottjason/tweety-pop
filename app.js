@@ -29,9 +29,6 @@ tweet = new twitter({
   access_token_secret: "ZVusxwm9y4aJCnvtx3MHj7148REZikXyySeZURZsLUVGz"
 });
 
-server.listen(process.env.PORT || 8090);
-console.log("Sucessfully initiated Node server.");
-
 tweet.stream('statuses/filter', {
     "track": popTracker
   },
@@ -50,14 +47,18 @@ tweet.stream('statuses/filter', {
         // newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
 
         // analyzeTweet( newTweet, score );
-        io.sockets.emit( 'analyzeIncoming', newTweet, score )}
+        io.sockets.emit( 'analyzeScore', newTweet, score )
+        io.sockets.emit( 'renderTweet', newTweet, score )}
 
       // declares conditions to render only
       else if ( newTweet != null ) {
         // analyzeTweet( newTweet, score );
-        io.sockets.emit( 'analyzeIncoming', newTweet, score )}
+        io.sockets.emit( 'analyzeScore', newTweet, score )
+        io.sockets.emit( 'renderTweet', newTweet, score )}
+
       else {};
    });
  });
 
-
+server.listen(process.env.PORT || 8090);
+console.log("Sucessfully initiated Node server.");
