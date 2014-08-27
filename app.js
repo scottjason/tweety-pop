@@ -1,30 +1,11 @@
+(function(){
 var express = require('express'),
   app = express(),
   server = require('http').createServer(app),
   io = require('socket.io').listen(server),
   twitter = require('twitter'),
   sentiment = require('sentiment'),
-  env = require('node-env-file'),
   mongoose = require('mongoose');
-
-  // var sio = require('socket.io')();
-  // sio.use(function(socket, next){
-  //   if (socket.request.headers.cookie) return next();
-  //   next(new Error('Authentication error'));
-  // });
-
-  // var io = require('socket.io')();
-  // // or
-  // var Server = require('socket.io');
-  // var io = new Server();
-  // // var sio = socketio();
-
-  // var io = require('socket.io')(http, { serveClient: false });
-
-  // // sio.use(function(socket, next){
-  // //   if (socket.request.headers.cookie) return next();
-  // //   next(new Error('Authentication error'));
-  // // });
 
 // declares artists to track & artist sentiment score arrays
 var popTracker = [ "katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, kaynewest, kanye west, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga" ];
@@ -44,26 +25,30 @@ var perryScores = [],
 
 
 ///////////////////////////////////////////////
-// Configures Express, Initiate Server
+// Configures Express
 ///////////////////////////////////////////////
 
-// declares public folder
+// declares client side public folder
 app.use('/', express.static(__dirname + '/public'));
+
 // declares routes
 app.get('/', function(req, res) {
-
 res.sendFile(__dirname + '/index.html');
 });
 
-// Important!
-app.set('port', process.env.PORT || 3000);
-app.set('host', process.env.HOST || '0.0.0.0');
+///////////////////////////////////////////////////////////
+// INITIATES SERVER CONNECTION (after configuring express)
+///////////////////////////////////////////////////////////
 
-
-
-server.listen(app.get('port'), app.get('host'), function(){
-  console.log("Express server listening on port " + app.get('port'));
+var port = process.env.PORT || 8080;
+server.listen(port, function() {
+  console.log("Node server successfully listening on " + port);
 });
+
+
+///////////////////////////////////////////////
+// Configure Sockets And DataBase Connection
+///////////////////////////////////////////////
 
 
 
@@ -85,33 +70,34 @@ server.listen(app.get('port'), app.get('host'), function(){
 //     });
 // });
 // var dbURI = "mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/zOwupo9h"
-// // initiates database connection
+// initiates database connection
 // mongoose.connect(dbURI)
 
-// // stores the database connection
+// stores the database connection
 // var db = mongoose.connection;
 
 ///////////////////////////////////////////////
 // MONGO DB CONNECTION EVENTS
 ///////////////////////////////////////////////
 
-// // When successfully connected
+// When successfully connected
 // db.on('connected', function () {
 //   console.log('Mongoose default connection open to ' + dbURI);
-//   queryMongo()
+//       // setInterval(queryMongo, 2000);
+//       queryMongo();
 // });
 
-// // If the connection throws an error
+// // // If the connection throws an error
 // db.on('error',function (err) {
 //   console.log('Mongoose default connection error: ' + err);
 // });
 
-// // When the connection is disconnected
+// // // When the connection is disconnected
 // db.on('disconnected', function () {
 //   console.log('Mongoose default connection disconnected');
 // });
 
-// // If the Node process ends, close the Mongoose connection
+// // // If the Node process ends, close the Mongoose connection
 // process.on('SIGINT', function() {
 //   db.close(function () {
 //     console.log('Mongoose default connection disconnected through app termination');
@@ -134,14 +120,14 @@ server.listen(app.get('port'), app.get('host'), function(){
 
 
 // function queryMongo() {
-// //   var tweetQuery = Rating.find({}).limit(500);
-// //     tweetQuery.exec(function(err, docs) {
-// //       if (err) console.log(err);
-// //       for (var i = 0; i < docs.length; i++) {
-// //         analyzeTweet(docs[i].popStar, docs[i].tweetScore)
-// //       }
-// //   })
-// // }
+//   var tweetQuery = Rating.find({}).limit(500);
+//     tweetQuery.exec(function(err, docs) {
+//       if (err) console.log(err);
+//       for (var i = 0; i < docs.length; i++) {
+//         analyzeTweet(docs[i].popStar, docs[i].tweetScore)
+//       }
+//   })
+// }
 
 // var queryMongo = (function() {
 //   var count = 0;
@@ -155,7 +141,7 @@ server.listen(app.get('port'), app.get('host'), function(){
 //         analyzeTweet(docs[i].popStar, docs[i].tweetScore)
 //       }
 //     });
-//     setTimeout(queryMongo, 5000);
+
 //   };
 //   queryCounter.count = function() {
 //     return count;
@@ -164,7 +150,7 @@ server.listen(app.get('port'), app.get('host'), function(){
 // }())
 // twitter authorization
 
-var tweet = new twitter({
+tweet = new twitter({
   consumer_key: "Qz8vqLjcmgxOjhUpwd3hD2ZCw",
   consumer_secret: "vRSxeLjj2pddubDxkpaZ1bqsonC0SrWsx9xMaBw91U2P8N42J2",
   access_token_key: "195177239-1NI8bL9utZ2MnNXowy607mYLABlH83gp4k9TAgrA",
@@ -195,7 +181,7 @@ tweet.stream('statuses/filter', {
         analyzeTweet( newTweet, score );
         io.sockets.emit( 'incoming', newTweet, score )}
       else {};
-   });
+   })
  });
 
 ///////////////////////////////////////////////
@@ -241,4 +227,4 @@ function analyzeTweet(newTweet, score) {
       io.sockets.emit('lovatoScoreArray', lovatoScores);
     } else {}
 }
-
+})()
