@@ -56,15 +56,10 @@ res.sendFile(__dirname + '/index.html');
 });
 
 // Important!
-app.set('port', process.env.PORT || 3000);
-app.set('host', process.env.HOST || '0.0.0.0');
-
-
-
-server.listen(app.get('port'), app.get('host'), function(){
-  console.log("Express server listening on port " + app.get('port'));
+var port = process.env.PORT || 3000;
+server.listen(port, function() {
+  console.log("Node server successfully listening on " + port);
 });
-
 
 
 // var count;
