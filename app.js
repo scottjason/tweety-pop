@@ -40,7 +40,7 @@ res.sendFile(__dirname + '/index.html');
 // INITIATES SERVER CONNECTION (after configuring express)
 ///////////////////////////////////////////////////////////
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8080;
 server.listen(port, function() {
   console.log("Node server successfully listening on " + port);
 });
