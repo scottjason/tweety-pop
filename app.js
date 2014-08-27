@@ -1,3 +1,4 @@
+(function(){
 var express = require('express'),
   app = express(),
   server = require('http').createServer(app),
@@ -224,4 +225,4 @@ function analyzeTweet(newTweet, score) {
       io.sockets.emit('lovatoScoreArray', lovatoScores);
     } else {}
 }
-
+})()
