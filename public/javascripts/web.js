@@ -13,16 +13,7 @@ Number.prototype.toFixedDown = function(digits) {
 };
 
   // var socket = new io.Socket('localhost',{'port':8090});
-      socket = io.connect();
-      socket.on('connect', function(){
-
-    });
-
-    socket.on('disconnect', function(){
-        console.log('disconected');
-    });
-
-
+socket = io.connect();
 socket.on('perryScoreArray', function(perryScores) {
 var sum = 0;
    for (var i = 0; i < perryScores.length; i++) {
