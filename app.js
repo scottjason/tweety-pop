@@ -2,12 +2,13 @@ var express = require('express')
   , app = express()
   , http = require('http')
   , server = http.createServer(app)
-  , io = require('socket.io').listen(server)
+  , io = require('socket.io')
+  , socket = io.listen(server)
   , sentiment = require('sentiment')
   , twitter = require('twitter')
   , mongoose = require('mongoose')
   , tweet;
-
+// var socket = io.listen(server);
 // declares public folder
 app.use('/', express.static(__dirname + '/public'));
 
@@ -41,33 +42,50 @@ tweet = new twitter({
   access_token_secret: "ZVusxwm9y4aJCnvtx3MHj7148REZikXyySeZURZsLUVGz"
 });
 
-tweet.stream('statuses/filter', {
-    "track": popTracker
-  },
-  function(stream) {
-    console.log('made to stream')
-    stream.on('data', function(data) {
-      // removes foreign characters from tweets, create sentiment score
-      var newTweet = data.text;
-      var foreignCharacters = unescape(encodeURIComponent(newTweet));
-      newTweet = decodeURIComponent(escape(foreignCharacters));
-      var score = sentiment(newTweet).score
-
-      // declares conditions to both save and render
-      if ( newTweet != null && score != 0 ) {
-        // var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
-        // newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
-
-        // analyzeTweet( newTweet, score );
-        io.sockets.emit( 'incoming', newTweet, score )}
-
-      // declares conditions to render only
-      else if ( newTweet != null ) {
-        // analyzeTweet( newTweet, score );
-        io.sockets.emit( 'incoming', newTweet, score )}
-      else {};
-   });
- });
-
-server.listen(process.env.PORT || 5000);
+server.listen(process.env.PORT || 8090);
 console.log("Sucessfully initiated Node server.");
+
+
+socket.on('connection', function(client){
+    // new client is here!
+    client.on('message', function(){
+        console.log('message arrive');
+        client.send('some message');
+    });
+
+    client.on('disconnect', function(){
+        console.log('connection closed');
+    });
+
+});
+
+
+// tweet.stream('statuses/filter', {
+//     "track": popTracker
+//   },
+//   function(stream) {
+//     console.log('made to stream')
+//     stream.on('data', function(data) {
+//       // removes foreign characters from tweets, create sentiment score
+//       var newTweet = data.text;
+//       var foreignCharacters = unescape(encodeURIComponent(newTweet));
+//       newTweet = decodeURIComponent(escape(foreignCharacters));
+//       var score = sentiment(newTweet).score
+
+//       // declares conditions to both save and render
+//       if ( newTweet != null && score != 0 ) {
+//         // var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
+//         // newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
+
+//         // analyzeTweet( newTweet, score );
+//         io.sockets.emit( 'incoming', newTweet, score )}
+
+//       // declares conditions to render only
+//       else if ( newTweet != null ) {
+//         // analyzeTweet( newTweet, score );
+//         io.sockets.emit( 'incoming', newTweet, score )}
+//       else {};
+//    });
+//  });
+
+
