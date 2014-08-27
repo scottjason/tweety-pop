@@ -11,20 +11,15 @@ Number.prototype.toFixedDown = function(digits) {
   matchString = this.toString().match(regularExp);
     return matchString ? parseFloat(matchString[1]) : this.valueOf();
 };
+var socket = io.connect();
 
-  // var socket = new io.Socket('localhost',{'port':8090});
-      socket = io.connect();
-      socket.on('connect', function(){
-        console.log('connected');
-        socket.send('hi!');
-    });
-    socket.on('message', function(data){
-        console.log('message recived: ' + data);
-    });
-    socket.on('disconnect', function(){
-        console.log('disconected');
-    });
+socket.on('connect', function(){
+  console.log('A new clinet has connected.');
+});
 
+socket.on('disconnect', function(){
+  console.log('disconected');
+});
 
 
 socket.on('perryScoreArray', function(perryScores) {
