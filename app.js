@@ -1,11 +1,21 @@
-var express = require('express'),
-  app = express(),
-  server = require('http').createServer(app),
-  io = require('socket.io').listen(server),
-  twitter = require('twitter'),
-  sentiment = require('sentiment'),
-  env = require('node-env-file'),
-  mongoose = require('mongoose');
+var express = require('express');
+
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+  // app = express(),
+  // server = require('http').createServer(app),
+  // io = require('socket.io').listen(server),
+  var twitter = require('twitter');
+  var sentiment = require('sentiment');
+  var env = require('node-env-file');
+  var mongoose = require('mongoose');
+
+http.listen(3000, function(){
+  console.log('listening on *:3000');
+});
+
 
   // var sio = require('socket.io')();
   // sio.use(function(socket, next){
@@ -56,14 +66,14 @@ res.sendFile(__dirname + '/index.html');
 });
 
 // Important!
-app.set('port', process.env.PORT || 3000);
-app.set('host', process.env.HOST || '0.0.0.0');
+// app.set('port', process.env.PORT || 3000);
+// app.set('host', process.env.HOST || '0.0.0.0');
 
 
 
-server.listen(app.get('port'), app.get('host'), function(){
-  console.log("Express server listening on port " + app.get('port'));
-});
+// server.listen(app.get('port'), app.get('host'), function(){
+//   console.log("Express server listening on port " + app.get('port'));
+// });
 
 
 
