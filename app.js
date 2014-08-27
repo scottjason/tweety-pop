@@ -20,18 +20,6 @@ app.get('/', function(req,res) {
 // declares artists to track & artist sentiment score arrays
 var popTracker = [ "katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, kaynewest, kanye west, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga" ];
 
-var perryScores = [],
-    levineScores = [],
-    beyonceScores = [],
-    bieberScores = [],
-    rihannaScores = [],
-    eminemScores = [],
-    mileyScores = [],
-    kanyeScores = [],
-    gagaScores = [],
-    swiftScores = [],
-    timberlakeScores = [],
-    lovatoScores = [];
 
 // twitter auth
 tweet = new twitter({
@@ -62,12 +50,12 @@ tweet.stream('statuses/filter', {
         // newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
 
         // analyzeTweet( newTweet, score );
-        io.sockets.emit( 'incoming', newTweet, score )}
+        io.sockets.emit( 'analyzeIncoming', newTweet, score )}
 
       // declares conditions to render only
       else if ( newTweet != null ) {
         // analyzeTweet( newTweet, score );
-        io.sockets.emit( 'incoming', newTweet, score )}
+        io.sockets.emit( 'analyzeIncoming', newTweet, score )}
       else {};
    });
  });

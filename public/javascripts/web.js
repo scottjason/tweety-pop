@@ -3,6 +3,20 @@ $(document).ready(function() {
 });
 
 function runTweety(){
+var perryScores = [],
+    levineScores = [],
+    beyonceScores = [],
+    bieberScores = [],
+    rihannaScores = [],
+    eminemScores = [],
+    mileyScores = [],
+    kanyeScores = [],
+    gagaScores = [],
+    swiftScores = [],
+    timberlakeScores = [],
+    lovatoScores = [],
+    socket;
+
 ///////////////////////////////////////////////
 // Adds Truncation Function to Number Type
 ///////////////////////////////////////////////
@@ -12,9 +26,62 @@ Number.prototype.toFixedDown = function(digits) {
     return matchString ? parseFloat(matchString[1]) : this.valueOf();
 };
 
-  // var socket = new io.Socket('localhost',{'port':8090});
 socket = io.connect();
-socket.on('perryScoreArray', function(perryScores) {
+
+socket.on('analyzeIncoming'), function(newTweet, score){
+    if (newTweet.indexOf('perry') != -1 ) {
+      perryScores.push(score)
+      }
+      perryScoreCreate(perryScores);
+    } else if ( newTweet.indexOf('bieber') != -1 ) {
+      bieberScores.push(score);
+    }
+      bieberScoreCreate(bieberScores);
+    } else if (( newTweet.indexOf('levine') != -1 || newTweet.indexOf('maroon') != -1) ) {
+      levineScores.push(score);
+    }
+      levineScoreCreate(levineScores);
+    } else if ( newTweet.indexOf('beyonce') != -1 ) {
+      beyonceScores.push(score);
+    }
+      beyonceScoreCreate(beyonceScores);
+    } else if ( newTweet.indexOf('rihanna') != -1 ) {
+      rihannaScores.push(score);
+    }
+      rihannaScoreCreate(rihannaScores);
+    } else if ( newTweet.indexOf('eminem') != -1 ) {
+      eminemScores.push(score);
+    }
+      eminemScoreCreate(eminemScores);
+    } else if ( newTweet.indexOf('miley') != -1 ) {
+      mileyScores.push(score);
+    }
+      mileyScoreCreate(mileyScores);
+    } else if ( newTweet.indexOf('kanye') != -1 ) {
+      kanyeScores.push(score);
+    }
+      kayneScoreCreate(kanyeScores);
+    } else if ( newTweet.indexOf('gaga') != -1 ) {
+      gagaScores.push(score);
+    }
+      gagaScoreCreate(gagaScores);
+    } else if ( newTweet.indexOf('swift') != -1 ) {
+      swiftScores.push(score);
+    }
+      swiftScoreCreate(swiftScores);
+    } else if ( newTweet.indexOf('timberlake') != -1 ) {
+      timberlakeScores.push(score);
+    }
+      timberlakeScoreCreate(timberlakeScores);
+    } else if ( newTweet.indexOf('lovato') != -1 ) {
+      lovatoScores.push(score);
+    }
+      lovatoScoreCreate(lovatoScores);
+    } else {}
+  }
+}
+
+function perryScoreCreate(perryScores) {
 var sum = 0;
    for (var i = 0; i < perryScores.length; i++) {
      sum += parseInt(perryScores[i], 10);
