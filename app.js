@@ -120,12 +120,12 @@ server.listen(app.get('port'), app.get('host'), function(){
 // });
 
 // schemas and models
-var tweetSchema = mongoose.Schema(
-  { popStar: { type: String }, tweetScore: { type: Number } },
-  { capped: { size: 5000000, max: 50000, autoIndexId: false } }
-);
+// var tweetSchema = mongoose.Schema(
+//   { popStar: { type: String }, tweetScore: { type: Number } },
+//   { capped: { size: 5000000, max: 50000, autoIndexId: false } }
+// );
 // creates model Rating and 'score' collection
-var Rating = mongoose.model('score', tweetSchema);
+// var Rating = mongoose.model('score', tweetSchema);
 
 ///////////////////////////////////////////////
 // Streams Incoming Tweets & Queries Database
@@ -184,8 +184,8 @@ tweet.stream('statuses/filter', {
 
       // declares conditions to both save and render
       if ( newTweet != null && score != 0 ) {
-        var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
-        newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
+        // var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
+        // newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
 
         analyzeTweet( newTweet, score );
         io.sockets.emit( 'incoming', newTweet, score )}
