@@ -1,11 +1,10 @@
-(function(){
+// (function(){
 var express = require('express'),
   app = express(),
   server = require('http').createServer(app),
   io = require('socket.io').listen(server),
   twitter = require('twitter'),
   sentiment = require('sentiment'),
-  env = require('node-env-file'),
   mongoose = require('mongoose');
 
 // declares artists to track & artist sentiment score arrays
@@ -29,26 +28,27 @@ var perryScores = [],
 // Configures Express
 ///////////////////////////////////////////////
 
-// declares public folder
+// declares client side public folder
 app.use('/', express.static(__dirname + '/public'));
+
 // declares routes
 app.get('/', function(req, res) {
-
 res.sendFile(__dirname + '/index.html');
 });
 
-app.set('port', process.env.PORT || 3000);
-app.set('host', process.env.HOST || '0.0.0.0');
+///////////////////////////////////////////////////////////
+// INITIATES SERVER CONNECTION (after configuring express)
+///////////////////////////////////////////////////////////
 
+var port = process.env.PORT || 3000;
+server.listen(port, function() {
+  console.log("Node server successfully listening on " + port);
+});
 
 
 ///////////////////////////////////////////////
 // Configure Sockets And DataBase Connection
 ///////////////////////////////////////////////
-
-server.listen(app.get('port'), app.get('host'), function(){
-  console.log("Express server listening on port " + app.get('port'));
-});
 
 
 
@@ -69,39 +69,41 @@ server.listen(app.get('port'), app.get('host'), function(){
 //         });
 //     });
 // });
-// var dbURI = "mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/zOwupo9h"
+var dbURI = "mongodb://scottjason:tweetypop084@proximus.modulusmongo.net:27017/zOwupo9h"
 // initiates database connection
-// mongoose.connect(dbURI)
+mongoose.connect(dbURI)
 
 // stores the database connection
-// var db = mongoose.connection;
+var db = mongoose.connection;
 
 ///////////////////////////////////////////////
 // MONGO DB CONNECTION EVENTS
 ///////////////////////////////////////////////
 
 // When successfully connected
-// db.on('connected', function () {
-//   console.log('Mongoose default connection open to ' + dbURI);
-// });
+db.on('connected', function () {
+  console.log('Mongoose default connection open to ' + dbURI);
+      // setInterval(queryMongo, 2000);
+      queryMongo();
+});
 
 // // If the connection throws an error
-// db.on('error',function (err) {
-//   console.log('Mongoose default connection error: ' + err);
-// });
+db.on('error',function (err) {
+  console.log('Mongoose default connection error: ' + err);
+});
 
 // // When the connection is disconnected
-// db.on('disconnected', function () {
-//   console.log('Mongoose default connection disconnected');
-// });
+db.on('disconnected', function () {
+  console.log('Mongoose default connection disconnected');
+});
 
 // // If the Node process ends, close the Mongoose connection
-// process.on('SIGINT', function() {
-//   db.close(function () {
-//     console.log('Mongoose default connection disconnected through app termination');
-//     process.exit(0);
-//   });
-// });
+process.on('SIGINT', function() {
+  db.close(function () {
+    console.log('Mongoose default connection disconnected through app termination');
+    process.exit(0);
+  });
+});
 
 // schemas and models
 var tweetSchema = mongoose.Schema(
@@ -127,28 +129,28 @@ var Rating = mongoose.model('score', tweetSchema);
 //   })
 // }
 
-// var queryMongo = (function() {
-//   var count = 0;
-//   var queryCounter = function() {
-//     ++count;
-//     console.log("Tweety Pop has queryed the database " + count + " times.");
-//     var tweetQuery = Rating.find({}).limit(500);
-//     tweetQuery.exec(function(err, docs) {
-//       if (err) console.log(err);
-//       for (var i = 0; i < docs.length; i++) {
-//         analyzeTweet(docs[i].popStar, docs[i].tweetScore)
-//       }
-//     });
-//     setTimeout(ClientStatus.prototype.verify, 2000);
-//   };
-//   queryCounter.count = function() {
-//     return count;
-//   };
-//   return queryCounter;
-// }())
+var queryMongo = (function() {
+  var count = 0;
+  var queryCounter = function() {
+    ++count;
+    console.log("Tweety Pop has queryed the database " + count + " times.");
+    var tweetQuery = Rating.find({}).limit(500);
+    tweetQuery.exec(function(err, docs) {
+      if (err) console.log(err);
+      for (var i = 0; i < docs.length; i++) {
+        analyzeTweet(docs[i].popStar, docs[i].tweetScore)
+      }
+    });
+
+  };
+  queryCounter.count = function() {
+    return count;
+  };
+  return queryCounter;
+}())
 // twitter authorization
 
-var tweet = new twitter({
+tweet = new twitter({
   consumer_key: "Qz8vqLjcmgxOjhUpwd3hD2ZCw",
   consumer_secret: "vRSxeLjj2pddubDxkpaZ1bqsonC0SrWsx9xMaBw91U2P8N42J2",
   access_token_key: "195177239-1NI8bL9utZ2MnNXowy607mYLABlH83gp4k9TAgrA",
@@ -179,7 +181,7 @@ tweet.stream('statuses/filter', {
         analyzeTweet( newTweet, score );
         io.sockets.emit( 'incoming', newTweet, score )}
       else {};
-   });
+   })
  });
 
 ///////////////////////////////////////////////
@@ -225,4 +227,3 @@ function analyzeTweet(newTweet, score) {
       io.sockets.emit('lovatoScoreArray', lovatoScores);
     } else {}
 }
-})()
