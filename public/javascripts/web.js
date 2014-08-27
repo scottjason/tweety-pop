@@ -14,7 +14,7 @@ Number.prototype.toFixedDown = function(digits) {
 var socket = io.connect();
 
 socket.on('connect', function(){
-  console.log('A new clinet has connected.');
+  console.log('A new client has connected.');
 });
 
 socket.on('disconnect', function(){
