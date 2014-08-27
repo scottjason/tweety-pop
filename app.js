@@ -48,7 +48,7 @@ console.log("Sucessfully initiated Node server.");
 
 socket.on('connection', function(client){
     console.log('socket open');
-
+    // queryMongo();
 
     client.on('disconnect', function(){
         console.log('socket closed');
