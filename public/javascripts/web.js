@@ -15,16 +15,12 @@ Number.prototype.toFixedDown = function(digits) {
   // var socket = new io.Socket('localhost',{'port':8090});
       socket = io.connect();
       socket.on('connect', function(){
-        console.log('connected');
-        socket.send('hi!');
+
     });
-    socket.on('message', function(data){
-        console.log('message recived: ' + data);
-    });
+
     socket.on('disconnect', function(){
         console.log('disconected');
     });
-
 
 
 socket.on('perryScoreArray', function(perryScores) {
