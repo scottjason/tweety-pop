@@ -2,12 +2,13 @@ var express = require('express')
   , app = express()
   , http = require('http')
   , server = http.createServer(app)
-  , io = require('socket.io').listen(server)
+  , io = require('socket.io')
+  , socket = io.listen(server)
   , sentiment = require('sentiment')
   , twitter = require('twitter')
   , mongoose = require('mongoose')
   , tweet;
-
+// var socket = io.listen(server);
 // declares public folder
 app.use('/', express.static(__dirname + '/public'));
 
@@ -41,6 +42,20 @@ tweet = new twitter({
   access_token_secret: "ZVusxwm9y4aJCnvtx3MHj7148REZikXyySeZURZsLUVGz"
 });
 
+server.listen(process.env.PORT || 8090);
+console.log("Sucessfully initiated Node server.");
+
+
+socket.on('connection', function(client){
+    console.log('socket open');
+
+
+    client.on('disconnect', function(){
+        console.log('socket closed');
+    });
+
+});
+
 tweet.stream('statuses/filter', {
     "track": popTracker
   },
@@ -59,15 +74,14 @@ tweet.stream('statuses/filter', {
         // newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
 
         // analyzeTweet( newTweet, score );
-        io.sockets.emit( 'incoming', newTweet, score )}
+        socket.emit( 'incoming', newTweet, score )}
 
       // declares conditions to render only
       else if ( newTweet != null ) {
         // analyzeTweet( newTweet, score );
-        io.sockets.emit( 'incoming', newTweet, score )}
+        socket.emit( 'incoming', newTweet, score )}
       else {};
    });
  });
 
-server.listen(process.env.PORT || 5000);
-console.log("Sucessfully initiated Node server.");
+

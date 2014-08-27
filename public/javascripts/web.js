@@ -1,25 +1,25 @@
 $(document).ready(function() {
+  runTweety();
+});
 
+function runTweety(){
 ///////////////////////////////////////////////
 // Adds Truncation Function to Number Type
 ///////////////////////////////////////////////
-
 Number.prototype.toFixedDown = function(digits) {
   var regularExp = new RegExp("(\\d+\\.\\d{" + digits + "})(\\d)"),
   matchString = this.toString().match(regularExp);
     return matchString ? parseFloat(matchString[1]) : this.valueOf();
 };
-
-
-///////////////////////////////////////////////
-// Artist Sentiment Score Anyalsis
-///////////////////////////////////////////////
-// initiates socket connection
 var socket = io.connect();
 
-socket.on('connection', function(socket) {
-    console.log('New client has connected to Tweety Pop');
-  })
+socket.on('connect', function(){
+  console.log('A new clinet has connected.');
+});
+
+socket.on('disconnect', function(){
+  console.log('disconected');
+});
 
 
 socket.on('perryScoreArray', function(perryScores) {
@@ -503,4 +503,4 @@ var sum = 0;
    $(this).text(rating).fadeIn(3000);
    });
   }
-});
+}
