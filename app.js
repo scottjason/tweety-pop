@@ -47,41 +47,45 @@ console.log("Sucessfully initiated Node server.");
 
 
 socket.on('connection', function(client){
-    console.log('socket open');
-    // queryMongo();
+    // new client is here!
+    client.on('message', function(){
+        console.log('message arrive');
+        client.send('some message');
+    });
 
     client.on('disconnect', function(){
-        console.log('socket closed');
+        console.log('connection closed');
     });
 
 });
 
-tweet.stream('statuses/filter', {
-    "track": popTracker
-  },
-  function(stream) {
-    console.log('made to stream')
-    stream.on('data', function(data) {
-      // removes foreign characters from tweets, create sentiment score
-      var newTweet = data.text;
-      var foreignCharacters = unescape(encodeURIComponent(newTweet));
-      newTweet = decodeURIComponent(escape(foreignCharacters));
-      var score = sentiment(newTweet).score
 
-      // declares conditions to both save and render
-      if ( newTweet != null && score != 0 ) {
-        // var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
-        // newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
+// tweet.stream('statuses/filter', {
+//     "track": popTracker
+//   },
+//   function(stream) {
+//     console.log('made to stream')
+//     stream.on('data', function(data) {
+//       // removes foreign characters from tweets, create sentiment score
+//       var newTweet = data.text;
+//       var foreignCharacters = unescape(encodeURIComponent(newTweet));
+//       newTweet = decodeURIComponent(escape(foreignCharacters));
+//       var score = sentiment(newTweet).score
 
-        // analyzeTweet( newTweet, score );
-        socket.emit( 'incoming', newTweet, score )}
+//       // declares conditions to both save and render
+//       if ( newTweet != null && score != 0 ) {
+//         // var newDocument = new Rating( { popStar: newTweet, tweetScore: score } );
+//         // newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
 
-      // declares conditions to render only
-      else if ( newTweet != null ) {
-        // analyzeTweet( newTweet, score );
-        socket.emit( 'incoming', newTweet, score )}
-      else {};
-   });
- });
+//         // analyzeTweet( newTweet, score );
+//         io.sockets.emit( 'incoming', newTweet, score )}
+
+//       // declares conditions to render only
+//       else if ( newTweet != null ) {
+//         // analyzeTweet( newTweet, score );
+//         io.sockets.emit( 'incoming', newTweet, score )}
+//       else {};
+//    });
+//  });
 
 
