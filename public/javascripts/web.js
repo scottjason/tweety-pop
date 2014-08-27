@@ -15,12 +15,12 @@ Number.prototype.toFixedDown = function(digits) {
 // Artist Sentiment Score Anyalsis
 ///////////////////////////////////////////////
 // initiates socket connection
-
 var socket = io.connect();
 
-socket.on('count', function(data){
-    console.log(data.number)
-})
+socket.on('connection', function(socket) {
+    console.log('New client has connected to Tweety Pop');
+  })
+
 
 socket.on('perryScoreArray', function(perryScores) {
 var sum = 0;
