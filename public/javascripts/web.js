@@ -17,6 +17,7 @@ var perryScores = [],
     socket,
     interpreter;
 
+
 // Adds Truncation Function to Number Type
 Number.prototype.toFixedDown = function(digits) {
   var regularExp = new RegExp("(\\d+\\.\\d{" + digits + "})(\\d)"),
