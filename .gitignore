@@ -1,0 +1,16 @@
+.env
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Users Environment Variables
+.lock-wscript
+
+# Local Enviroment Variables
+.env
