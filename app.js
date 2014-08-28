@@ -1,12 +1,12 @@
-var sys = require('util')
-  , express = require('express')
+// var sys = require('util')
+  var express = require('express')
   , app = express()
   , http = require('http')
   , server = http.createServer(app)
   , io = require('socket.io').listen(server)
   , sentiment = require('sentiment')
   , twitter = require('ntwitter')
-  , mongoose = require('mongoose')
+  // , mongoose = require('mongoose')
   , uriUtil = require('mongodb-uri')
   , tweet
   , mongodbUri
@@ -96,10 +96,10 @@ app.get('/', function(req,res) {
 
 // twitter authoriization
 tweet = new twitter({
-  consumer_key: process.env.consumer_key,
-  consumer_secret: process.env.consumer_secret,
-  access_token_key: process.env.access_token_key,
-  access_token_secret: process.env.access_token_secret
+  consumer_key: "4R8pulpXWVL2djtgwC5RwrGwW",
+  consumer_secret: "jW5GuBIHKMNH6JMvi67rYVqwkOxeHa4ceaibxscah0DjG27ezN",
+  access_token_key: "195177239-1NI8bL9utZ2MnNXowy607mYLABlH83gp4k9TAgrA",
+  access_token_secret: "ZVusxwm9y4aJCnvtx3MHj7148REZikXyySeZURZsLUVGz"
 });
 
 tweet.stream('statuses/filter', {
@@ -121,7 +121,7 @@ tweet.stream('statuses/filter', {
 // ----------------------------------------------------------------------------------------------
 
 function addTweet(data) {
-  sys.puts('made it!')
+  // sys.puts('made it!')
   console.log('madeit')
   // removes foreign characters from tweets, create sentiment score
   var foreignCharacters = unescape(encodeURIComponent(data.text));
@@ -133,17 +133,17 @@ function addTweet(data) {
   io.sockets.emit('renderTweet', tweetFormatted, score)
 
   // declares conditions to save to database
-  if (score != 0) {
-    var newDocument = new Artist({ popStar: tweetFormatted, tweetScore: score });
-    newDocument.save(function(err) {
-      if (err) { sys.puts(err) }
-      sys.puts( "Tweety Pop saved a new tweet with id: " + data.id )
-    })
+  // if (score != 0) {
+  //   var newDocument = new Artist({ popStar: tweetFormatted, tweetScore: score });
+  //   newDocument.save(function(err) {
+  //     if (err) { sys.puts(err) }
+  //     sys.puts( "Tweety Pop saved a new tweet with id: " + data.id )
+  //   })
   }
-}
+// }
 
 server.listen( process.env.PORT || serverPort );
-sys.log( "Node server has been sucessfully initiated." );
+// sys.log( "Node server has been sucessfully initiated." );
 
 
 // queryMongo();
