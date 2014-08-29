@@ -17,6 +17,8 @@ app.use('/', express.static(__dirname + '/public'));
 // declares routes
 app.get('/', function(req, res) {
 res.sendFile(__dirname + '/index.html');
+queryMongo();
+streamTwitter();
 });
 
 // creates the database connection string
@@ -28,7 +30,6 @@ mongoose.connect(mongodbUri);
 // When successfully connected
 mongoose.connection.on('connected', function () {
   console.log('Mongoose default connection open to ' + mongodbUri);
-  // queryMongo();
 });
 
 // // If the connection throws an error
@@ -49,17 +50,8 @@ var tweetSchema = mongoose.Schema(
 // creates model Artist and 'score' collection
 var Artist = mongoose.model('artist', tweetSchema);
 
-function queuryMongo(){
-    var tweetQuery = Artist.find({}).limit(10);
-    tweetQuery.exec(function(err, docs) {
-      if (err) throw new Error('There was an error while querying the database.');
-      for (var i = 0; i < docs.length; i++) {
-        analyzeTweet(docs[i].popStar, docs[i].tweetScore)
-      }
-    setTimeout(queryMongo, 1200)
-    })
-  }
 
+function streamTwitter(){
 // twitter authorization
 tweet = new twitter({
   consumer_key: process.env.consumer_key,
@@ -74,23 +66,32 @@ tweet.stream('statuses/filter', {
   function(stream) {
   stream.on('data', function(data) {
       if(data.id != null){
-      addTweet(data)
+      saveTweet(data)
     }
   });
-});
+ });
+}
+
+function queryMongo(){
+    var tweetQuery = Artist.find({}).limit(200);
+    tweetQuery.exec(function(err, docs) {
+      if (err) throw new Error('There was an error while querying the database.');
+      for (var i = 0; i < docs.length; i++) {
+        // console.log(docs[i].popStar, docs[i].tweetScore)
+        renderTweet(docs[i].popStar, docs[i].tweetScore)
+      }
+    setTimeout(queryMongo, 1200)
+  })
+}
 
 // ----------------------------------------------------------------------------------------------
 
-function addTweet(data) {
-  console.log("sending to view")
+function saveTweet(data) {
+  console.log("sending to mongo")
   // removes foreign characters from tweets, create sentiment score
   var foreignCharacters = unescape(encodeURIComponent(data.text));
   var tweetFormatted = decodeURIComponent(escape(foreignCharacters));
   score = sentiment(tweetFormatted).score
-
-  // emit and render stream
-  io.sockets.emit('analyzeScore', tweetFormatted, score)
-  io.sockets.emit('renderTweet', tweetFormatted, score)
 
   // declares conditions to save to database
   if (score != 0) {
@@ -100,6 +101,11 @@ function addTweet(data) {
       console.log( "Tweety Pop saved a new tweet with id: " + data.id )
     })
   }
+}
+
+function renderTweet(tweet, score) {
+  io.sockets.emit('analyzeScore', tweet, score)
+  io.sockets.emit('renderTweet', tweet, score)
 }
 
 // ----------------------------------------------------------------------------------------------
