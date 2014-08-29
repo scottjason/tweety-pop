@@ -7,7 +7,7 @@
     "express": "*",
     "mongodb-uri": "^0.9.7",
     "mongoose": "3.8.13",
-    "ntwitter": "^0.5.0",
+    "twitter": "*",
     "sentiment": "*",
     "socket.io": "^1.0.6",
     "util": "^0.10.3"

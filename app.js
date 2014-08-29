@@ -2,9 +2,8 @@ var express = require('express'),
   app = express(),
   server = require('http').createServer(app),
   io = require('socket.io').listen(server),
-  twitter = require('ntwitter'),
+  twitter = require('twitter'),
   sentiment = require('sentiment'),
-  env = require('node-env-file'),
   mongoose = require('mongoose');
 
 // declares artists to track, artist sentiment score arrays & mongoIncrementer closure
@@ -23,19 +22,6 @@ var perryScores = [],
     timberlakeScores = [],
     lovatoScores = [];
 
-///////////////////////////////////////////////
-// Configures Socket.IO
-///////////////////////////////////////////////
-
-var socketData = {};
-if(!process.env.NODE_ENV)
-{ io.attach( server, { 'serveClient': false } )}
-
-io.use(function(socket, next) {
-  var query = socket.request._query;
-  socketData[socket.id] = { myNumber: query.mynumber }
-  next();
-});
 
 ///////////////////////////////////////////////
 // Configures Express
@@ -48,65 +34,65 @@ app.get('/', function(req, res) {
 res.sendFile(__dirname + '/index.html');
 });
 
-///////////////////////////////////////////////
-// Initiates Database Connection
-///////////////////////////////////////////////
+// ///////////////////////////////////////////////
+// // Initiates Database Connection
+// ///////////////////////////////////////////////
 
-// creates the database connection string
-var mongodbUri = process.env.mongodbUri
+// // creates the database connection string
+// var mongodbUri = process.env.mongodbUri
 
-// initiate the database connection
-mongoose.connect(mongodbUri);
+// // initiate the database connection
+// mongoose.connect(mongodbUri);
 
-// When successfully connected
-mongoose.connection.on('connected', function () {
-  console.log('Mongoose default connection open to ' + mongodbUri);
-  queryMongo();
-});
+// // When successfully connected
+// mongoose.connection.on('connected', function () {
+//   console.log('Mongoose default connection open to ' + mongodbUri);
+//   queryMongo();
+// });
 
-// If the connection throws an error
-mongoose.connection.on('error',function (err) {
-  console.log('Mongoose default connection error: ' + err);
-});
+// // If the connection throws an error
+// mongoose.connection.on('error',function (err) {
+//   console.log('Mongoose default connection error: ' + err);
+// });
 
-// When the connection is disconnected
-mongoose.connection.on('disconnected', function () {
-  console.log('Mongoose default connection disconnected');
-});
+// // When the connection is disconnected
+// mongoose.connection.on('disconnected', function () {
+//   console.log('Mongoose default connection disconnected');
+// });
 
-// creates schema
-var tweetSchema = mongoose.Schema(
-  { popStar: { type: String }, tweetScore: { type: Number } },
-  { capped: { size: 50000, max: 50000, autoIndexId: false } }
-);
-// creates model Artist and 'score' collection
-var Artist = mongoose.model('artist', tweetSchema);
+// // creates schema
+// var tweetSchema = mongoose.Schema(
+//   { popStar: { type: String }, tweetScore: { type: Number } },
+//   { capped: { size: 50000, max: 50000, autoIndexId: false } }
+// );
+// // creates model Artist and 'score' collection
+// var Artist = mongoose.model('artist', tweetSchema);
 
 
-///////////////////////////////////////////////
-// Writes to and Queries the Database
-///////////////////////////////////////////////
+// ///////////////////////////////////////////////
+// // Writes to and Queries the Database
+// ///////////////////////////////////////////////
 
-function queuryMongo(){
-    var tweetQuery = Artist.find({}).limit(10);
-    tweetQuery.exec(function(err, docs) {
-      if (err) throw new Error('There was an error while querying the database.');
-      for (var i = 0; i < docs.length; i++) {
-        analyzeTweet(docs[i].popStar, docs[i].tweetScore)
-      }
-    setTimeout(queryMongo, 1200)
-    })
-  }
+// function queuryMongo(){
+//     var tweetQuery = Artist.find({}).limit(10);
+//     tweetQuery.exec(function(err, docs) {
+//       if (err) throw new Error('There was an error while querying the database.');
+//       for (var i = 0; i < docs.length; i++) {
+//         analyzeTweet(docs[i].popStar, docs[i].tweetScore)
+//       }
+//     setTimeout(queryMongo, 1200)
+//     })
+//   }
 
 
 
 
 // twitter authorization
 tweet = new twitter({
-  consumer_key: process.env.consumer_key,
-  consumer_secret: process.env.consumer_secret,
-  access_token_key: process.env.access_token_key,
-  access_token_secret: process.env.access_token_secret
+  consumer_key: "4R8pulpXWVL2djtgwC5RwrGwW",
+  consumer_secret: "jW5GuBIHKMNH6JMvi67rYVqwkOxeHa4ceaibxscah0DjG27ezN",
+  access_token_key: "195177239-1NI8bL9utZ2MnNXowy607mYLABlH83gp4k9TAgrA",
+  access_token_secret: "ZVusxwm9y4aJCnvtx3MHj7148REZikXyySeZURZsLUVGz"
 });
 
 tweet.stream('statuses/filter', {
@@ -121,18 +107,20 @@ tweet.stream('statuses/filter', {
       var score = sentiment(newTweet).score
 
       // declares conditions to both save and render
-      if ( newTweet != null && score != 0 ) {
-        var newDocument = new Artist( { popStar: newTweet, tweetScore: score } );
-        newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
+      // if ( newTweet != null && score != 0 ) {
+      //   var newDocument = new Artist( { popStar: newTweet, tweetScore: score } );
+      //   newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
+      console.log('made it before sockets emit')
+        // analyzeTweet( newTweet, score );
+        io.sockets.emit( 'analyzeScore', newTweet, score )
+        io.sockets.emit( 'renderTweet', newTweet, score )
 
-        analyzeTweet( newTweet, score );
-        io.sockets.emit( 'incoming', newTweet, score )}
 
       // declares conditions to render only
-      else if ( newTweet != null ) {
-        analyzeTweet( newTweet, score );
-        io.sockets.emit( 'incoming', newTweet, score )}
-      else {};
+   //    else if ( newTweet != null ) {
+   //      analyzeTweet( newTweet, score );
+   //      io.sockets.emit( 'incoming', newTweet, score )}
+   //    else {};
    });
  });
 
