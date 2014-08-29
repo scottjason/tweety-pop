@@ -1,7 +1,5 @@
-var dotenv = require('dotenv');
-    dotenv.load();
-
 var express = require('express')
+  , dotenv = require('dotenv')
   , app = express()
   , server = require('http').createServer(app)
   , io = require('socket.io').listen(server)
@@ -15,18 +13,27 @@ var express = require('express')
   , tweet
   , port;
 
+// invokes enviroment
+  dotenv.load();
+
 // ----------------------------------------------------------------------------------------------
 
 // declares artists to track, artist sentiment score arrays & mongoIncrementer closure
 popTracker = [ "katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, kaynewest, kanye west, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga" ];
 
+
 // declares public folder
 app.use('/', express.static(__dirname + '/public'));
+
+// error handler
+app.use(function(error, request, response, next) {
+  response.status(500);
+  response.render("You've encounterd an error.", {error: error});
+})
+
 // declares routes
 app.get('/', function(req, res) {
 res.sendFile(__dirname + '/index.html');
-queryMongo();
-streamTwitter();
 });
 
 // creates the database connection string
@@ -38,6 +45,8 @@ mongoose.connect(mongodbUri);
 // When successfully connected
 mongoose.connection.on('connected', function () {
   console.log('Mongoose default connection open to ' + mongodbUri);
+  queryMongo();
+  streamTwitter();
 });
 
 // // If the connection throws an error
@@ -74,6 +83,9 @@ tweet.stream('statuses/filter', {
     "track": popTracker
   },
   function(stream) {
+  stream.on('error', function(error){
+    io.socket.emit('errorHandler', error.message);
+  })
   stream.on('data', function(data) {
       if(data.id != null){
       saveTweet(data)
@@ -121,6 +133,14 @@ function renderTweet(tweet, score) {
   io.sockets.emit('analyzeScore', tweet, score)
   io.sockets.emit('renderTweet', tweet, score)
 }
+
+
+process.on('uncaughtException', function ( err ) {
+    console.error(err);
+    //hopefully do some logging.
+    process.exit(1);
+});
+
 
 // initiate server connection
 // ----------------------------------------------------------------------------------------------
