@@ -4,6 +4,7 @@
   "description": "Twitter Visualization and Data Analytics Streaming Live From the Twitterverse",
   "main": "app.js",
   "dependencies": {
+    "bson": "^0.2.12",
     "dotenv": "^0.4.0",
     "express": "*",
     "mongodb-uri": "^0.9.7",

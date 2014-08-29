@@ -10,17 +10,13 @@ Continuous Deployment provided by: [ ![Build Status for scottjason/tweety-pop](h
 
 - Using web sockets, data is streamed from twitter and passed through a sentiment algorithm.
 
-- On arrival, each tweet is rendered in the browser and stored in a non-relational database that holds 100,000 of the most current tweets about the artists.
+- On arrival, each tweet is stored in a non-relational database that holds 100,000 of the most current tweets about the artists and renderend in near real-time.
 
 - The **incoming sentiment score** reflects the degree of positivity / negativty of the current tweet on-screen.
 
-- The **tweety pop interpreter** reflects the average sentiment score of the artist and is calculated by both the incoming tweet on-screen as well as the 100,000 tweets stored-in and collected-from the database.
-
-- In an effort to provide meaningful data about the artist, Tweety Pop fetches 1,000 tweets every five seconds from the database.
+- The **tweety pop interpreter** reflects the average sentiment score of the artist and is calculated by the 100,000 tweets stored-in and collected-from the database.
 
 - Tweets anaylized as neutral (a score of 0) are not applied to the average.
-
-- Everything is rendered in real-time.
 
 ### Poject Milestones
 
