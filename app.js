@@ -86,14 +86,14 @@ tweet.stream('statuses/filter', {
 
 // query mongo every 500ms
 function queryMongo(){
-    var tweetQuery = Artist.find({}).limit(7);
+    var tweetQuery = Artist.find({}).limit(3);
     tweetQuery.exec(function(err, docs) {
       if (err) return console.error(err);
       for (var i = 0; i < docs.length; i++) {
         // console.log(docs[i].popStar, docs[i].tweetScore)
         renderTweet(docs[i].popStar, docs[i].tweetScore)
       }
-    setTimeout(queryMongo, 500)
+    setTimeout(queryMongo, 700)
   })
 }
 
