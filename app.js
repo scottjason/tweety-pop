@@ -21,8 +21,6 @@ app.get('/', function(req, res) {
 res.sendFile(__dirname + '/index.html');
 });
 
-app.set('port', process.env.PORT || 8000);
-
 
 
 // // creates the database connection string
@@ -122,8 +120,9 @@ function addTweet(data) {
 
 // ----------------------------------------------------------------------------------------------
 
+// server.listen(3000);
 // produciton
-var port = process.env.PORT || 8080
+var port = process.env.PORT || 3000
 
 server.listen(port, function() {
   console.log("Tweety Pop successfully listening on " + port);
