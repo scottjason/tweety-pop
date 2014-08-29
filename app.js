@@ -1,34 +1,18 @@
 var dotenv = require('dotenv');
     dotenv.load();
 
-var express = require('express'),
-  app = express(),
-  server = require('http').createServer(app),
-  io = require('socket.io').listen(server),
-  twitter = require('twitter'),
-  sentiment = require('sentiment');
+var express = require('express')
+  , app = express()
+  , server = require('http').createServer(app)
+  , io = require('socket.io').listen(server)
+  , twitter = require('twitter')
+  , sentiment = require('sentiment')
+  , sys = require('util');
   // mongoose = require('mongoose');
 
 // declares artists to track, artist sentiment score arrays & mongoIncrementer closure
 var popTracker = [ "katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, kaynewest, kanye west, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga" ];
 
-var perryScores = [],
-    levineScores = [],
-    beyonceScores = [],
-    bieberScores = [],
-    rihannaScores = [],
-    eminemScores = [],
-    mileyScores = [],
-    kanyeScores = [],
-    gagaScores = [],
-    swiftScores = [],
-    timberlakeScores = [],
-    lovatoScores = [];
-
-
-///////////////////////////////////////////////
-// Configures Express
-///////////////////////////////////////////////
 
 // declares public folder
 app.use('/', express.static(__dirname + '/public'));
@@ -39,9 +23,7 @@ res.sendFile(__dirname + '/index.html');
 
 app.set('port', process.env.PORT || 8000);
 
-// ///////////////////////////////////////////////
-// // Initiates Database Connection
-// ///////////////////////////////////////////////
+
 
 // // creates the database connection string
 // var mongodbUri = process.env.mongodbUri
@@ -73,11 +55,6 @@ app.set('port', process.env.PORT || 8000);
 // // creates model Artist and 'score' collection
 // var Artist = mongoose.model('artist', tweetSchema);
 
-
-// ///////////////////////////////////////////////
-// // Writes to and Queries the Database
-// ///////////////////////////////////////////////
-
 // function queuryMongo(){
 //     var tweetQuery = Artist.find({}).limit(10);
 //     tweetQuery.exec(function(err, docs) {
@@ -104,81 +81,56 @@ tweet.stream('statuses/filter', {
     "track": popTracker
   },
   function(stream) {
-    stream.on('data', function(data) {
-      // removes foreign characters from tweets, create sentiment score
-      var newTweet = data.text;
-      var foreignCharacters = unescape(encodeURIComponent(newTweet));
-      newTweet = decodeURIComponent(escape(foreignCharacters));
-      var score = sentiment(newTweet).score
+  stream.on('data', function(data) {
+      if(data.id != null){
+      addTweet(data)
+    }
+  });
+  stream.on("error", function (error) {
+    sys.puts(sys.inspect(error));
+  });
+   stream.on('end', function (response) {
+    sys.puts( sys.inspect( response ) );
+  });
+  stream.on('destroy', function (response) {
+    sys.puts(sys.inspect( response ) );
+  });
+});
 
-      // declares conditions to both save and render
-      // if ( newTweet != null && score != 0 ) {
-      //   var newDocument = new Artist( { popStar: newTweet, tweetScore: score } );
-      //   newDocument.save(function(err) { if( err ) throw new Error( 'There was an error while saving to the database.' ) })
-      console.log('made it before sockets emit')
-        // analyzeTweet( newTweet, score );
-        io.sockets.emit( 'analyzeScore', newTweet, score )
-        io.sockets.emit( 'renderTweet', newTweet, score )
+// ----------------------------------------------------------------------------------------------
 
+function addTweet(data) {
+  console.log("sending to view")
+  // removes foreign characters from tweets, create sentiment score
+  var foreignCharacters = unescape(encodeURIComponent(data.text));
+  var tweetFormatted = decodeURIComponent(escape(foreignCharacters));
+  score = sentiment(tweetFormatted).score
 
-      // declares conditions to render only
-   //    else if ( newTweet != null ) {
-   //      analyzeTweet( newTweet, score );
-   //      io.sockets.emit( 'incoming', newTweet, score )}
-   //    else {};
-   });
- });
+  // emit and render stream
+  io.sockets.emit('analyzeScore', tweetFormatted, score)
+  io.sockets.emit('renderTweet', tweetFormatted, score)
 
-
-///////////////////////////////////////////////
-// Analyzes Tweet Stream and Database Query
-///////////////////////////////////////////////
-
-function analyzeTweet(newTweet, score) {
-    if (newTweet.indexOf('perry') != -1 ) {
-      perryScores.push(score);
-      io.sockets.emit('perryScoreArray', perryScores);
-    } else if ( newTweet.indexOf('bieber') != -1 ) {
-      bieberScores.push(score);
-      io.sockets.emit('bieberScoreArray', bieberScores);
-    } else if (( newTweet.indexOf('levine') != -1 || newTweet.indexOf('maroon') != -1) ) {
-      levineScores.push(score);
-      io.sockets.emit('levineScoreArray', levineScores);
-    } else if ( newTweet.indexOf('beyonce') != -1 ) {
-      beyonceScores.push(score);
-      io.sockets.emit('beyonceScoreArray', beyonceScores);
-    } else if ( newTweet.indexOf('rihanna') != -1 ) {
-      rihannaScores.push(score);
-      io.sockets.emit('rihannaScoreArray', rihannaScores);
-    } else if ( newTweet.indexOf('eminem') != -1 ) {
-      eminemScores.push(score);
-      io.sockets.emit('eminemScoreArray', eminemScores);
-    } else if ( newTweet.indexOf('miley') != -1 ) {
-      mileyScores.push(score);
-      io.sockets.emit('mileyScoreArray', mileyScores);
-    } else if ( newTweet.indexOf('kanye') != -1 ) {
-      kanyeScores.push(score);
-      io.sockets.emit('kanyeScoreArray', kanyeScores);
-    } else if ( newTweet.indexOf('gaga') != -1 ) {
-      gagaScores.push(score);
-      io.sockets.emit('gagaScoreArray', gagaScores);
-    } else if ( newTweet.indexOf('swift') != -1 ) {
-      swiftScores.push(score);
-      io.sockets.emit('swiftScoreArray', swiftScores);
-    } else if ( newTweet.indexOf('timberlake') != -1 ) {
-      timberlakeScores.push(score);
-      io.sockets.emit('timberlakeScoreArray', timberlakeScores);
-    } else if ( newTweet.indexOf('lovato') != -1 ) {
-      lovatoScores.push(score);
-      io.sockets.emit('lovatoScoreArray', lovatoScores);
-    } else {}
+  // declares conditions to save to database
+  // if (score != 0) {
+    // var newDocument = new Artist({ popStar: tweetFormatted, tweetScore: score });
+    // newDocument.save(function(err) {
+      // if (err) { sys.puts(err) }
+      // sys.puts( "Tweety Pop saved a new tweet with id: " + data.id )
+    // })
   }
+// }
 
-///////////////////////////////////////////////
-// Initiates Server Connection
-///////////////////////////////////////////////
+// ----------------------------------------------------------------------------------------------
 
-var port = process.env.PORT || 3000
+// development
+
+// server.listen(3000)
+// console.log("Tweety Pop successfully listening on port: 3000");
+
+// ----------------------------------------------------------------------------------------------
+
+// produciton
+var port = process.env.PORT || 8080
 
 server.listen(port, function() {
   console.log("Tweety Pop successfully listening on " + port);
