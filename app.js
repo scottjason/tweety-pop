@@ -45,7 +45,7 @@ mongoose.connect(mongodbUri);
 // When successfully connected
 mongoose.connection.on('open', function () {
   console.log('Mongoose default connection open to ' + mongodbUri);
-  queryMongo();
+  // queryMongo();
   streamTwitter();
 });
 
@@ -108,14 +108,14 @@ tweet.stream('statuses/filter', {
 
 // query tweets stored in mongo db
 function queryMongo(){
-    var tweetQuery = Artist.find({}).limit(4);
+    var tweetQuery = Artist.find({}).limit(5);
     tweetQuery.exec(function(err, docs) {
       if (err) return console.error(err);
       for (var i = 0; i < docs.length; i++) {
         // console.log(docs[i].popStar, docs[i].tweetScore)
         renderTweet(docs[i].popStar, docs[i].tweetScore)
       }
-    setTimeout(queryMongo, 1200)
+    setTimeout(queryMongo, 2000)
   })
 }
 
