@@ -6,11 +6,11 @@ var express = require('express')
   , server = require('http').createServer(app)
   , io = require('socket.io').listen(server)
   , twitter = require('twitter')
-  , sentiment = require('sentiment');
+  , sentiment = require('sentiment')
+  , mongoose = require('mongoose');
 
 // declares artists to track, artist sentiment score arrays & mongoIncrementer closure
 var popTracker = [ "katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, kaynewest, kanye west, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga" ];
-
 
 // declares public folder
 app.use('/', express.static(__dirname + '/public'));
@@ -19,51 +19,46 @@ app.get('/', function(req, res) {
 res.sendFile(__dirname + '/index.html');
 });
 
+// creates the database connection string
+var mongodbUri = process.env.mongodbUri
 
+// initiate the database connection
+mongoose.connect(mongodbUri);
 
-// // creates the database connection string
-// var mongodbUri = process.env.mongodbUri
-
-// // initiate the database connection
-// mongoose.connect(mongodbUri);
-
-// // When successfully connected
-// mongoose.connection.on('connected', function () {
-//   console.log('Mongoose default connection open to ' + mongodbUri);
-//   queryMongo();
-// });
+// When successfully connected
+mongoose.connection.on('connected', function () {
+  console.log('Mongoose default connection open to ' + mongodbUri);
+  // queryMongo();
+});
 
 // // If the connection throws an error
-// mongoose.connection.on('error',function (err) {
-//   console.log('Mongoose default connection error: ' + err);
-// });
+mongoose.connection.on('error',function (err) {
+  console.log('Mongoose default connection error: ' + err);
+});
 
 // // When the connection is disconnected
-// mongoose.connection.on('disconnected', function () {
-//   console.log('Mongoose default connection disconnected');
-// });
+mongoose.connection.on('disconnected', function () {
+  console.log('Mongoose default connection disconnected');
+});
 
-// // creates schema
-// var tweetSchema = mongoose.Schema(
-//   { popStar: { type: String }, tweetScore: { type: Number } },
-//   { capped: { size: 50000, max: 50000, autoIndexId: false } }
-// );
-// // creates model Artist and 'score' collection
-// var Artist = mongoose.model('artist', tweetSchema);
+// creates schema
+var tweetSchema = mongoose.Schema(
+  { popStar: { type: String }, tweetScore: { type: Number } },
+  { capped: { size: 50000, max: 50000, autoIndexId: false } }
+);
+// creates model Artist and 'score' collection
+var Artist = mongoose.model('artist', tweetSchema);
 
-// function queuryMongo(){
-//     var tweetQuery = Artist.find({}).limit(10);
-//     tweetQuery.exec(function(err, docs) {
-//       if (err) throw new Error('There was an error while querying the database.');
-//       for (var i = 0; i < docs.length; i++) {
-//         analyzeTweet(docs[i].popStar, docs[i].tweetScore)
-//       }
-//     setTimeout(queryMongo, 1200)
-//     })
-//   }
-
-
-
+function queuryMongo(){
+    var tweetQuery = Artist.find({}).limit(10);
+    tweetQuery.exec(function(err, docs) {
+      if (err) throw new Error('There was an error while querying the database.');
+      for (var i = 0; i < docs.length; i++) {
+        analyzeTweet(docs[i].popStar, docs[i].tweetScore)
+      }
+    setTimeout(queryMongo, 1200)
+    })
+  }
 
 // twitter authorization
 tweet = new twitter({
@@ -98,19 +93,17 @@ function addTweet(data) {
   io.sockets.emit('renderTweet', tweetFormatted, score)
 
   // declares conditions to save to database
-  // if (score != 0) {
-    // var newDocument = new Artist({ popStar: tweetFormatted, tweetScore: score });
-    // newDocument.save(function(err) {
-      // if (err) { sys.puts(err) }
-      // sys.puts( "Tweety Pop saved a new tweet with id: " + data.id )
-    // })
+  if (score != 0) {
+    var newDocument = new Artist({ popStar: tweetFormatted, tweetScore: score });
+    newDocument.save(function(err) {
+      if (err) { console.log(err) }
+      console.log( "Tweety Pop saved a new tweet with id: " + data.id )
+    })
   }
-// }
+}
 
 // ----------------------------------------------------------------------------------------------
 
-// server.listen(3000);
-// produciton
 var port = process.env.PORT || 3000
 
 server.listen(port, function() {
