@@ -21,11 +21,10 @@ var express = require('express')
 // declares artists to track, artist sentiment score arrays & mongoIncrementer closure
 popTracker = [ "katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, kaynewest, kanye west, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga" ];
 
-
-// declares public folder
+// declares express views
 app.use('/', express.static(__dirname + '/public'));
 
-// error handler
+// declares express error handler
 app.use(function(error, request, response, next) {
   response.status(500);
   response.render("You've encounterd an error.", {error: error});
@@ -48,17 +47,17 @@ mongoose.connection.on('open', function () {
   queryMongo();
 });
 
-// // If the connection throws an error
+// // if the connection throws an error
 mongoose.connection.on('error',function (err) {
   console.log('Mongoose default connection error: ' + err);
 });
 
-// // When the connection is disconnected
+// // when the connection is disconnected
 mongoose.connection.on('disconnected', function () {
   console.log('Mongoose default connection disconnected');
 });
 
-// When Node process ends, close the Mongoose connection
+// when the node process ends, close the Mongoose connection
 process.on('SIGINT', function() {
   mongoose.connection.close(function () {
     console.log('Mongoose default connection disconnected through app termination');
@@ -66,18 +65,17 @@ process.on('SIGINT', function() {
   });
 });
 
-// creates schema
+// creates the schema
 tweetSchema = mongoose.Schema(
   { popStar: { type: String }, tweetScore: { type: Number } },
   { capped: { size: 50000, max: 50000, autoIndexId: false } }
 );
 
-// creates model Artist and 'score' collection
+// creates the model 'Artist' for the 'artist' collection
 Artist = mongoose.model('artist', tweetSchema);
 
 // ----------------------------------------------------------------------------------------------
 
-// stream twitter, save to mongodb
 // twitter authorization
 tweet = new twitter({
   consumer_key: process.env.consumer_key,
@@ -86,6 +84,7 @@ tweet = new twitter({
   access_token_secret: process.env.access_token_secret
 });
 
+// stream twitter, save to mongodb
 tweet.stream('statuses/filter', {
     "track": popTracker
   },
@@ -112,12 +111,12 @@ function queryMongo(){
         // console.log(docs[i].popStar, docs[i].tweetScore)
         renderTweet(docs[i].popStar, docs[i].tweetScore)
       }
-    setTimeout(queryMongo, 3000)
+    setTimeout(queryMongo, 3000 )
   })
 }
 
 // ----------------------------------------------------------------------------------------------
-// save incoming tweets to mongo, on-screen results are piped through the database first
+// saves incoming tweets to mongo
 function saveTweet(data) {
   // removes foreign characters from tweets, create sentiment score
   var foreignCharacters = unescape(encodeURIComponent(data.text));
@@ -135,14 +134,14 @@ function saveTweet(data) {
   }
 }
 
-// emit tweets and scores to client
+// emits tweets and tweet-scores to client
 function renderTweet(tweet, score) {
   io.sockets.emit('analyzeScore', tweet, score)
   io.sockets.emit('renderTweet', tweet, score)
 }
 
-// initiate server connection
 // ----------------------------------------------------------------------------------------------
+// initiates server connection
 port = process.env.PORT || 3000
 
 server.listen(port, function() {
