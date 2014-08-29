@@ -7,10 +7,18 @@ var express = require('express')
   , io = require('socket.io').listen(server)
   , twitter = require('twitter')
   , sentiment = require('sentiment')
-  , mongoose = require('mongoose');
+  , mongoose = require('mongoose')
+  , popTracker
+  , mongodbUri
+  , tweetSchema
+  , Artist
+  , tweet
+  , port;
+
+// ----------------------------------------------------------------------------------------------
 
 // declares artists to track, artist sentiment score arrays & mongoIncrementer closure
-var popTracker = [ "katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, kaynewest, kanye west, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga" ];
+popTracker = [ "katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, kaynewest, kanye west, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga" ];
 
 // declares public folder
 app.use('/', express.static(__dirname + '/public'));
@@ -22,7 +30,7 @@ streamTwitter();
 });
 
 // creates the database connection string
-var mongodbUri = process.env.mongodbUri
+mongodbUri = process.env.mongodbUri
 
 // initiate the database connection
 mongoose.connect(mongodbUri);
@@ -43,14 +51,16 @@ mongoose.connection.on('disconnected', function () {
 });
 
 // creates schema
-var tweetSchema = mongoose.Schema(
+tweetSchema = mongoose.Schema(
   { popStar: { type: String }, tweetScore: { type: Number } },
   { capped: { size: 50000, max: 50000, autoIndexId: false } }
 );
 // creates model Artist and 'score' collection
-var Artist = mongoose.model('artist', tweetSchema);
+Artist = mongoose.model('artist', tweetSchema);
 
+// ----------------------------------------------------------------------------------------------
 
+// stream twitter, save to mongodb
 function streamTwitter(){
 // twitter authorization
 tweet = new twitter({
@@ -72,26 +82,29 @@ tweet.stream('statuses/filter', {
  });
 }
 
+// ----------------------------------------------------------------------------------------------
+
+// query mongo every 500ms
 function queryMongo(){
-    var tweetQuery = Artist.find({}).limit(200);
+    var tweetQuery = Artist.find({}).limit(7);
     tweetQuery.exec(function(err, docs) {
-      if (err) throw new Error('There was an error while querying the database.');
+      if (err) return console.error(err);
       for (var i = 0; i < docs.length; i++) {
         // console.log(docs[i].popStar, docs[i].tweetScore)
         renderTweet(docs[i].popStar, docs[i].tweetScore)
       }
-    setTimeout(queryMongo, 1200)
+    setTimeout(queryMongo, 500)
   })
 }
 
 // ----------------------------------------------------------------------------------------------
-
+// save incoming tweets to mongo, on-screen results are piped through the database first
 function saveTweet(data) {
   console.log("sending to mongo")
   // removes foreign characters from tweets, create sentiment score
   var foreignCharacters = unescape(encodeURIComponent(data.text));
   var tweetFormatted = decodeURIComponent(escape(foreignCharacters));
-  score = sentiment(tweetFormatted).score
+  var score = sentiment(tweetFormatted).score
 
   // declares conditions to save to database
   if (score != 0) {
@@ -103,14 +116,15 @@ function saveTweet(data) {
   }
 }
 
+// emit tweets and scores to client
 function renderTweet(tweet, score) {
   io.sockets.emit('analyzeScore', tweet, score)
   io.sockets.emit('renderTweet', tweet, score)
 }
 
+// initiate server connection
 // ----------------------------------------------------------------------------------------------
-
-var port = process.env.PORT || 3000
+port = process.env.PORT || 3000
 
 server.listen(port, function() {
   console.log("Tweety Pop successfully listening on " + port);
