@@ -25,9 +25,9 @@ Number.prototype.toFixedDown = function(digits) {
     return matchString ? parseFloat(matchString[1]) : this.valueOf();
 };
 
-// socket.on('catchError', function(error){
-//   console.log(error.messsage)
-// })
+socket.on('errorHandler', function(error){
+  console.log(error.messsage)
+})
 
 socket.on('analyzeScore', function(newTweet, score){
     if (newTweet.toLowerCase().indexOf('perry') != -1 ) {

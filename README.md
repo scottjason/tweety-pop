@@ -10,7 +10,7 @@ Continuous Deployment provided by: [ ![Build Status for scottjason/tweety-pop](h
 
 - Using web sockets, data is streamed from twitter and passed through a sentiment algorithm.
 
-- On arrival, each tweet is stored in a non-relational database that holds 100,000 of the most current tweets about the artists and renderend in near real-time.
+- On arrival, each tweet is immediately rendered and stored in a non-relational database that holds 100,000 of the most current tweets about the artists.
 
 - The **incoming sentiment score** reflects the degree of positivity / negativty of the current tweet on-screen.
 

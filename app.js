@@ -43,7 +43,7 @@ mongodbUri = process.env.mongodbUri
 mongoose.connect(mongodbUri);
 
 // When successfully connected
-mongoose.connection.on('connected', function () {
+mongoose.connection.on('open', function () {
   console.log('Mongoose default connection open to ' + mongodbUri);
   queryMongo();
   streamTwitter();
@@ -59,11 +59,20 @@ mongoose.connection.on('disconnected', function () {
   console.log('Mongoose default connection disconnected');
 });
 
+// When Node process ends, close the Mongoose connection
+process.on('SIGINT', function() {
+  mongoose.connection.close(function () {
+    console.log('Mongoose default connection disconnected through app termination');
+    process.exit(0);
+  });
+});
+
 // creates schema
 tweetSchema = mongoose.Schema(
   { popStar: { type: String }, tweetScore: { type: Number } },
   { capped: { size: 50000, max: 50000, autoIndexId: false } }
 );
+
 // creates model Artist and 'score' collection
 Artist = mongoose.model('artist', tweetSchema);
 
@@ -84,8 +93,9 @@ tweet.stream('statuses/filter', {
   },
   function(stream) {
   stream.on('error', function(error){
-    io.socket.emit('errorHandler', error.message);
+    io.sockets.emit('errorHandler', error);
   })
+
   stream.on('data', function(data) {
       if(data.id != null){
       saveTweet(data)
@@ -96,23 +106,22 @@ tweet.stream('statuses/filter', {
 
 // ----------------------------------------------------------------------------------------------
 
-// query mongo every 500ms
+// query tweets stored in mongo db
 function queryMongo(){
-    var tweetQuery = Artist.find({}).limit(3);
+    var tweetQuery = Artist.find({}).limit(4);
     tweetQuery.exec(function(err, docs) {
       if (err) return console.error(err);
       for (var i = 0; i < docs.length; i++) {
         // console.log(docs[i].popStar, docs[i].tweetScore)
         renderTweet(docs[i].popStar, docs[i].tweetScore)
       }
-    setTimeout(queryMongo, 700)
+    setTimeout(queryMongo, 1200)
   })
 }
 
 // ----------------------------------------------------------------------------------------------
 // save incoming tweets to mongo, on-screen results are piped through the database first
 function saveTweet(data) {
-  console.log("sending to mongo")
   // removes foreign characters from tweets, create sentiment score
   var foreignCharacters = unescape(encodeURIComponent(data.text));
   var tweetFormatted = decodeURIComponent(escape(foreignCharacters));
@@ -120,10 +129,11 @@ function saveTweet(data) {
 
   // declares conditions to save to database
   if (score != 0) {
+    renderTweet(tweetFormatted, score);
+
     var newDocument = new Artist({ popStar: tweetFormatted, tweetScore: score });
     newDocument.save(function(err) {
       if (err) { console.log(err) }
-      console.log( "Tweety Pop saved a new tweet with id: " + data.id )
     })
   }
 }
@@ -133,14 +143,6 @@ function renderTweet(tweet, score) {
   io.sockets.emit('analyzeScore', tweet, score)
   io.sockets.emit('renderTweet', tweet, score)
 }
-
-
-process.on('uncaughtException', function ( err ) {
-    console.error(err);
-    //hopefully do some logging.
-    process.exit(1);
-});
-
 
 // initiate server connection
 // ----------------------------------------------------------------------------------------------
