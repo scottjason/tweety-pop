@@ -89,10 +89,10 @@ res.sendFile(__dirname + '/index.html');
 
 // twitter authorization
 tweet = new twitter({
-  consumer_key: "4R8pulpXWVL2djtgwC5RwrGwW",
-  consumer_secret: "jW5GuBIHKMNH6JMvi67rYVqwkOxeHa4ceaibxscah0DjG27ezN",
-  access_token_key: "195177239-1NI8bL9utZ2MnNXowy607mYLABlH83gp4k9TAgrA",
-  access_token_secret: "ZVusxwm9y4aJCnvtx3MHj7148REZikXyySeZURZsLUVGz"
+  consumer_key: process.env.consumer_key,
+  consumer_secret: process.env.consumer_secret,
+  access_token_key: process.env.access_token_key,
+  access_token_secret: process.env.access_token_secret
 });
 
 tweet.stream('statuses/filter', {
