@@ -45,8 +45,7 @@ mongoose.connect(mongodbUri);
 // When successfully connected
 mongoose.connection.on('open', function () {
   console.log('Mongoose default connection open to ' + mongodbUri);
-  // queryMongo();
-  streamTwitter();
+  queryMongo();
 });
 
 // // If the connection throws an error
@@ -79,7 +78,6 @@ Artist = mongoose.model('artist', tweetSchema);
 // ----------------------------------------------------------------------------------------------
 
 // stream twitter, save to mongodb
-function streamTwitter(){
 // twitter authorization
 tweet = new twitter({
   consumer_key: process.env.consumer_key,
@@ -102,7 +100,6 @@ tweet.stream('statuses/filter', {
     }
   });
  });
-}
 
 // ----------------------------------------------------------------------------------------------
 
@@ -115,7 +112,7 @@ function queryMongo(){
         // console.log(docs[i].popStar, docs[i].tweetScore)
         renderTweet(docs[i].popStar, docs[i].tweetScore)
       }
-    setTimeout(queryMongo, 2000)
+    setTimeout(queryMongo, 3000)
   })
 }
 
