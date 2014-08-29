@@ -8,10 +8,12 @@
     "express": "*",
     "mongodb-uri": "^0.9.7",
     "sentiment": "*",
-    "socket.io": "^1.0.6",
     "twitter": "^0.2.9",
     "util": "^0.10.3"
   },
+  "bundledDependencies": {
+    "socket.io": "^1.0.6"
+},
   "engines": {
     "node": "0.10.30",
     "npm": "^1.4.21"
