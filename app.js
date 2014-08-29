@@ -178,7 +178,7 @@ function analyzeTweet(newTweet, score) {
 // Initiates Server Connection
 ///////////////////////////////////////////////
 
-var port = process.env.PORT || 8000 ;
+var port = process.env.PORT || 3000
 
 server.listen(port, function() {
   console.log("Tweety Pop successfully listening on " + port);
