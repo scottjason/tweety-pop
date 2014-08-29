@@ -6,9 +6,7 @@ var express = require('express')
   , server = require('http').createServer(app)
   , io = require('socket.io').listen(server)
   , twitter = require('twitter')
-  , sentiment = require('sentiment')
-  , sys = require('util');
-  // mongoose = require('mongoose');
+  , sentiment = require('sentiment');
 
 // declares artists to track, artist sentiment score arrays & mongoIncrementer closure
 var popTracker = [ "katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, kaynewest, kanye west, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga" ];
@@ -83,15 +81,6 @@ tweet.stream('statuses/filter', {
       if(data.id != null){
       addTweet(data)
     }
-  });
-  stream.on("error", function (error) {
-    sys.puts(sys.inspect(error));
-  });
-   stream.on('end', function (response) {
-    sys.puts( sys.inspect( response ) );
-  });
-  stream.on('destroy', function (response) {
-    sys.puts(sys.inspect( response ) );
   });
 });
 

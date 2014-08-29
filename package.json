@@ -9,8 +9,7 @@
     "mongodb-uri": "^0.9.7",
     "sentiment": "*",
     "socket.io": "^1.0.6",
-    "twitter": "^0.2.9",
-    "util": "^0.10.3"
+    "twitter": "^0.2.9"
   },
   "engines": {
     "node": "0.10.30",
