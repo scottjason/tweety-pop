@@ -122,13 +122,6 @@ function addTweet(data) {
 
 // ----------------------------------------------------------------------------------------------
 
-// development
-
-// server.listen(3000)
-// console.log("Tweety Pop successfully listening on port: 3000");
-
-// ----------------------------------------------------------------------------------------------
-
 // produciton
 var port = process.env.PORT || 8080
 
