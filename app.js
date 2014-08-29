@@ -6,8 +6,8 @@ var express = require('express'),
   server = require('http').createServer(app),
   io = require('socket.io').listen(server),
   twitter = require('twitter'),
-  sentiment = require('sentiment'),
-  mongoose = require('mongoose');
+  sentiment = require('sentiment');
+  // mongoose = require('mongoose');
 
 // declares artists to track, artist sentiment score arrays & mongoIncrementer closure
 var popTracker = [ "katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, kaynewest, kanye west, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga" ];
