@@ -1,3 +1,5 @@
+var config = require('./config')();
+
 var express = require('express')
   , dotenv = require('dotenv')
   , app = express()
@@ -142,8 +144,10 @@ function renderTweet(tweet, score) {
 
 // ----------------------------------------------------------------------------------------------
 // initiates server connection
-port = process.env.PORT || 3000
 
+var port = process.env.PORT || process.env.LOCAL
 server.listen(port, function() {
   console.log("Tweety Pop successfully listening on " + port);
 });
+
+
