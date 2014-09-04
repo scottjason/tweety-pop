@@ -105,7 +105,7 @@ tweet.stream('statuses/filter', {
 // query tweets stored in mongo db
 function queryMongo(){
   console.log('just fetched tweets')
-    var tweetQuery = Artist.find({}).limit(10);
+    var tweetQuery = Artist.find({}).limit(15);
     tweetQuery.exec(function(err, docs) {
       if (err) return console.error(err);
       for (var i = 0; i < docs.length; i++) {
