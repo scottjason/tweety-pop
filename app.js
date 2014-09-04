@@ -1,5 +1,3 @@
-var config = require('./config')
-
 var express = require('express')
   , dotenv = require('dotenv')
   , app = express()
