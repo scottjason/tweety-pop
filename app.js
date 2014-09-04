@@ -105,7 +105,7 @@ tweet.stream('statuses/filter', {
 // query tweets stored in mongo db
 function queryMongo(){
   console.log('just fetched tweets')
-    var tweetQuery = Artist.find({}).limit(5);
+    var tweetQuery = Artist.find({}).limit(10);
     tweetQuery.exec(function(err, docs) {
       if (err) return console.error(err);
       for (var i = 0; i < docs.length; i++) {
@@ -144,7 +144,7 @@ function renderTweet(tweet, score) {
 // ----------------------------------------------------------------------------------------------
 // initiates server connection
 
-var port = process.env.PORT || process.env.LOCAL
+var port = process.env.PORT || 3000
 server.listen(port, function() {
   console.log("Tweety Pop successfully listening on " + port);
 });
