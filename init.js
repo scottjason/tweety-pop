@@ -1,7 +1,6 @@
 ;(function initialize(){
-  var DataBaseController = require('./server/controllers/dbController.js')
-    , database = new DataBaseController;
-      database.connect();
+  var database = require('./server/controllers/dbController.js')
+      database.initialize();
 })()
 
 
