@@ -1,22 +1,24 @@
 var express = require('express')
   , app = express()
-  , server = require('http').createServer( app );
+  , server = require('http').createServer( app )
+  , TweetModel = require('../models/tweetModel.js');
+
 
 AppController.prototype.initialize = function() {
   app.use('/', express.static(__dirname + '/public'));
 
-  app.use(function(error, request, response, next) {
+  app.use(function( error, request, response, next ) {
     response.status( 500 );
     response.render("You've encounterd an error.", {
       error: error
     });
   })
 
-  app.get('/', function(req, res) {
+  app.get('/', function( req, res ) {
     res.sendFile(__dirname + '/index.html');
   });
 
-  this.listen()
+  this.listen();
 }
 
 AppController.prototype.listen = function() {
@@ -25,13 +27,15 @@ AppController.prototype.listen = function() {
     console.log("Node server successfully listening on " + port);
   });
 
-  this.socket();
+  this.stream();
 }
 
-AppController.prototype.socket = function() {
-  this.io = require('socket.io').listen(server)
+AppController.prototype.stream = function() {
+  this.twitter.stream();
 }
 
-function AppController() {}
+function AppController() {
+  this.twitter = new TweetModel;
+}
 
 module.exports = AppController;
