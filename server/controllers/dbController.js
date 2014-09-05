@@ -4,7 +4,9 @@ var mongoose = require('mongoose'),
   dotenv.load();
 
 module.exports = {
-  initialize: function() {
+  initialize: function(server, port) {
+    this.server = server;
+    this.port = port;
     this.mongodbUri = process.env.mongodbUri;
     mongoose.connect(this.mongodbUri);
     this.db = mongoose.connection;
@@ -13,23 +15,25 @@ module.exports = {
   connect: function() {
     this.db.on('open', function() {
       console.log('Mongoose default connection open to ' + this.mongodbUri);
-      app.initialize();
-    }.bind(this));
+      this.server.listen(this.port, function() {
+      console.log("Node server successfully listening on " + this.port);
+      }.bind( this ));
+    }.bind( this ));
 
     this.db.on('error', function(err) {
       console.log('Mongoose default connection error: ' + err);
-    }.bind(this));
+    }.bind( this ));
 
     this.db.on('disconnected', function() {
       console.log('Mongoose default connection disconnected');
-    }.bind(this));
+    }.bind( this ));
 
     process.on('SIGINT', function() {
       this.db.close(function() {
         console.log('Mongoose default connection disconnected through app termination');
         process.exit(0);
       })
-    }.bind(this))
+    }.bind( this ));
   }
 }
 
