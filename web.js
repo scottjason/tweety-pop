@@ -2,7 +2,7 @@
 
 // $(document).ready(function() {
 
-// require(../../app.js)
+
 
 // socket = io.connect();
 

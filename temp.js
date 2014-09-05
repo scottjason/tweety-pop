@@ -4,8 +4,6 @@
 
 
 
-// declares artists to track, artist sentiment score arrays & mongoIncrementer closure
-popTracker = ["katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, kaynewest, kanye west, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga"];
 
 
 
@@ -28,7 +26,7 @@ popTracker = ["katy perry, katyperry, eminem, justin bieber, justinbieber, biebe
 //   })
 // }
 
-// // ----------------------------------------------------------------------------------------------
+
 // // saves incoming tweets to mongo
 // function saveTweet(data) {
 //   // removes foreign characters from tweets, create sentiment score
@@ -58,5 +56,3 @@ popTracker = ["katy perry, katyperry, eminem, justin bieber, justinbieber, biebe
 //   io.sockets.emit('renderTweet', tweet, score)
 // }
 
-// ----------------------------------------------------------------------------------------------
-// initiates server connection
