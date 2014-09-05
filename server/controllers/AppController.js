@@ -1,6 +1,7 @@
 var express = require('express')
   , app = express()
   , server = require('http').createServer( app )
+  , io = require('socket.io')(server)
   , TweetModel = require('../models/tweetModel.js');
 
 
@@ -15,7 +16,7 @@ AppController.prototype.initialize = function() {
   })
 
   app.get('/', function( req, res ) {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '../../index.html');
   });
 
   this.listen();
@@ -31,11 +32,12 @@ AppController.prototype.listen = function() {
 }
 
 AppController.prototype.stream = function() {
-  this.twitter.stream();
+    twitter = new TweetModel;
+    twitter.stream();
 }
 
 function AppController() {
-  this.twitter = new TweetModel;
+
 }
 
 module.exports = AppController;

@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
   , dotenv = require('dotenv')
-  , AppController = require('./appController');
+  , AppController = require('./appController')
     dotenv.load();
 
 DataBaseController.prototype.connect = function() {
