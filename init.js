@@ -1,5 +1,11 @@
 ;(function initialize(){
-var app = require('./server/app.js')
-var stream = require('./server/stream.js')
-    app.initialize();
+
+// var AppController = require('./server/controllers/AppController.js')
+var DataBaseController = require('./server/controllers/DataBaseController.js')
+var database = new DataBaseController
+
+database.connect();
+
 })()
+
+
