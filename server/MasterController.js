@@ -1,21 +1,19 @@
 var app = require('./controllers/appController.js')
-  , database = require('./controllers/mongoController.js')
-  , tweetStream = require('./models/tweetModel.js')
-  , dotenv = require('dotenv')
+  , mongoController = require('./controllers/mongoController.js')
+  , TweetModel = require('./models/tweetModel.js')
+  , mongoModel = require('./models/mongoModel.js')
 
 module.exports = {
-  initialize: function(){
-
-// load environment
-dotenv.load();
-
-// initialze app
-app.configure();
-app.listen();
-
-// initialze database
-database.init();
-database.connect();
-database.create();
+  initialize: function() {
+    app.configure();
+    app.listen();
+    mongoController.init();
+    mongoController.connect();
+    mongoController.create();
+  },
+  stream: function() {
+      TweetModel.stream()
+    // twitter.stream()
+    // twitter.parseData()
   }
 }
