@@ -2,9 +2,9 @@ var express = require('express')
   , app = express()
   , server = require('http').createServer( app )
   , dotenv = require('dotenv')
-  , mongoose = require('mongoose');
+  , mongoose = require('mongoose')
+  , stream = require('./stream.js');
     dotenv.load();
-
 
 module.exports = {
   initialize: function() {
@@ -23,13 +23,16 @@ module.exports = {
     this.listen();
   },
   listen: function() {
-    io = require('socket.io').listen( server )
-
     var port = process.env.PORT || 3000
+
     server.listen(port, function() {
       console.log( "Tweety Pop successfully listening on " + port );
     });
-    this.connect();
+    this.socket();
+  },
+   socket: function(){
+   this.io = require('socket.io').listen( server )
+   this.connect();
   },
   connect: function(){
     var mongodbUri = process.env.mongodbUri
@@ -38,6 +41,7 @@ module.exports = {
 
     this.db.on('open', function() {
       console.log('Mongoose default connection open to ' + mongodbUri);
+      stream.initialize();
     });
 
     this.db.on('error', function(err) {
@@ -58,12 +62,17 @@ module.exports = {
     this.create();
   },
   create: function(){
-    tweetSchema = mongoose.Schema({
+    var tweetSchema = mongoose.Schema({
       popStar: { type: String }, tweetScore: { type: Number } },
       { capped: { size: 50000, max: 50000, autoIndexId: false }
     });
     Artist = mongoose.model('artist', tweetSchema);
+    this.fetch();
+  },
+  fetch: function(){
+
   }
+
 }
 
 

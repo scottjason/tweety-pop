@@ -1,17 +1,4 @@
 
-
-// , io = require('socket.io').listen(server)
-
-
-
-
-
-
-
-
-
-
-
 // // query tweets stored in mongo db
 // function queryMongo() {
 //   console.log('just fetched tweets')
