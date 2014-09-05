@@ -3,12 +3,9 @@ var express = require('express')
   , server = require('http').createServer(app)
 
 module.exports = {
-
-  configure: function() {
-    // declares express views
+  initialize: function() {
     app.use('/', express.static(__dirname + '/public'));
 
-    // declares express error handler
     app.use(function(error, request, response, next) {
       response.status(500);
       response.render("You've encounterd an error.", {
@@ -16,11 +13,9 @@ module.exports = {
       });
     })
 
-    // declares routes
     app.get('/', function(req, res) {
       res.sendFile(__dirname + '/index.html');
     });
-
   },
   listen: function() {
     var port = process.env.PORT || 3000
