@@ -21,7 +21,10 @@ module.exports = {
       console.log('Mongoose default connection open to ' + this.mongodbUri);
 
     this.app.initialize( this.io );
-    this.app.query();
+    this.app.fetchPerry();
+    this.app.fetchLevine();
+    this.app.fetchBeyonce();
+    this.app.fetchBieber();
     this.Twitter.stream();
 
     this.server.listen(this.port, function() {
