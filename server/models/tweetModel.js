@@ -28,11 +28,13 @@ TweetModel.prototype.clean = function( data ){
 TweetModel.prototype.filter = function( content ){
   var score = sentiment( content ).score
   if( score != 0 ){
-    console.log( content, score );
+    this.app.pass( content, score );
+    // console.log( content, score );
   }
 }
 
 function TweetModel(){
+  this.app = app;
   this.tweet = new twitter({
       consumer_key: process.env.consumer_key,
       consumer_secret: process.env.consumer_secret,

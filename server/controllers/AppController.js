@@ -5,6 +5,6 @@ module.exports = {
   },
   pass: function(content, score) {
     this.io.sockets.emit('renderTweet', content, score)
-    // console.log(this.io)
+    // console.log( content, score )
   }
 }
