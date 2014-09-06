@@ -28,8 +28,7 @@ TweetModel.prototype.clean = function( data ){
 TweetModel.prototype.filter = function( content ){
   var score = sentiment( content ).score
   if( score != 0 ){
-    this.app.pass( content, score );
-    // console.log( content, score );
+    this.app.render( content, score );
   }
 }
 
