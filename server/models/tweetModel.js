@@ -13,6 +13,7 @@ TweetModel.prototype.stream = function(){
         this.clean( data )
       }
     }.bind( this ));
+
     stream.on('error', function( error ) {
       console.log( error )
     });
@@ -27,8 +28,12 @@ TweetModel.prototype.clean = function( data ){
 
 TweetModel.prototype.filter = function( content ){
   var score = sentiment( content ).score
-  if( score != 0 ){
+
     this.app.render( content, score );
+    this.app.analyze( content, score );
+
+    if( score != 0 ){
+    this.app.save( content, score );
   }
 }
 
