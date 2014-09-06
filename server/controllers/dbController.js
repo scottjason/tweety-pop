@@ -1,24 +1,28 @@
-var mongoose = require('mongoose'),
-  dotenv = require('dotenv'),
-  app = require('./appController');
-  dotenv.load();
+var mongoose = require('mongoose')
+  , dotenv = require('dotenv')
+  , app = require('./appController.js')
+    dotenv.load();
 
 module.exports = {
-  initialize: function(server, port) {
+  initialize: function(server, port, io) {
+    this.app = app;
+    this.io = io;
     this.server = server;
     this.port = port;
     this.mongodbUri = process.env.mongodbUri;
-    mongoose.connect(this.mongodbUri);
+    mongoose.connect( this.mongodbUri );
     this.db = mongoose.connection;
     this.connect();
   },
   connect: function() {
     this.db.on('open', function() {
       console.log('Mongoose default connection open to ' + this.mongodbUri);
+
+      this.app.initialize( this.io )
+
       this.server.listen(this.port, function() {
       console.log("Node server successfully listening on " + this.port);
-      }.bind( this ));
-    }.bind( this ));
+      }.bind( this ))}.bind( this ));
 
     this.db.on('error', function(err) {
       console.log('Mongoose default connection error: ' + err);
@@ -37,11 +41,4 @@ module.exports = {
   }
 }
 
-// DataBaseController.prototype.schema = function() {
-
-//   var tweetSchema = mongoose.Schema(
-//   { popStar: { type: String }, tweetScore: { type: Number } },
-//   { capped: { size: 50000, max: 50000, autoIndexId: false } }
-//   )
-// }
 

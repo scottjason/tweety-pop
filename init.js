@@ -12,7 +12,7 @@
       res.sendfile(__dirname + '/index.html');
     });
 
-    database.initialize(server, port);
+    database.initialize(server, port, io);
 
 })()
 

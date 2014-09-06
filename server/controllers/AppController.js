@@ -1,8 +1,11 @@
-// var express = require('express')
-//   , path = require('path');
-//     app = express(),
+module.exports = {
 
-// module.exports = {
+  initialize: function(io) {
+    this.io = io;
+  },
+  listen: function() {
+    this.io.sockets.emit()
+    // console.log(this.io)
+  }
 
-
-// }
+}
