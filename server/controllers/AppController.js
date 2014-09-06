@@ -12,6 +12,16 @@ module.exports = {
     this.io.sockets.emit('analyzeTweet', content, score)
   },
   save: function( content, score ) {
-    console.log(content, score)
+
+    var newTweet = new Artist({
+        popStar: content,
+        tweetScore: score
+      });
+
+    newTweet.save(function( err ) {
+      if (err) {
+        console.log(err)
+      }
+    })
   }
 }
