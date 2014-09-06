@@ -15,8 +15,8 @@ TweetModel.prototype.stream = function(){
     }.bind( this ));
 
     stream.on('error', function( error ) {
-      console.log( error )
-    });
+      this.app.handler( error )
+    }.bind( this ));
   }.bind( this ))
 }
 
