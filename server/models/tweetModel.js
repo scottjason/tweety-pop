@@ -13,6 +13,7 @@ TweetModel.prototype.stream = function(){
         this.clean( data )
       }
     }.bind( this ));
+
     stream.on('error', function( error ) {
       console.log( error )
     });
