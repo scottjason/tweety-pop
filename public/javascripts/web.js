@@ -33,7 +33,7 @@ socket.on('errorHandler', function(error){
   console.log(error.messsage)
 })
 
-socket.on('analyzeScore', function(newTweet, score){
+socket.on('analyzeTweet', function(newTweet, score){
     if (newTweet.toLowerCase().indexOf('perry') != -1 ) {
       perryScores.push(score)
       perryScoreCreate(perryScores);
