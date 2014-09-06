@@ -5,7 +5,7 @@ var mongoose = require('mongoose')
     dotenv.load();
 
 module.exports = {
-  initialize: function(server, port, io) {
+  initialize: function( server, port, io ) {
     this.app = app;
     this.Twitter = new TweetModel;
     this.io = io;
@@ -20,12 +20,14 @@ module.exports = {
     this.db.on('open', function() {
       console.log('Mongoose default connection open to ' + this.mongodbUri);
 
-    this.app.initialize( this.io )
+    this.app.initialize( this.io );
+    this.app.query();
     this.Twitter.stream();
 
     this.server.listen(this.port, function() {
-      console.log("Node server successfully listening on " + this.port);
-    }.bind( this ))}.bind( this ));
+      console.log('Node server successfully listening on ' + this.port);
+    }.bind( this ))
+  }.bind( this ));
 
     this.db.on('error', function(err) {
       console.log('Mongoose default connection error: ' + err);
