@@ -1,6 +1,7 @@
 var twitter = require('twitter')
   , sentiment = require('sentiment')
   , dotenv = require('dotenv')
+  , app = require('../controllers/appController.js')
     dotenv.load();
 
 var popTracker = ["katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, kaynewest, kanye west, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga"];
@@ -27,11 +28,12 @@ TweetModel.prototype.clean = function( data ){
 TweetModel.prototype.filter = function( content ){
   var score = sentiment( content ).score
   if( score != 0 ){
-    console.log( content, score );
+    this.app.render( content, score );
   }
 }
 
 function TweetModel(){
+  this.app = app;
   this.tweet = new twitter({
       consumer_key: process.env.consumer_key,
       consumer_secret: process.env.consumer_secret,
