@@ -1,4 +1,5 @@
 ## Tweety Pop
+######( client-side decouple and refactor in progress )
 
 Live website hosted by Modulus: http://tweetypop-21842.onmodulus.net/
 
@@ -24,7 +25,7 @@ Live website hosted by Modulus: http://tweetypop-21842.onmodulus.net/
 
 - Calculates the average sentiment of all incoming tweets about the artist.
 
-- Provides meaningful data by utilizing a non-relational database of   collections where large amounts of information can be stored and read quickly and efficiently.
+- Provides meaningful data by utilizing a non-relational database of collections where large amounts of information can be stored and read quickly and efficiently.
 
 - Optimizes the application for performance and end-user attention span while streaming the twitter api, continuouly querying the database and rendering everything live.
 
