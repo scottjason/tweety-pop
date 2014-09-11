@@ -1,7 +1,6 @@
  var Artist = require('../models/dbModel.js')
   , tweetFilter = require('../models/tweetFilter.js');
 
-
 module.exports = {
   initialize: function( io ) {
     this.io = io;
@@ -27,4 +26,3 @@ module.exports = {
     console.error( error );
  }
 }
-

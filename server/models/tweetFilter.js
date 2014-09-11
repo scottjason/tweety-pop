@@ -38,6 +38,6 @@ module.exports = {
         clientInterface.lovatoPass( score );
     } else {}
   }
-};
+}
 
 

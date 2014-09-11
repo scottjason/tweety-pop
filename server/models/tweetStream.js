@@ -41,21 +41,3 @@ function TweetModel(){
 }
 
 module.exports = TweetModel;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
