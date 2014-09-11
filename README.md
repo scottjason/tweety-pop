@@ -1,5 +1,4 @@
 ## Tweety Pop
-######( client-side decouple and refactor in progress )
 
 Live website hosted by Modulus: http://tweetypop-21842.onmodulus.net/
 
