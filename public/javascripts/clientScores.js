@@ -89,17 +89,3 @@ Number.prototype.toFixedDown = function( digits ) {
         matchString = this.toString().match(regularExp);
         return matchString ? parseFloat( matchString[1]) : this.valueOf();
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-

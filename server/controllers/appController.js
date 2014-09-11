@@ -14,14 +14,14 @@ module.exports = {
     })
   },
   query: function() {
-  Artist.find({}).limit(10).exec(function( err, docs ) {
-    if ( err ) return console.error( err );
-      for (var i = 0; i < docs.length; i++) {
-    this.analyzeTweet( docs[i].popStar, docs[i].tweetScore )
-     }
-   }.bind( this ));
-     setTimeout( this.query.bind( this ) , 5000 );
-  },
+    Artist.find({}).limit(10).exec(function( err, docs ) {
+      if ( err ) return console.error( err );
+        for (var i = 0; i < docs.length; i++) {
+      this.analyzeTweet( docs[i].popStar, docs[i].tweetScore )
+      }
+     }.bind( this ));
+      setTimeout( this.query.bind( this ) , 5000 );
+   },
    handler: function( error ){
     console.error( error );
  }
