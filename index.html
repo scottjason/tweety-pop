@@ -6,7 +6,6 @@
 
     <!-- ***************** BEGIN STYLESHEETS *****************  -->
 
-    <script src="https://cdn.socket.io/socket.io-1.0.6.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
@@ -14,8 +13,14 @@
         <!-- ***************** BEGIN VENDOR JAVASCRIPTS *****************  -->
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="/javascripts/vendor/animation.js"></script>
     <script type="text/javascript" src="/javascripts/vendor/about.js"></script>
+
+    <!-- ***************** BEGIN DEVELOPER JAVASCRIPTS *****************  -->
+
+    <script type="text/javascript" src="/javascripts/clientScores.js"></script>
+    <script type="text/javascript" src="/javascripts/clientTweets.js"></script>
 
     <title>Tweety Pop</title>
 </head>
@@ -233,22 +238,22 @@
         <tr>
             <td>
                 <div class="box">
-                    <p class="kanye"></p>
-                    <img id='kanye-pic' src="images/kanye.jpg">
+                    <p class="bruno"></p>
+                    <img id='bruno-pic' src="images/bruno.jpg">
                     <div class="stats-box">
                         <p id='incoming-static'>incoming sentiment score :</p>
-                        <p id='kanye-incoming'>
-                            <a class="kanye-score-loading" style="color:#e74c3c"></a>
+                        <p id='bruno-incoming'>
+                            <a class="bruno-score-loading" style="color:#e74c3c"></a>
                         </p>
                         <br>
                         <p id="average-static">average sentiment score :</p>
-                        <p id='kanye-average'>
-                            <a class="kanye-average-analyzing" style="color:#e74c3c"></a>
+                        <p id='bruno-average'>
+                            <a class="bruno-average-analyzing" style="color:#e74c3c"></a>
                         </p>
                         <br>
                         <p id='interpreter-static'>tweety pop interpreter :</p>
-                        <p id='kanye-interpreter'>
-                            <a class="kanye-thinking" style="color:#e74c3c"></a>
+                        <p id='bruno-interpreter'>
+                            <a class="bruno-thinking" style="color:#e74c3c"></a>
                         </p>
                     </div>
                 </div>
@@ -323,9 +328,6 @@
             </td>
         </tr>
     </table>
-
-    <!-- ***************** BEGIN DEVELOPER JAVASCRIPTS *****************  -->
-    <script type="text/javascript" src="/javascripts/client.js"></script>
 
     </body>
 </html>

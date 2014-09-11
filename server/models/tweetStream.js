@@ -4,13 +4,15 @@ var twitter = require('twitter')
   , app = require('../controllers/appController.js')
     dotenv.load();
 
-var popTracker = ["katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, kaynewest, kanye west, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga"];
+var popTracker = ["katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, brunomars, bruno mars, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga"];
 
 TweetModel.prototype.stream = function(){
   this.tweet.stream('statuses/filter', { "track": popTracker }, function( stream ) {
     stream.on('data', function( data ) {
       if ( data.id != null ) {
-    this.createTweetScore ( data.text.replace( /[^\w\s]/gi, '' ) )
+      var content = unescape( encodeURIComponent( data.text  ) );
+      content = decodeURIComponent( escape( content ) );
+      this.createTweetScore ( content )
       }
     }.bind( this ));
 
@@ -39,21 +41,3 @@ function TweetModel(){
 }
 
 module.exports = TweetModel;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

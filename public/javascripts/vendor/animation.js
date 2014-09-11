@@ -1,3 +1,5 @@
+;(function init(){
+
 // katy score loading
 a = 0;
 setInterval(function() {
@@ -186,25 +188,25 @@ setInterval(function() {
 
 // ------------------------
 
-// kanye score loading
+// bruno score loading
 i = 0;
 setInterval(function() {
     i = ++i % 4;
-    $(".kanye-score-loading").html("waiting"+Array(i+1).join("."));
+    $(".bruno-score-loading").html("waiting"+Array(i+1).join("."));
 }, 500);
 
-// kanye average analyzing
+// bruno average analyzing
 ii = 0;
 setInterval(function() {
     ii = ++ii % 4;
-    $(".kanye-average-analyzing").html("analyzing"+Array(ii+1).join("."));
+    $(".bruno-average-analyzing").html("analyzing"+Array(ii+1).join("."));
 }, 500);
 
-// kanye thinking
+// bruno thinking
 iii = 0;
 setInterval(function() {
     iii = ++iii % 4;
-    $(".kanye-thinking").html("thinking"+Array(iii+1).join("."));
+    $(".bruno-thinking").html("thinking"+Array(iii+1).join("."));
 }, 500);
 
 
@@ -277,3 +279,4 @@ setInterval(function() {
     lll = ++lll % 4;
     $(".lovato-thinking").html("thinking"+Array(lll+1).join("."));
 }, 500);
+})();

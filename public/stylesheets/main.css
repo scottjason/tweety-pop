@@ -367,7 +367,7 @@ a {
     z-index: 5;
     display: inline;
 }
-.kanye {
+.bruno {
     max-width: 280px;
     text-align: center;
     color: white;
@@ -376,28 +376,28 @@ a {
     position: absolute;
     margin-top: 80px;
 }
-#kanye-pic {
+#bruno-pic {
     z-index: 0;
     position: relative;
     opacity: 0.3;
     width: 300px;
     height: 250px;
 }
-#kanye-incoming {
+#bruno-incoming {
     max-width: 250px;
     color: #3498db;
     font-size: 0.8em;
     z-index: 5;
     display: inline;
 }
-#kanye-average {
+#bruno-average {
     max-width: 250px;
     color: #3498db;
     font-size: 0.8em;
     z-index: 5;
     display: inline;
 }
-#kanye-interpreter {
+#bruno-interpreter {
     max-width: 250px;
     color: #e67e22;
     font-size: 0.8em;
