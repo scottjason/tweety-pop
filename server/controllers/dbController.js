@@ -18,28 +18,28 @@ module.exports = {
   },
   connect: function() {
     this.db.on('open', function() {
-      console.log('Mongoose default connection open to ' + this.mongodbUri);
+      console.log( 'Mongoose default connection open to ' + this.mongodbUri );
 
     this.app.initialize( this.io );
     this.app.query();
     this.Twitter.stream();
 
     this.server.listen(this.port, function() {
-      console.log('Node server successfully listening on ' + this.port);
-    }.bind( this ))
+      console.log( 'Node server successfully listening on ' + this.port );
+    }.bind( this ));
   }.bind( this ));
 
     this.db.on('error', function(err) {
-      console.log('Mongoose default connection error: ' + err);
+      console.log( 'Mongoose default connection error: ' + err );
     }.bind( this ));
 
     this.db.on('disconnected', function() {
-      console.log('Mongoose default connection disconnected');
+      console.log( 'Mongoose default connection disconnected' );
     }.bind( this ));
 
     process.on('SIGINT', function() {
       this.db.close(function() {
-        console.log('Mongoose default connection disconnected through app termination');
+        console.log( 'Mongoose default connection disconnected through app termination' );
         process.exit(0);
       })
     }.bind( this ));
