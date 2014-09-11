@@ -18,11 +18,18 @@ module.exports = {
     this.io = io;
 
     },
-    perryPass: function( incomingTweet, incomingScore ){
+    perryPass: function( incomingScore ){
       this.perryScores.push( incomingScore );
         var allScores = new TweetScore( this.perryScores )
         var average = allScores.avgScore();
         var interpreter = allScores.label( average );
         this.io.sockets.emit( 'perryAnalayzed', average, interpreter );
+    },
+    levinePass: function( incomingScore ){
+      this.levineScores.push( incomingScore );
+        var allScores = new TweetScore( this.levineScores )
+        var average = allScores.avgScore();
+        var interpreter = allScores.label( average );
+        this.io.sockets.emit( 'levineAnalyzed', average, interpreter );
     }
 }
