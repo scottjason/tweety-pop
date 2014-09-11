@@ -2,11 +2,13 @@ var mongoose = require('mongoose')
   , dotenv = require('dotenv')
   , app = require('./appController.js')
   , TweetStream = require('../models/tweetStream.js')
+  , clientInterface = require('../clientInterface.js');
     dotenv.load();
 
 module.exports = {
   initialize: function( server, port, io ) {
     this.app = app;
+    this.clientInterface = clientInterface;
     this.Twitter = new TweetStream;
     this.io = io;
     this.server = server;
@@ -21,6 +23,7 @@ module.exports = {
       console.log( 'Mongoose default connection open to ' + this.mongodbUri );
 
     this.app.initialize( this.io );
+    this.clientInterface.initialize( this.io );
     this.app.query();
     this.Twitter.stream();
 

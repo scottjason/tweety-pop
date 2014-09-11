@@ -15,30 +15,29 @@ module.exports = {
         clientInterface.beyoncePass( score );
 
     } else if ( newTweet.toLowerCase().indexOf('rihanna') != -1 ) {
-        // clientInterface.rihannaPass( newTweet, score );
+        clientInterface.rihannaPass( score );
 
     } else if ( newTweet.toLowerCase().indexOf('eminem') != -1 ) {
-        // clientInterface.eminemPass( newTweet, score );
+        clientInterface.eminemPass( score );
 
     } else if ( newTweet.toLowerCase().indexOf('miley') != -1 ) {
-        // clientInterface.mileyPass( newTweet, score );
-
-    } else if ( newTweet.toLowerCase().indexOf('kanye') != -1 ) {
-        // clientInterface.kaynePass( newTweet, score );
+        clientInterface.mileyPass( score );
+    } else if ( newTweet.toLowerCase().indexOf('bruno') != -1 ) {
+        clientInterface.brunoPass( score );
 
     } else if ( newTweet.toLowerCase().indexOf('gaga') != -1 ) {
-        // clientInterface.gagaPass( newTweet, score );
+        clientInterface.gagaPass( score );
 
     } else if ( newTweet.toLowerCase().indexOf('swift') != -1 ) {
-        // clientInterface.swiftPass( newTweet, score );
+        clientInterface.swiftPass( score );
 
     } else if ( newTweet.toLowerCase().indexOf('timberlake') != -1 ) {
-        // clientInterface.timberlakePass( newTweet, score );
+        clientInterface.timberlakePass( score );
 
     } else if ( newTweet.toLowerCase().indexOf('lovato') != -1 ) {
-        // clientInterface.lovatoPass( newTweet, score );
+        clientInterface.lovatoPass( score );
     } else {}
   }
-}
+};
 
 
