@@ -14,13 +14,13 @@ module.exports = {
     })
   },
   query: function() {
-    Artist.find({}).limit(5).exec(function( err, docs ) {
+    Artist.find({}).limit(3).exec(function( err, docs ) {
       if ( err ) return console.error( err );
         for (var i = 0; i < docs.length; i++) {
       this.analyzeTweet( docs[i].popStar, docs[i].tweetScore )
       }
      }.bind( this ));
-      setTimeout( this.query.bind( this ) , 3000 );
+      setTimeout( this.query.bind( this ) , 5000 );
    },
    handler: function( error ){
     console.error( error );
