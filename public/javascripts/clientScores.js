@@ -1,15 +1,24 @@
 $(document).ready(function(){
-    TweetController = new TweetController
+    ScoreController = new ScoreController;
 });
 
-function TweetController(){
-    this.socket = io.connect()
-    this.bindSockets()
+
+function ScoreController(){
+    this.socket = io.connect();
+    this.bindSockets();
 };
 
-TweetController.prototype = {
+
+Number.prototype.toFixedDown = function( digits ) {
+        var regularExp = new RegExp("(\\d+\\.\\d{" + digits + "})(\\d)"),
+        matchString = this.toString().match(regularExp);
+        return matchString ? parseFloat( matchString[1]) : this.valueOf();
+};
+
+ScoreController.prototype = {
   bindSockets: function(){
-    this.socket.on('perryAnalayzed', this.renderPerryAnalyzed.bind( this ));
+    tweetController.bindSockets( this.socket );
+    this.socket.on('perryAnalyzed', this.renderPerryAnalyzed.bind( this ));
     this.socket.on('levineAnalyzed', this.renderLevineAnalyzed.bind( this ));
     this.socket.on('beyonceAnalyzed', this.renderBeyonceAnalyzed.bind( this ));
     this.socket.on('bieberAnalyzed', this.renderBieberAnalyzed.bind( this ));
@@ -83,9 +92,3 @@ TweetController.prototype = {
    $('#lovato-interpreter').text( interpreter );
  }
 }
-
-Number.prototype.toFixedDown = function( digits ) {
-        var regularExp = new RegExp("(\\d+\\.\\d{" + digits + "})(\\d)"),
-        matchString = this.toString().match(regularExp);
-        return matchString ? parseFloat( matchString[1]) : this.valueOf();
-};
