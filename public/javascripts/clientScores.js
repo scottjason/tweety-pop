@@ -2,17 +2,15 @@ $(document).ready(function(){
     ScoreController = new ScoreController;
 });
 
-
 function ScoreController(){
     this.socket = io.connect();
     this.bindSockets();
 };
 
-
 Number.prototype.toFixedDown = function( digits ) {
-        var regularExp = new RegExp("(\\d+\\.\\d{" + digits + "})(\\d)"),
-        matchString = this.toString().match(regularExp);
-        return matchString ? parseFloat( matchString[1]) : this.valueOf();
+  var regularExp = new RegExp("(\\d+\\.\\d{" + digits + "})(\\d)"),
+    matchString = this.toString().match(regularExp);
+    return matchString ? parseFloat( matchString[1]) : this.valueOf();
 };
 
 ScoreController.prototype = {

@@ -4,10 +4,9 @@ var twitter = require('twitter')
   , app = require('../controllers/appController.js')
     dotenv.load();
 
-var popTracker = ["katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, brunomars, bruno mars, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga"];
 
 TweetModel.prototype.stream = function(){
-  this.tweet.stream('statuses/filter', { "track": popTracker }, function( stream ) {
+  this.tweet.stream('statuses/filter', { "track": this.popTracker }, function( stream ) {
     stream.on('data', function( data ) {
       if ( data.id != null ) {
       var content = unescape( encodeURIComponent( data.text  ) );
@@ -37,6 +36,7 @@ function TweetModel(){
       access_token_key: process.env.access_token_key,
       access_token_secret: process.env.access_token_secret
    });
+  this.popTracker = ["katy perry, katyperry, eminem, justin bieber, justinbieber, bieber, beyonce, taylor swift, taylorswift, jtimberlake, timberlake, justin timberlake, justintimberlake, adam levine, adamlevine, maroon 5, maroon5, brunomars, bruno mars, miley cyrus, rihanna, demilovato, demi lovato, ladygaga, lady gaga"];
 }
 
 module.exports = TweetModel;
