@@ -1,14 +1,15 @@
- var ScoreUpdater = function( scoresArr ){
-   this.scoresArr = scoresArr;
+ var TweetScore = function( scores ){
+  this.scores = scores;
  }
- ScoreUpdater.prototype.avgScore = function(){
+ TweetScore.prototype.avgScore = function(){
     var sum = 0;
-   for ( var i = 0; i < this.scoresArr.length; i++ ) {
-     sum += parseInt( this.scoresArr[i], 10 );
+   for ( var i = 0; i < this.scores.length; i++ ) {
+     sum += parseInt( this.scores[i], 10 );
    }
-   var avg = sum / this.scoresArr.length;
+   var avg = sum / this.scores.length;
+   return avg
  }
-  ScoreUpdater.prototype.label = function(){
+  TweetScore.prototype.label = function(){
     var label;
     switch( this.avgScore() ) {
     case ( avg > 0 && avg < 1 ) :
@@ -34,4 +35,4 @@
     }
   return label
 }
-module.exports = ScoreUpdater;
+module.exports = TweetScore;

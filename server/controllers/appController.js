@@ -7,7 +7,7 @@ module.exports = {
     this.io = io;
   },
   analyzeTweet: function( content, score ){
-    tweetFilter.initialize( content, score );
+    tweetFilter.filterArtist( content, score );
     clientInterface.initialize( this.io );
   },
   save: function( content, score ) {

@@ -3,13 +3,17 @@
 
 <head>
     <meta charset="utf-8">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- ***************** BEGIN STYLESHEETS *****************  -->
+
     <script src="https://cdn.socket.io/socket.io-1.0.6.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
-    <script type="text/javascript" src="/javascripts/web.js"></script>
-    <script type="text/javascript" src="/javascripts/client.js"></script>
+
+        <!-- ***************** BEGIN VENDOR JAVASCRIPTS *****************  -->
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" src="/javascripts/vendor/animation.js"></script>
     <script type="text/javascript" src="/javascripts/vendor/about.js"></script>
 
@@ -17,8 +21,7 @@
 </head>
 
 <body>
-
-    <div id="element_to_pop_up">
+  <div id="element_to_pop_up">
     <a class="b-close"><a/>
     <p><strong>(( Tweety Pop ))</strong></p>
     <p>Twitter visualization and data analytics project using Node.js, Express, Socket.io & MongoDB</p>
@@ -28,13 +31,13 @@
     <br>
     <p>The <strong>"tweety pop interpreter"</strong> reflects the average sentiment score of the artist and is calculated by both the incoming, real-time tweet</p>
     <p>on-screen as well as the 100,000 tweets stored-in and collected-from the database.</p>
-    <p>In an attempt to provide meaningful data, Tweety Pop fetches 1,000 tweets every five seconds from the database to calculate this average. </p>
+    <p>In an attempt to provide meaningful data, Tweety Pop fetches tweets every three seconds from the database to calculate this average. </p>
     <br>
     <p>Everything is rendered in real-time.</p>
     <p>Authored by Scott Jason  |  github.com/scottjason</p>
-    </div>
+  </div>
 
-<table align="center" width="1200" border="0" cellspacing="0" cellpadding="0">
+  <table align="center" width="1200" border="0" cellspacing="0" cellpadding="0">
     <tr><td>
         <div class="content-header">
         <h4 ><a id="logo" href="http://tweetypop-21842.onmodulus.net/">tweety pop</a>
@@ -321,6 +324,8 @@
         </tr>
     </table>
 
-</body>
+    <!-- ***************** BEGIN DEVELOPER JAVASCRIPTS *****************  -->
+    <script type="text/javascript" src="/javascripts/client.js"></script>
 
+    </body>
 </html>
