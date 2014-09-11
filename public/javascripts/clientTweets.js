@@ -16,47 +16,131 @@ TweetController.prototype = {
     socket.on('lovatoIncoming', this.renderLovatoIncoming.bind( this ));
   },
    renderPerryIncoming: function( incomingTweet, incomingScore ) {
-    console.log( incomingTweet, incomingScore )
+    $(".katie-score-loading").hide();
+    $(".katy").fadeOut(function() {
+     $( this ).text( incomingTweet ).fadeIn( 3000 );
+     });
+    $("#katy-incoming").fadeOut(function() {
+     $( this ).text( incomingScore ).fadeIn( 3000 );
+   });
   },
    renderLevineIncoming: function( incomingTweet, incomingScore ) {
-console.log( incomingTweet, incomingScore )
+    $(".levine-score-loading").hide();
+    $(".levine").fadeOut(function() {
+     $( this ).text( incomingTweet ).fadeIn( 3000 );
+     });
+    $("#levine-incoming").fadeOut(function() {
+    $( this ).text( incomingScore ).fadeIn( 3000 );
+   });
   },
    renderBeyonceIncoming: function( incomingTweet, incomingScore ) {
-console.log( incomingTweet, incomingScore )
+    $(".beyonce-score-loading").hide();
+    $(".beyonce").fadeOut(function() {
+     $( this ).text( incomingTweet ).fadeIn( 3000 );
+    });
+    $("#beyonce-incoming").fadeOut(function() {
+     $( this ).text( incomingScore ).fadeIn( 3000 );
+   });
   },
    renderBieberIncoming: function( incomingTweet, incomingScore ) {
-console.log( incomingTweet, incomingScore )
+    $(".bieber-score-loading").hide();
+    $(".bieber").fadeOut(function() {
+     $( this ).text( incomingTweet ).fadeIn( 3000 );
+    });
+    $("#bieber-incoming").fadeOut(function() {
+     $( this ).text( incomingScore ).fadeIn( 3000 );
+   });
   },
    renderRihannaIncoming: function( incomingTweet, incomingScore ) {
-console.log( incomingTweet, incomingScore )
+    $(".rihanna-score-loading").hide();
+    $(".rihanna").fadeOut(function() {
+     $( this ).text( incomingTweet ).fadeIn( 3000 );
+    });
+    $("#rihanna-incoming").fadeOut(function() {
+     $( this ).text( incomingScore ).fadeIn( 3000 );
+   });
   },
    renderBeyonceIncoming: function( incomingTweet, incomingScore ) {
-console.log( incomingTweet, incomingScore )
+    $(".beyonce-score-loading").hide();
+    $(".beyonce").fadeOut(function() {
+     $( this ).text( incomingTweet ).fadeIn( 3000 );
+    });
+    $("#beyonce-incoming").fadeOut(function() {
+     $( this ).text( incomingScore ).fadeIn( 3000 );
+   });
   },
    renderRihannaIncoming: function( incomingTweet, incomingScore ) {
-console.log( incomingTweet, incomingScore )
+    $(".rihanna-score-loading").hide();
+    $(".rihanna").fadeOut(function() {
+     $( this ).text( incomingTweet ).fadeIn( 3000 );
+    });
+    $("#rihanna-incoming").fadeOut(function() {
+     $( this ).text( incomingScore ).fadeIn( 3000 );
+   });
   },
    renderEminemIncoming: function( incomingTweet, incomingScore ) {
-console.log( incomingTweet, incomingScore )
+    $(".eminem-score-loading").hide();
+    $(".eminem").fadeOut(function() {
+     $( this ).text( incomingTweet ).fadeIn( 3000 );
+    });
+    $("#eminem-incoming").fadeOut(function() {
+     $( this ).text( incomingScore ).fadeIn( 3000 );
+   });
   },
    renderMileyIncoming: function( incomingTweet, incomingScore ) {
-console.log( incomingTweet, incomingScore )
+    $(".miley-score-loading").hide();
+    $(".miley").fadeOut(function() {
+     $( this ).text( incomingTweet ).fadeIn( 3000 );
+     });
+    $("#miley-incoming").fadeOut(function() {
+     $( this ).text( incomingScore ).fadeIn( 3000 );
+   });
   },
    renderSwiftIncoming: function( incomingTweet, incomingScore ) {
-console.log( incomingTweet, incomingScore )
+    $(".swift-score-loading").hide();
+    $(".swift").fadeOut(function() {
+     $( this ).text( incomingTweet ).fadeIn( 3000 );
+    });
+    $("#swift-incoming").fadeOut(function() {
+     $( this ).text( incomingScore ).fadeIn( 3000 );
+   });
   },
    renderBrunoIncoming: function( incomingTweet, incomingScore ) {
-console.log( incomingTweet, incomingScore )
+    $(".bruno-score-loading").hide();
+    $(".bruno").fadeOut(function() {
+     $( this ).text( incomingTweet ).fadeIn( 3000 );
+    });
+    $("#bruno-incoming").fadeOut(function() {
+     $( this ).text( incomingScore ).fadeIn( 3000 );
+   });
   },
    renderGagaIncoming: function( incomingTweet, incomingScore ) {
-console.log( incomingTweet, incomingScore )
+    $(".gaga-score-loading").hide();
+    $(".gaga").fadeOut(function() {
+     $( this ).text( incomingTweet ).fadeIn( 3000 );
+    });
+    $("#gaga-incoming").fadeOut(function() {
+     $( this ).text( incomingScore ).fadeIn( 3000 );
+   });
   },
    renderTimberlakeIncoming: function( incomingTweet, incomingScore ) {
-console.log( incomingTweet, incomingScore )
+    $(".timberlake-score-loading").hide();
+    $(".timberlake").fadeOut(function() {
+     $( this ).text( incomingTweet ).fadeIn( 3000 );
+    });
+    $("#timberlake-incoming").fadeOut(function() {
+     $( this ).text( incomingScore ).fadeIn( 3000 );
+   });
   },
    renderLovatoIncoming: function( incomingTweet, incomingScore ) {
-console.log( incomingTweet, incomingScore )
+    $(".lovato-score-loading").hide();
+    $(".lovato").fadeOut(function() {
+     $( this ).text( incomingTweet ).fadeIn( 3000 );
+    });
+    $("#lovato-incoming").fadeOut(function() {
+    $( this ).text( incomingScore ).fadeIn( 3000 );
+   });
   }
-}
+};
 
 var tweetController = new TweetController();

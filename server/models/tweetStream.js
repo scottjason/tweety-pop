@@ -11,15 +11,14 @@ TweetModel.prototype.stream = function(){
     stream.on('data', function( data ) {
       if ( data.id != null ) {
       var content = unescape( encodeURIComponent( data.text  ) );
-      content = decodeURIComponent( escape( content ) );
-      this.createTweetScore ( content )
+      this.createTweetScore( decodeURIComponent( escape( content )) );
       }
     }.bind( this ));
 
     stream.on('error', function( error ) {
-      this.app.handler( error )
+      this.app.handler( error );
     }.bind( this ));
-  }.bind( this ))
+  }.bind( this ));
 }
 
 TweetModel.prototype.createTweetScore = function( content ){
