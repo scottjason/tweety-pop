@@ -23,6 +23,6 @@ module.exports = {
         var allScores = new TweetScore( this.perryScores )
         var average = allScores.avgScore();
         var interpreter = allScores.label( average );
-        this.io.sockets.emit( 'perryPass', incomingTweet, incomingScore, average, interpreter );
+        this.io.sockets.emit( 'perryAnalayzed', average, interpreter );
     }
 }
