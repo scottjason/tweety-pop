@@ -1,13 +1,13 @@
 var mongoose = require('mongoose')
   , dotenv = require('dotenv')
   , app = require('./appController.js')
-  , TweetModel = require('../models/tweetModel.js')
+  , TweetStream = require('../models/tweetStream.js')
     dotenv.load();
 
 module.exports = {
   initialize: function( server, port, io ) {
     this.app = app;
-    this.Twitter = new TweetModel;
+    this.Twitter = new TweetStream;
     this.io = io;
     this.server = server;
     this.port = port;
