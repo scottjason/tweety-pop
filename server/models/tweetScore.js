@@ -1,6 +1,7 @@
  var TweetScore = function( scores ){
   this.scores = scores;
  }
+
  TweetScore.prototype.avgScore = function(){
     var sum = 0;
    for ( var i = 0; i < this.scores.length; i++ ) {
