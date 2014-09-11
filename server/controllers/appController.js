@@ -1,14 +1,14 @@
-Artist = require('../models/dbModel.js');
+ var Artist = require('../models/dbModel.js')
+  , tweetFilter = require('../models/tweetFilter.js')
+  , clientInterface = require('../clientInterface.js');
 
 module.exports = {
   initialize: function( io ) {
     this.io = io;
   },
-  render: function( content, score ) {
-    this.io.sockets.emit( 'renderTweet', content, score )
-  },
-  analyze: function( content, score ){
-    this.io.sockets.emit( 'analyzeTweet', content, score )
+  analyzeTweet: function( content, score ){
+    tweetFilter.initialize( content, score );
+    clientInterface.initialize( this.io );
   },
   save: function( content, score ) {
     var newTweet = new Artist ( { popStar: content, tweetScore: score } );
@@ -16,10 +16,10 @@ module.exports = {
     })
   },
   query: function() {
-  Artist.find({}).limit(50).exec(function( err, docs ) {
+  Artist.find({}).limit(25).exec(function( err, docs ) {
     if ( err ) return console.error( err );
       for (var i = 0; i < docs.length; i++) {
-    this.analyze( docs[i].popStar, docs[i].tweetScore )
+    this.analyzeTweet( docs[i].popStar, docs[i].tweetScore )
      }
    }.bind( this ));
      setTimeout( this.query.bind( this ) , 3000 );

@@ -10,7 +10,7 @@ TweetModel.prototype.stream = function(){
   this.tweet.stream('statuses/filter', { "track": popTracker }, function( stream ) {
     stream.on('data', function( data ) {
       if ( data.id != null ) {
-        this.clean( data )
+    this.createTweetScore ( data.text.replace( /[^\w\s]/gi, '' ) )
       }
     }.bind( this ));
 
@@ -20,20 +20,11 @@ TweetModel.prototype.stream = function(){
   }.bind( this ))
 }
 
-TweetModel.prototype.clean = function( data ){
-  if( data.id != null ){
-    this.filter( data.text.replace( /[^\w\s]/gi, '' ) )
-  }
-}
-
-TweetModel.prototype.filter = function( content ){
+TweetModel.prototype.createTweetScore = function( content ){
   var score = sentiment( content ).score
-
-    this.app.render( content, score );
-    this.app.analyze( content, score );
-
+      this.app.analyzeTweet( content, score );
     if( score != 0 ){
-    this.app.save( content, score );
+      this.app.save( content, score );
   }
 }
 
