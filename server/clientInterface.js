@@ -18,13 +18,32 @@ module.exports = {
     this.io = io;
 
     },
-    perryPass: function( newTweet, incomingScore ){
+    perryPass: function( incomingScore ){
       this.perryScores.push( incomingScore );
-    var allScores = new TweetScore( this.perryScores )
-      var average = allScores.avgScore();
-
-      // var interpreter = TweetScore.label( this.perryScores  );
-        // this.io.sockets.emit('perryPass', scoreResults )
-        console.log( average );
+        var allScores = new TweetScore( this.perryScores )
+        var average = allScores.avgScore();
+        var interpreter = allScores.label( average );
+        this.io.sockets.emit( 'perryAnalayzed', average, interpreter );
+    },
+    levinePass: function( incomingScore ){
+      this.levineScores.push( incomingScore );
+        var allScores = new TweetScore( this.levineScores )
+        var average = allScores.avgScore();
+        var interpreter = allScores.label( average );
+        this.io.sockets.emit( 'levineAnalyzed', average, interpreter );
+    },
+    beyoncePass: function( incomingScore ){
+      this.beyonceScores.push( incomingScore );
+        var allScores = new TweetScore( this.beyonceScores )
+        var average = allScores.avgScore();
+        var interpreter = allScores.label( average );
+        this.io.sockets.emit( 'beyonceAnalyzed', average, interpreter );
+    },
+    bieberPass: function( incomingScore ){
+      this.bieberScores.push( incomingScore );
+        var allScores = new TweetScore( this.bieberScores )
+        var average = allScores.avgScore();
+        var interpreter = allScores.label( average );
+        this.io.sockets.emit( 'bieberAnalyzed', average, interpreter );
     }
 }
