@@ -22,12 +22,9 @@ TweetModel.prototype.stream = function(){
 
 TweetModel.prototype.createTweetScore = function( content ){
   var score = sentiment( content ).score
-
-    this.app.render( content, score );
-    this.app.analyzeTweet( content, score );
-
+      this.app.analyzeTweet( content, score );
     if( score != 0 ){
-    this.app.save( content, score );
+      this.app.save( content, score );
   }
 }
 

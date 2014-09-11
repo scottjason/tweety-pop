@@ -1,12 +1,12 @@
- var ScoreUpdater = function( scores ){
-   this.scores = scores;
+ var ScoreUpdater = function( scoresArr ){
+   this.scoresArr = scoresArr;
  }
  ScoreUpdater.prototype.avgScore = function(){
     var sum = 0;
-   for ( var i = 0; i < this.scores.length; i++ ) {
-     sum += parseInt( this.scores[i], 10 );
+   for ( var i = 0; i < this.scoresArr.length; i++ ) {
+     sum += parseInt( this.scoresArr[i], 10 );
    }
-   var avg = sum / this.scores.length;
+   var avg = sum / this.scoresArr.length;
  }
   ScoreUpdater.prototype.label = function(){
     var label;
