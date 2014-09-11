@@ -6,13 +6,13 @@ module.exports = {
         clientInterface.perryPass( score );
 
     } else if ( newTweet.toLowerCase().indexOf('bieber') != -1 ) {
-        // clientInterface.bieberPass( newTweet, score );
+        clientInterface.bieberPass( score );
 
     } else if (( newTweet.toLowerCase().indexOf('levine') != -1 || newTweet.toLowerCase().indexOf('maroon') != -1) ) {
         clientInterface.levinePass( score );
 
     } else if ( newTweet.toLowerCase().indexOf('beyonce') != -1 ) {
-        // clientInterface.beyoncePass( newTweet, score );
+        clientInterface.beyoncePass( score );
 
     } else if ( newTweet.toLowerCase().indexOf('rihanna') != -1 ) {
         // clientInterface.rihannaPass( newTweet, score );

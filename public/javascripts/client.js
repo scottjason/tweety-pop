@@ -1,7 +1,5 @@
 $(document).ready(function(){
     TweetController = new TweetController
-
-
 })
 
 function TweetController(){
@@ -12,8 +10,10 @@ function TweetController(){
 
 TweetController.prototype = {
   bindSockets: function(){
-    this.socket.on('perryAnalayzed', this.renderPerryAnalyzed.bind( this ) );
-    this.socket.on('levineAnalyzed', this.renderLevineAnalyzed.bind( this ) );
+    this.socket.on('perryAnalayzed',  this.renderPerryAnalyzed.bind( this ) );
+    this.socket.on('levineAnalyzed',  this.renderLevineAnalyzed.bind( this ) );
+    this.socket.on('beyonceAnalyzed', this.renderBeyonceAnalyzed.bind( this ) );
+    this.socket.on('bieberAnalyzed',  this.renderBieberAnalyzed.bind( this ) );
 },
   truncateDigits: function( average, digits ){
     var numString = average.toString(),
@@ -32,6 +32,16 @@ TweetController.prototype = {
    $(".levine-average-analyzing").hide();
    $('#levine-average').text( this.truncateDigits( average, 4) );
    $('#levine-interpreter').text( interpreter );
+ },
+  renderBeyonceAnalyzed: function( average, interpreter ){
+   $(".beyonce-average-analyzing").hide();
+   $('#beyonce-average').text( this.truncateDigits( average, 4) );
+   $('#beyonce-interpreter').text( interpreter );
+ },
+   renderBieberAnalyzed: function( average, interpreter ){
+   $(".bieber-average-analyzing").hide();
+   $('#bieber-average').text( this.truncateDigits( average, 4) );
+   $('#bieber-interpreter').text( interpreter );
  }
 }
 
