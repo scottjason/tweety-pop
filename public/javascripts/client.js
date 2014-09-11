@@ -1,12 +1,15 @@
-window.onload = function() {
-  init();
-}
+$(document).ready(function() {
 
-function init() {
-  // var socket = io.connect()
-// socket.on('analyzeTweet', function(content, score){
-  // socket.on('perry', function(content, score) {
-      // console.log(content, score)
-  // });
+var socket = io.connect();
 
-}
+Number.prototype.toFixedDown = function(digits) {
+  var regularExp = new RegExp("(\\d+\\.\\d{" + digits + "})(\\d)"),
+  matchString = this.toString().match(regularExp);
+    return matchString ? parseFloat(matchString[1]) : this.valueOf();
+};
+
+socket.on('errorHandler', function(error){
+  console.log(error.messsage)
+})
+
+});
