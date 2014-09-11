@@ -20,8 +20,11 @@ module.exports = {
     },
     perryPass: function( newTweet, incomingScore ){
       this.perryScores.push( incomingScore );
-      var scoreResults = new TweetScore( this.perryScores );
+    var allScores = new TweetScore( this.perryScores )
+      var average = allScores.avgScore();
+
+      // var interpreter = TweetScore.label( this.perryScores  );
         // this.io.sockets.emit('perryPass', scoreResults )
-        console.log( this.perryScores.length );
+        console.log( average );
     }
 }

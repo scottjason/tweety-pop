@@ -1,12 +1,13 @@
- var TweetScore = function( scoresArr ){
-   this.scoresArr = scoresArr;
+ var TweetScore = function( scores ){
+  this.scores = scores;
  }
  TweetScore.prototype.avgScore = function(){
     var sum = 0;
-   for ( var i = 0; i < this.scoresArr.length; i++ ) {
-     sum += parseInt( this.scoresArr[i], 10 );
+   for ( var i = 0; i < this.scores.length; i++ ) {
+     sum += parseInt( this.scores[i], 10 );
    }
-   var avg = sum / this.scoresArr.length;
+   var avg = sum / this.scores.length;
+   return avg
  }
   TweetScore.prototype.label = function(){
     var label;
