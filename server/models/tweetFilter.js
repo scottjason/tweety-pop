@@ -1,59 +1,44 @@
-var interface = require('../interface.js')
+var clientInterface = require('../clientInterface.js')
 
 module.exports = {
   filterArtist: function( newTweet, score ){
        if ( newTweet.toLowerCase().indexOf('perry') != -1 ) {
-        interface.perryPass( newTweet, score );
+        clientInterface.perryPass( newTweet, score );
 
     } else if ( newTweet.toLowerCase().indexOf('bieber') != -1 ) {
-        interface.bieberPass( newTweet, score );
+        clientInterface.bieberPass( newTweet, score );
 
     } else if (( newTweet.toLowerCase().indexOf('levine') != -1 || newTweet.toLowerCase().indexOf('maroon') != -1) ) {
-        interface.levinePass( newTweet, score );
+        clientInterface.levinePass( newTweet, score );
 
     } else if ( newTweet.toLowerCase().indexOf('beyonce') != -1 ) {
-        interface.beyoncePass( newTweet, score );
+        clientInterface.beyoncePass( newTweet, score );
 
     } else if ( newTweet.toLowerCase().indexOf('rihanna') != -1 ) {
-        interface.rihannaPass( newTweet, score );
+        clientInterface.rihannaPass( newTweet, score );
 
     } else if ( newTweet.toLowerCase().indexOf('eminem') != -1 ) {
-        interface.eminemPass( newTweet, score );
+        clientInterface.eminemPass( newTweet, score );
 
     } else if ( newTweet.toLowerCase().indexOf('miley') != -1 ) {
-        interface.mileyPass( newTweet, score );
+        clientInterface.mileyPass( newTweet, score );
 
     } else if ( newTweet.toLowerCase().indexOf('kanye') != -1 ) {
-        interface.kaynePass( newTweet, score );
+        clientInterface.kaynePass( newTweet, score );
 
     } else if ( newTweet.toLowerCase().indexOf('gaga') != -1 ) {
-        interface.gagaPass( newTweet, score );
+        clientInterface.gagaPass( newTweet, score );
 
     } else if ( newTweet.toLowerCase().indexOf('swift') != -1 ) {
-        interface.swiftPass( newTweet, score );
+        clientInterface.swiftPass( newTweet, score );
 
     } else if ( newTweet.toLowerCase().indexOf('timberlake') != -1 ) {
-        interface.timberlakePass( newTweet, score );
+        clientInterface.timberlakePass( newTweet, score );
 
     } else if ( newTweet.toLowerCase().indexOf('lovato') != -1 ) {
-        interface.lovatoPass( newTweet, score );
+        clientInterface.lovatoPass( newTweet, score );
     } else {}
   }
 }
 
 
-
-    // this.perryScores = [];
-    // this.levineScores = [];
-    // this.beyonceScores = [];
-    // this.bieberScores = [];
-    // this.rihannaScores = [];
-    // this.eminemScores = [];
-    // this.mileyScores = [];
-    // this.kanyeScores = [];
-    // this.gagaScores = [];
-    // this.swiftScores = [];
-    // this.timberlakeScores = [];
-    // this.lovatoScores = [];
-    // this.filterArtist( newTweet, score );
-    // },

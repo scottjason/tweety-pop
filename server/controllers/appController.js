@@ -1,18 +1,14 @@
  var Artist = require('../models/dbModel.js')
   , tweetFilter = require('../models/tweetFilter.js')
-  , artistCollect = require('./artistCollect');
+  , clientInterface = require('../clientInterface.js');
 
 module.exports = {
   initialize: function( io ) {
     this.io = io;
   },
-  render: function( content, score ) {
-    // this.io.sockets.emit( 'renderTweet', content, score )
-  },
   analyzeTweet: function( content, score ){
-    // this.io.sockets.emit( 'analyzeTweet', content, score )
     tweetFilter.initialize( content, score );
-    artistCollect.filterArtist( this.io );
+    clientInterface.initialize( this.io );
   },
   save: function( content, score ) {
     var newTweet = new Artist ( { popStar: content, tweetScore: score } );
