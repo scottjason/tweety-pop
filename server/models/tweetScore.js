@@ -9,29 +9,28 @@
    var avg = sum / this.scores.length;
    return avg
  }
-  TweetScore.prototype.label = function(){
+  TweetScore.prototype.label = function( average ){
     var label;
-    switch( this.avgScore() ) {
-    case ( avg > 0 && avg < 1 ) :
+    if ( average > 0 && average < 1 ) {
         label = 'warm'
-        break;
-    case ( avg >= 1 && avg < 2 ):
+      }
+    else if ( average >= 1 && average < 2 ) {
         label = 'hot'
-        break;
-    case ( avg >= 2 && avg < 3 ):
+      }
+    else if ( average >= 2 && average < 3 ) {
         label = 'blazing'
-        break;
-    case ( avg >= 3 ):
+      }
+    else if ( average >= 3 ) {
         label = 'ON FIRE!'
-    case ( avg <= 0 && avg > -1 ):
+      }
+    else if ( average <= 0 && average > -1 ) {
         label = "cold"
-        break;
-    case ( avg <= -1 && avg > -2 ):
+      }
+    else if ( average <= -1 && average > -2 ) {
         label = 'freezing'
-        break;
-    case ( avg <= -2 ):
+      }
+    else {
         label = 'FREEZER BURN!'
-        break;
     }
   return label
 }
