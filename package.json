@@ -8,8 +8,6 @@
     "express": "^4.8.7",
     "mongodb-uri": "^0.9.7",
     "mongoose": "3.8.14",
-    "path": "^0.4.9",
-    "schedule": "^0.1.0",
     "sentiment": "^1.0.1",
     "socket.io": "^1.1.0",
     "twitter": "^0.2.9"
